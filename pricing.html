@@ -761,9 +761,21 @@
         <div class="card-header">
           <div>
             <div class="card-title">Base Package</div>
-            <div style="font-size:0.78rem;color:var(--muted);font-weight:300;margin-top:0.2rem;">Included on every site — no exceptions</div>
+            <div style="font-size:0.78rem;color:var(--muted);font-weight:300;margin-top:0.2rem;">Select your build type below</div>
           </div>
-          <div class="card-price">$750</div>
+          <div class="card-price" id="basePrice">$750</div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-bottom:1.5rem;padding-bottom:1.5rem;border-bottom:1px solid var(--border);">
+          <div id="bt-new" onclick="setBuildType('new')" style="padding:1rem;border:1.5px solid var(--blue);border-radius:12px;cursor:pointer;background:rgba(0,102,204,0.04);transition:border-color 0.2s,background 0.2s;">
+            <div style="font-size:0.7rem;font-weight:600;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:0.35rem;">New Build</div>
+            <div style="font-size:1.5rem;font-weight:700;letter-spacing:-0.03em;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">$750</div>
+            <div style="font-size:0.72rem;color:var(--muted);margin-top:0.3rem;font-weight:300;">Source code transfer: +$100</div>
+          </div>
+          <div id="bt-redesign" onclick="setBuildType('redesign')" style="padding:1rem;border:1.5px solid var(--border);border-radius:12px;cursor:pointer;transition:border-color 0.2s,background 0.2s;">
+            <div style="font-size:0.7rem;font-weight:600;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:0.35rem;">Redesign</div>
+            <div style="font-size:1.5rem;font-weight:700;letter-spacing:-0.03em;">$300</div>
+            <div style="font-size:0.72rem;color:var(--muted);margin-top:0.3rem;font-weight:300;">Source code transfer: +$75</div>
+          </div>
         </div>
         <ul class="base-features">
           <li>Up to 3 pages</li>
@@ -790,7 +802,7 @@
         <div class="counter-row">
           <div class="counter-label">
             Extra pages beyond 3
-            <span>$150–$250 per additional page</span>
+            <span>$75 per additional page</span>
           </div>
           <div style="display:flex;align-items:center;gap:0.75rem;">
             <div class="counter-control">
@@ -810,7 +822,7 @@
           <div style="font-size:0.78rem;color:var(--muted);font-weight:300;">Everything below is beyond the base package</div>
         </div>
 
-        <div class="addon-item" data-key="blog" data-price="200">
+        <div class="addon-item" data-key="blog" data-price="100">
           <label class="addon-check-label">
             <div class="addon-check" id="chk-blog"></div>
             <div class="addon-info">
@@ -818,10 +830,10 @@
               <div class="desc">Full content management system — update your own blog posts and pages without touching code</div>
             </div>
           </label>
-          <div class="addon-price">+$200</div>
+          <div class="addon-price">+$100</div>
         </div>
 
-        <div class="addon-item" data-key="booking" data-price="250">
+        <div class="addon-item" data-key="booking" data-price="150">
           <label class="addon-check-label">
             <div class="addon-check" id="chk-booking"></div>
             <div class="addon-info">
@@ -829,10 +841,10 @@
               <div class="desc">Integrated scheduling for services, consultations, or appointments</div>
             </div>
           </label>
-          <div class="addon-price">+$250</div>
+          <div class="addon-price">+$150</div>
         </div>
 
-        <div class="addon-item" data-key="ecom" data-price="500">
+        <div class="addon-item" data-key="ecom" data-price="300">
           <label class="addon-check-label">
             <div class="addon-check" id="chk-ecom"></div>
             <div class="addon-info">
@@ -840,10 +852,10 @@
               <div class="desc">Stripe or Shopify — product catalog, cart, checkout, and payment processing. Final price depends on scope</div>
             </div>
           </label>
-          <div class="addon-price">+$500+</div>
+          <div class="addon-price">+$300+</div>
         </div>
 
-        <div class="addon-item" data-key="seo" data-price="200">
+        <div class="addon-item" data-key="seo" data-price="100">
           <label class="addon-check-label">
             <div class="addon-check" id="chk-seo"></div>
             <div class="addon-info">
@@ -851,10 +863,10 @@
               <div class="desc">Keyword research, on-page optimization, sitemap, schema markup, and Google Search Console setup</div>
             </div>
           </label>
-          <div class="addon-price">+$200</div>
+          <div class="addon-price">+$100</div>
         </div>
 
-        <div class="addon-item" data-key="animations" data-price="300">
+        <div class="addon-item" data-key="animations" data-price="150">
           <label class="addon-check-label">
             <div class="addon-check" id="chk-animations"></div>
             <div class="addon-info">
@@ -862,10 +874,10 @@
               <div class="desc">Beyond the standard — parallax effects, staggered reveals, page transitions, GSAP-powered sequences, and complex micro-interactions</div>
             </div>
           </label>
-          <div class="addon-price">+$300+</div>
+          <div class="addon-price">+$150</div>
         </div>
 
-<div class="addon-item" data-key="portal" data-price="350">
+        <div class="addon-item" data-key="portal" data-price="150">
           <label class="addon-check-label">
             <div class="addon-check" id="chk-portal"></div>
             <div class="addon-info">
@@ -873,10 +885,10 @@
               <div class="desc">Password-protected area for clients to view invoices, files, or account info</div>
             </div>
           </label>
-          <div class="addon-price">+$350</div>
+          <div class="addon-price">+$150</div>
         </div>
 
-        <div class="addon-item" data-key="api" data-price="200">
+        <div class="addon-item" data-key="api" data-price="100">
           <label class="addon-check-label">
             <div class="addon-check" id="chk-api"></div>
             <div class="addon-info">
@@ -884,7 +896,7 @@
               <div class="desc">Connect to CRMs, email marketing, inventory systems, or any external service</div>
             </div>
           </label>
-          <div class="addon-price">+$200</div>
+          <div class="addon-price">+$100</div>
         </div>
 
       </div><!-- /addon card -->
@@ -1061,17 +1073,32 @@
   });
 
   // ── State ────────────────────────────────────────────────────────────
+  let buildType = 'new';
+
+  function setBuildType(type) {
+    buildType = type;
+    const isNew = type === 'new';
+    const price = isNew ? PRICES.newBuild : PRICES.redesign;
+    document.getElementById('basePrice').textContent = '$' + price;
+    document.getElementById('bt-new').style.borderColor     = isNew ? 'var(--blue)' : 'var(--border)';
+    document.getElementById('bt-new').style.background      = isNew ? 'rgba(0,102,204,0.04)' : 'transparent';
+    document.getElementById('bt-redesign').style.borderColor = isNew ? 'var(--border)' : 'var(--blue)';
+    document.getElementById('bt-redesign').style.background  = isNew ? 'transparent' : 'rgba(0,102,204,0.04)';
+    updateTotal();
+  }
+
   const PRICES = {
-    base:       750,
-    page:       200,
+    newBuild:   750,
+    redesign:   300,
+    page:       75,
     addons: {
-      'blog':          200,
-      'booking':       250,
-      'ecom':          500,
-      'seo':           200,
-      'animations':    300,
-'portal':        350,
-      'api':           200,
+      'blog':          100,
+      'booking':       150,
+      'ecom':          300,
+      'seo':           100,
+      'animations':    150,
+      'portal':        150,
+      'api':           100,
     },
     monthly: {
       starter: { base: 199 },
@@ -1112,7 +1139,7 @@
     const cost = extraPages * PRICES.page;
     document.getElementById('extraPagePrice').textContent = extraPages > 0 ? `+$${cost}` : '$0';
     document.getElementById('pageTotal').textContent =
-      extraPages > 0 ? `${extraPages} × $200 = $${cost}` : '';
+      extraPages > 0 ? `${extraPages} × $75 = $${cost}` : '';
   }
 
   // ── Add-ons ──────────────────────────────────────────────────────────
@@ -1171,8 +1198,10 @@
     const rows   = [];
 
     if (mode === 'onetime') {
-      total = PRICES.base;
-      rows.push({ label: 'Base package (3 pages)', val: `$${PRICES.base}` });
+      const base = buildType === 'new' ? PRICES.newBuild : PRICES.redesign;
+      const baseLabel = buildType === 'new' ? 'New build (3 pages)' : 'Redesign (3 pages)';
+      total = base;
+      rows.push({ label: baseLabel, val: `$${base}` });
 
       if (extraPages > 0) {
         const pagesCost = extraPages * PRICES.page;
