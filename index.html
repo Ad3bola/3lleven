@@ -122,11 +122,25 @@
 
     .nav-cta {
       font-size: 0.82rem;
-      font-weight: 500;
-      color: var(--blue);
-      transition: opacity 0.2s;
+      font-weight: 700;
+      padding: 0.5rem 1.1rem;
+      border-radius: 980px;
+      background: linear-gradient(135deg, #2997FF, #BF5AF2);
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+      transition: opacity 0.2s, transform 0.15s;
     }
-    .nav-cta:hover { opacity: 0.7; }
+    .nav-cta::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s ease;
+    }
+    .nav-cta:hover::before { left: 100%; }
+    .nav-cta:hover { opacity: 0.9; transform: translateY(-1px); }
 
     /* ── HERO ──────────────────────────────────────── */
     .hero {
@@ -946,7 +960,7 @@
     <a href="#" class="logo"><em>3</em>lleven</a>
     <ul class="nav-links">
       <li><a href="#services">Services</a></li>
-      <li><a href="#packages">Packages</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
       <li><a href="#process">Process</a></li>
     </ul>
     <div class="nav-right">
@@ -1097,88 +1111,69 @@
 
 <!-- PACKAGES -->
 <section id="packages">
-  <p class="sec-eyebrow">Growth Packages</p>
-  <h2 class="sec-headline">Pick your plan.<br/>We handle the rest.</h2>
-  <p class="sec-sub">All packages include mobile-responsive design, hosting setup, SSL, and 2 rounds of revisions. No hidden fees.</p>
+  <p class="sec-eyebrow">Packages</p>
+  <h2 class="sec-headline">Simple, transparent pricing.</h2>
+  <p class="sec-sub">Every project is custom-built. Use the calculator to see your exact price before reaching out.</p>
 
   <div class="packages-grid">
+    <!-- One-Time Build -->
     <div class="pkg-card fade-up">
-      <p class="pkg-tier">Starter</p>
-      <p class="pkg-price"><sup>$</sup>129</p>
-      <p class="pkg-desc">Perfect for new businesses that need a clean, professional presence online without the complexity.</p>
+      <p class="pkg-tier">One-Time Build</p>
+      <p class="pkg-price"><sup>$</sup>750<span class="plus">+</span></p>
+      <p class="pkg-desc">A fully custom site, built once, owned forever. Starts at $750 for up to 5 pages — add pages and features as needed.</p>
       <ul class="pkg-features">
-        <li><span class="chk"></span>Up to 5 pages</li>
-        <li><span class="chk"></span>Custom design (no templates)</li>
-        <li><span class="chk"></span>Contact form &amp; Google Maps</li>
-        <li><span class="chk"></span>Basic on-page SEO</li>
+        <li><span class="chk"></span>Up to 5 pages ($75 per extra page)</li>
+        <li><span class="chk"></span>Custom design — no templates</li>
         <li><span class="chk"></span>Mobile responsive</li>
+        <li><span class="chk"></span>Contact form included</li>
+        <li><span class="chk"></span>Basic SEO setup</li>
         <li><span class="chk"></span>Domain &amp; hosting setup</li>
         <li><span class="chk"></span>2 rounds of revisions</li>
+        <li><span class="chk"></span>Full ownership on final payment</li>
       </ul>
-      <a href="#contact" class="pkg-cta pkg-cta-ghost">Get Started</a>
+      <a href="pricing.html" class="pkg-cta pkg-cta-ghost">Build My Package →</a>
     </div>
 
+    <!-- Monthly — Most Popular -->
     <div class="pkg-card featured fade-up">
       <span class="feat-label">Most Popular</span>
-      <p class="pkg-tier">Growth</p>
-      <p class="pkg-price"><sup>$</sup>249</p>
-      <p class="pkg-desc">For businesses ready to grow — more pages, more content tools, and the SEO foundation to get found.</p>
+      <p class="pkg-tier">Monthly — Growth</p>
+      <p class="pkg-price"><sup>$</sup>299<span class="plus">/mo</span></p>
+      <p class="pkg-desc">Active management for growing businesses. 5 hrs of dev work per month, SEO reports, Google Business, and content updates included.</p>
       <ul class="pkg-features">
-        <li><span class="chk"></span>Up to 10 pages</li>
-        <li><span class="chk"></span>Everything in Starter</li>
-        <li><span class="chk"></span>Blog setup &amp; CMS</li>
-        <li><span class="chk"></span>Full SEO setup &amp; analytics</li>
-        <li><span class="chk"></span>Google Business integration</li>
-        <li><span class="chk"></span>Speed &amp; performance optimized</li>
-        <li><span class="chk"></span>Light e-commerce (up to 20 products)</li>
-        <li><span class="chk"></span>3 rounds of revisions</li>
+        <li><span class="chk"></span>Everything in Starter ($199/mo)</li>
+        <li><span class="chk"></span>5 hrs dev / design work per month</li>
+        <li><span class="chk"></span>Monthly SEO &amp; performance report</li>
+        <li><span class="chk"></span>Google Business profile management</li>
+        <li><span class="chk"></span>2 content updates per month</li>
+        <li><span class="chk"></span>Priority next-business-day response</li>
       </ul>
-      <a href="#contact" class="pkg-cta pkg-cta-fill">Get Started</a>
+      <a href="pricing.html" class="pkg-cta pkg-cta-fill">See All Plans →</a>
     </div>
 
+    <!-- Monthly Pro -->
     <div class="pkg-card fade-up">
-      <p class="pkg-tier">Pro</p>
-      <p class="pkg-price"><sup>$</sup>399<span class="plus">+</span></p>
-      <p class="pkg-desc">Full-scale builds for businesses that need a powerful online store, booking system, or custom functionality.</p>
+      <p class="pkg-tier">Monthly — Pro</p>
+      <p class="pkg-price"><sup>$</sup>499<span class="plus">/mo</span></p>
+      <p class="pkg-desc">Full-service management for e-commerce and high-traffic sites. Up to 10 hrs dev work, unlimited content updates, 24-hr priority support.</p>
       <ul class="pkg-features">
-        <li><span class="chk"></span>Unlimited pages</li>
         <li><span class="chk"></span>Everything in Growth</li>
-        <li><span class="chk"></span>Full e-commerce (50+ products)</li>
-        <li><span class="chk"></span>Payment gateway integration</li>
-        <li><span class="chk"></span>Booking / appointment system</li>
-        <li><span class="chk"></span>Client portal or dashboard</li>
-        <li><span class="chk"></span>API &amp; third-party integrations</li>
-        <li><span class="chk"></span>Priority delivery</li>
+        <li><span class="chk"></span>E-commerce management &amp; optimization</li>
+        <li><span class="chk"></span>Up to 10 hrs dev work per month</li>
+        <li><span class="chk"></span>Priority 24-hr support</li>
+        <li><span class="chk"></span>Unlimited content updates</li>
+        <li><span class="chk"></span>Advanced analytics &amp; conversion tracking</li>
+        <li><span class="chk"></span>Custom integrations maintenance</li>
       </ul>
-      <a href="#contact" class="pkg-cta pkg-cta-ghost">Get Started</a>
+      <a href="pricing.html" class="pkg-cta pkg-cta-ghost">See All Plans →</a>
     </div>
   </div>
 
-  <div class="addon-box">
-    <div class="addon-top">
-      <div>
-        <span class="addon-pill">Optional Add-on</span>
-        <h3>Monthly Care Plan</h3>
-        <p>Keep your site secure, updated, and performing. Add a care plan at launch and never worry about the backend again.</p>
-      </div>
-    </div>
-    <div class="addon-plans">
-      <div class="addon-plan">
-        <p class="ap-name">Basic Care</p>
-        <p class="ap-price">$49<span>/mo</span></p>
-        <p class="ap-desc">Hosting, security, backups, 1hr support</p>
-      </div>
-      <div class="addon-plan">
-        <p class="ap-name">Growth Plan</p>
-        <p class="ap-price">$99<span>/mo</span></p>
-        <p class="ap-desc">+ Monthly SEO report, 2 content updates</p>
-      </div>
-      <div class="addon-plan">
-        <p class="ap-name">Full Service</p>
-        <p class="ap-price">$149<span>/mo</span></p>
-        <p class="ap-desc">+ Google Business, blog posts, analytics</p>
-      </div>
-    </div>
+  <div class="addon-box" style="text-align:center;">
+    <span class="addon-pill">Interactive</span>
+    <h3 style="font-size:1.2rem;font-weight:700;letter-spacing:-0.02em;margin:0.5rem 0 0.4rem;">Not sure what you need?</h3>
+    <p style="font-size:0.9rem;color:var(--muted);font-weight:300;margin-bottom:1.5rem;max-width:420px;margin-left:auto;margin-right:auto;">Use the pricing calculator to pick your pages, add-ons, and see your total before reaching out.</p>
+    <a href="pricing.html" class="btn-pill btn-blue" style="display:inline-flex;">Build My Package →</a>
   </div>
 </section>
 
@@ -1262,7 +1257,7 @@
     <p class="copy">© 2026 3lleven. All rights reserved.</p>
     <ul class="footer-links">
       <li><a href="#services">Services</a></li>
-      <li><a href="#packages">Packages</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
   </div>
@@ -1294,6 +1289,20 @@
   }, { threshold: 0.1 });
 
   document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // Pre-fill form if user came from the pricing calculator
+  (function() {
+    const raw = sessionStorage.getItem('3lleven-quote');
+    if (!raw) return;
+    try {
+      const q    = JSON.parse(raw);
+      const ta   = document.querySelector('.contact-form textarea');
+      if (ta && !ta.value) {
+        ta.value = `From pricing calculator:\n${q.rows}\n\nEstimated total: ${q.amount}${q.suffix}\n\nTell me more about your project:`;
+      }
+      sessionStorage.removeItem('3lleven-quote');
+    } catch(e) {}
+  })();
 
   // Form submit — sends to your email via Formspree
   // 1. Go to https://formspree.io → sign up free → New Form
