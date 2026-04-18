@@ -766,7 +766,7 @@
           <div class="card-price">$750</div>
         </div>
         <ul class="base-features">
-          <li>Up to 5 pages</li>
+          <li>Up to 3 pages</li>
           <li>Custom design — no templates</li>
           <li>Mobile responsive</li>
           <li>Light &amp; dark mode</li>
@@ -789,8 +789,8 @@
         </div>
         <div class="counter-row">
           <div class="counter-label">
-            Extra pages beyond 5
-            <span>$75 per additional page</span>
+            Extra pages beyond 3
+            <span>$150–$250 per additional page</span>
           </div>
           <div style="display:flex;align-items:center;gap:0.75rem;">
             <div class="counter-control">
@@ -832,37 +832,15 @@
           <div class="addon-price">+$250</div>
         </div>
 
-        <div class="addon-item" data-key="ecom-basic" data-price="400">
+        <div class="addon-item" data-key="ecom" data-price="500">
           <label class="addon-check-label">
-            <div class="addon-check" id="chk-ecom-basic"></div>
+            <div class="addon-check" id="chk-ecom"></div>
             <div class="addon-info">
-              <div class="name">E-Commerce — Basic</div>
-              <div class="desc">Up to 50 products, cart, and checkout. Ideal for boutiques and small shops</div>
+              <div class="name">E-Commerce Integration</div>
+              <div class="desc">Stripe or Shopify — product catalog, cart, checkout, and payment processing. Final price depends on scope</div>
             </div>
           </label>
-          <div class="addon-price">+$400</div>
-        </div>
-
-        <div class="addon-item" data-key="ecom-advanced" data-price="600">
-          <label class="addon-check-label">
-            <div class="addon-check" id="chk-ecom-advanced"></div>
-            <div class="addon-info">
-              <div class="name">E-Commerce — Advanced</div>
-              <div class="desc">Unlimited products, inventory management, discount codes, and order tracking</div>
-            </div>
-          </label>
-          <div class="addon-price">+$600</div>
-        </div>
-
-        <div class="addon-item" data-key="payments" data-price="150">
-          <label class="addon-check-label">
-            <div class="addon-check" id="chk-payments"></div>
-            <div class="addon-info">
-              <div class="name">Payment Gateway Integration</div>
-              <div class="desc">Stripe, PayPal, or Apple Pay — accept payments directly on your site</div>
-            </div>
-          </label>
-          <div class="addon-price">+$150</div>
+          <div class="addon-price">+$500+</div>
         </div>
 
         <div class="addon-item" data-key="seo" data-price="200">
@@ -876,7 +854,7 @@
           <div class="addon-price">+$200</div>
         </div>
 
-        <div class="addon-item" data-key="animations" data-price="150">
+        <div class="addon-item" data-key="animations" data-price="300">
           <label class="addon-check-label">
             <div class="addon-check" id="chk-animations"></div>
             <div class="addon-info">
@@ -884,7 +862,7 @@
               <div class="desc">Beyond the standard — parallax effects, staggered reveals, page transitions, GSAP-powered sequences, and complex micro-interactions</div>
             </div>
           </label>
-          <div class="addon-price">+$150</div>
+          <div class="addon-price">+$300+</div>
         </div>
 
         <div class="addon-item" data-key="logo" data-price="150">
@@ -1096,15 +1074,13 @@
   // ── State ────────────────────────────────────────────────────────────
   const PRICES = {
     base:       750,
-    page:       75,
+    page:       200,
     addons: {
       'blog':          200,
       'booking':       250,
-      'ecom-basic':    400,
-      'ecom-advanced': 600,
-      'payments':      150,
+      'ecom':          500,
       'seo':           200,
-      'animations':    150,
+      'animations':    300,
       'logo':          150,
       'portal':        350,
       'api':           200,
@@ -1148,7 +1124,7 @@
     const cost = extraPages * PRICES.page;
     document.getElementById('extraPagePrice').textContent = extraPages > 0 ? `+$${cost}` : '$0';
     document.getElementById('pageTotal').textContent =
-      extraPages > 0 ? `${extraPages} × $75 = $${cost}` : '';
+      extraPages > 0 ? `${extraPages} × $200 = $${cost}` : '';
   }
 
   // ── Add-ons ──────────────────────────────────────────────────────────
@@ -1156,16 +1132,6 @@
     item.addEventListener('click', () => {
       const key   = item.dataset.key;
       const check = document.getElementById(`chk-${key}`);
-
-      // Mutex for ecom-basic / ecom-advanced
-      if (key === 'ecom-basic' && checkedAddons.has('ecom-advanced')) {
-        checkedAddons.delete('ecom-advanced');
-        document.getElementById('chk-ecom-advanced').classList.remove('checked');
-      }
-      if (key === 'ecom-advanced' && checkedAddons.has('ecom-basic')) {
-        checkedAddons.delete('ecom-basic');
-        document.getElementById('chk-ecom-basic').classList.remove('checked');
-      }
 
       if (checkedAddons.has(key)) {
         checkedAddons.delete(key);
@@ -1218,7 +1184,7 @@
 
     if (mode === 'onetime') {
       total = PRICES.base;
-      rows.push({ label: 'Base package (5 pages)', val: `$${PRICES.base}` });
+      rows.push({ label: 'Base package (3 pages)', val: `$${PRICES.base}` });
 
       if (extraPages > 0) {
         const pagesCost = extraPages * PRICES.page;
@@ -1231,9 +1197,9 @@
         total += price;
         const names = {
           'blog': 'Blog / CMS', 'booking': 'Booking System',
-          'ecom-basic': 'E-Commerce Basic', 'ecom-advanced': 'E-Commerce Advanced',
-          'payments': 'Payment Gateway', 'seo': 'Full SEO Package',
-          'animations': 'Custom Animations', 'logo': 'Logo Design',
+          'ecom': 'E-Commerce Integration',
+          'seo': 'Full SEO Package',
+          'animations': 'Advanced Animations', 'logo': 'Logo Design',
           'portal': 'Client Portal', 'api': 'API Integration',
         };
         rows.push({ label: names[key], val: `+$${price}` });
