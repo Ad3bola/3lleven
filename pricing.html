@@ -763,17 +763,17 @@
             <div class="card-title">Base Package</div>
             <div style="font-size:0.78rem;color:var(--muted);font-weight:300;margin-top:0.2rem;">Select your build type below</div>
           </div>
-          <div class="card-price" id="basePrice">$750</div>
+          <div class="card-price" id="basePrice">$900</div>
         </div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-bottom:1.5rem;padding-bottom:1.5rem;border-bottom:1px solid var(--border);">
           <div id="bt-new" onclick="setBuildType('new')" style="padding:1rem;border:1.5px solid var(--blue);border-radius:12px;cursor:pointer;background:rgba(0,102,204,0.04);transition:border-color 0.2s,background 0.2s;">
             <div style="font-size:0.7rem;font-weight:600;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:0.35rem;">New Build</div>
-            <div style="font-size:1.5rem;font-weight:700;letter-spacing:-0.03em;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">$750</div>
-            <div style="font-size:0.72rem;color:var(--muted);margin-top:0.3rem;font-weight:300;">Source code transfer: +$100</div>
+            <div style="font-size:1.5rem;font-weight:700;letter-spacing:-0.03em;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">$900</div>
+            <div style="font-size:0.72rem;color:var(--muted);margin-top:0.3rem;font-weight:300;">Source code included</div>
           </div>
           <div id="bt-redesign" onclick="setBuildType('redesign')" style="padding:1rem;border:1.5px solid var(--border);border-radius:12px;cursor:pointer;transition:border-color 0.2s,background 0.2s;">
             <div style="font-size:0.7rem;font-weight:600;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:0.35rem;">Redesign</div>
-            <div style="font-size:1.5rem;font-weight:700;letter-spacing:-0.03em;">$300</div>
+            <div style="font-size:1.5rem;font-weight:700;letter-spacing:-0.03em;">$450</div>
             <div style="font-size:0.72rem;color:var(--muted);margin-top:0.3rem;font-weight:300;">Source code transfer: +$75</div>
           </div>
         </div>
@@ -913,7 +913,7 @@
             <div class="tier-tag">Maintenance & Hosting</div>
           </div>
           <div class="tier-price-display">
-            <div class="amount">$199</div>
+            <div class="amount">$299</div>
             <div class="per">/month</div>
           </div>
         </div>
@@ -935,7 +935,7 @@
             <div class="tier-tag">Active Management</div>
           </div>
           <div class="tier-price-display">
-            <div class="amount" id="growth-price-display">from $299</div>
+            <div class="amount">$399</div>
             <div class="per">/month</div>
           </div>
         </div>
@@ -947,23 +947,6 @@
           <li>2 content updates per month</li>
           <li>Priority next-business-day response</li>
         </ul>
-        <div class="tier-subopts">
-          <div class="subopt-label">Site size</div>
-          <div class="subopt-row" data-tier="growth" data-subprice="299">
-            <label class="subopt-radio">
-              <div class="radio-dot selected" id="growth-r1"></div>
-              Standard (up to 10 pages)
-            </label>
-            <span class="subopt-price">$299/mo</span>
-          </div>
-          <div class="subopt-row" data-tier="growth" data-subprice="399">
-            <label class="subopt-radio">
-              <div class="radio-dot" id="growth-r2"></div>
-              Larger or CMS-heavy site
-            </label>
-            <span class="subopt-price">$399/mo</span>
-          </div>
-        </div>
       </div>
 
       <!-- Tier 3 -->
@@ -974,7 +957,7 @@
             <div class="tier-tag">E-Commerce & Enterprise</div>
           </div>
           <div class="tier-price-display">
-            <div class="amount" id="pro-price-display">from $499</div>
+            <div class="amount">$599</div>
             <div class="per">/month</div>
           </div>
         </div>
@@ -987,23 +970,6 @@
           <li>Advanced analytics & conversion tracking</li>
           <li>Custom integrations maintenance</li>
         </ul>
-        <div class="tier-subopts">
-          <div class="subopt-label">Store size</div>
-          <div class="subopt-row" data-tier="pro" data-subprice="499">
-            <label class="subopt-radio">
-              <div class="radio-dot selected" id="pro-r1"></div>
-              Standard e-commerce store
-            </label>
-            <span class="subopt-price">$499/mo</span>
-          </div>
-          <div class="subopt-row" data-tier="pro" data-subprice="699">
-            <label class="subopt-radio">
-              <div class="radio-dot" id="pro-r2"></div>
-              Large or complex store
-            </label>
-            <span class="subopt-price">$699+/mo</span>
-          </div>
-        </div>
       </div>
 
     </div><!-- /monthly panel -->
@@ -1088,8 +1054,8 @@
   }
 
   const PRICES = {
-    newBuild:   750,
-    redesign:   300,
+    newBuild:   900,
+    redesign:   450,
     page:       75,
     addons: {
       'blog':          100,
@@ -1101,9 +1067,9 @@
       'api':           100,
     },
     monthly: {
-      starter: { base: 199 },
-      growth:  { base: 299 },
-      pro:     { base: 499 },
+      starter: { base: 299 },
+      growth:  { base: 399 },
+      pro:     { base: 599 },
     }
   };
 
@@ -1111,7 +1077,7 @@
   let extraPages   = 0;
   let checkedAddons = new Set();
   let selectedTier  = null;       // 'starter' | 'growth' | 'pro'
-  let monthlySubPrice = { growth: 299, pro: 499 };
+  let monthlySubPrice = { growth: 399, pro: 599 };
 
   // ── Toggle ───────────────────────────────────────────────────────────
   document.getElementById('toggleOnetime').addEventListener('click', () => setMode('onetime'));
@@ -1233,14 +1199,10 @@
         return;
       }
 
-      if (selectedTier === 'starter') {
-        total = 199;
-        rows.push({ label: 'Starter plan', val: '$199/mo' });
-      } else {
-        total = monthlySubPrice[selectedTier];
-        const names = { growth: 'Growth plan', pro: 'Pro plan' };
-        rows.push({ label: names[selectedTier], val: `$${total}/mo` });
-      }
+      const tierPrices = { starter: 299, growth: 399, pro: 599 };
+      const tierNames  = { starter: 'Starter plan', growth: 'Growth plan', pro: 'Pro plan' };
+      total = tierPrices[selectedTier];
+      rows.push({ label: tierNames[selectedTier], val: `$${total}/mo` });
 
       suffix = '/mo';
       note   = 'Billed monthly · Cancel anytime';
