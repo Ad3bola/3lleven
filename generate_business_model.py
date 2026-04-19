@@ -250,8 +250,8 @@ doc.add_paragraph()
 table(
     headers = ['Item', 'Price', 'Notes'],
     rows    = [
-        ['New Build Base',              '$750',    '1–3 page site. Custom design, mobile responsive, light/dark mode, hover effects, scroll animations, contact form, basic SEO, SSL, domain & hosting setup, 2 revisions.'],
-        ['Redesign Base',               '$300',    'Client already has a site — refresh the design, keep the domain. All add-ons apply at same price.'],
+        ['New Build Base',              '$900',    '1–3 page site. Custom design, mobile responsive, light/dark mode, hover effects, scroll animations, contact form, basic SEO, SSL, domain & hosting setup, 2 revisions. Source code included.'],
+        ['Redesign Base',               '$450',    'Client already has a site — refresh the design, keep the domain. All add-ons apply at same price. Source code transfer +$75.'],
         ['Additional Pages',            '$75 each','Per page beyond the included 3.'],
         ['Advanced Animations',         '+$150',   'Framer Motion or GSAP — parallax, staggered sequences, page transitions. Beyond the standard scroll fades included in every build.'],
         ['E-Commerce Integration',      '+$300',   'Stripe or Shopify — product catalog, cart, checkout, payment processing.'],
@@ -280,24 +280,24 @@ doc.add_paragraph()
 table(
     headers = ['Tier', 'Price', 'Target Client', 'Key Value'],
     rows    = [
-        ['Tier 1 — Basic',   '$199/mo',      '1-Page "Digital Business Card"', 'Hosting, security, backups, and peace of mind. Set it and forget it.'],
-        ['Tier 2 — Growth',  '$299–$399/mo', 'Standard Business (5+ pages)',   'SEO monitoring, monthly content updates, analytics reporting.'],
-        ['Tier 3 — Revenue', '$499–$699/mo', 'E-Commerce / Custom Apps',        'Daily backups, priority support, transactional security, advanced monitoring.'],
+        ['Tier 1 — Starter', '$299/mo',  '1-Page "Digital Business Card"', 'Hosting, security, backups, and peace of mind. Set it and forget it.'],
+        ['Tier 2 — Growth',  '$399/mo',  'Standard Business (5+ pages)',   'SEO monitoring, monthly content updates, analytics reporting.'],
+        ['Tier 3 — Pro',     '$599/mo',  'E-Commerce / Custom Apps',       'Daily backups, priority support, transactional security, advanced monitoring.'],
     ],
     widths = [1.5, 1.4, 2.0, 2.4],
 )
 
 h3('What Each Tier Includes')
-body('Tier 1 — Basic ($199/mo)', italic=False, color=BLUE)
+body('Tier 1 — Starter ($299/mo)', italic=False, color=BLUE)
 for b in ['Hosting & SSL management','Security & dependency updates','Monthly automated backups','24/7 uptime monitoring','1 hr dev support per month','Monthly performance report']:
     bullet(b)
 doc.add_paragraph()
-body('Tier 2 — Growth ($299–$399/mo)', italic=False, color=BLUE)
-for b in ['Everything in Tier 1','5 hrs dev/design work per month (rolls over up to 2 months)','Monthly SEO report & recommendations','Google Business profile management','2 content updates per month','Priority next-business-day response','$299 for standard sites · $399 for larger or CMS-heavy sites']:
+body('Tier 2 — Growth ($399/mo)', italic=False, color=BLUE)
+for b in ['Everything in Tier 1','5 hrs dev/design work per month (rolls over up to 2 months)','Monthly SEO report & recommendations','Google Business profile management','2 content updates per month','Priority next-business-day response']:
     bullet(b)
 doc.add_paragraph()
-body('Tier 3 — Revenue ($499–$699/mo)', italic=False, color=BLUE)
-for b in ['Everything in Tier 2','E-commerce management & optimization','Daily automated backups','Up to 10 hrs dev work per month','Priority 24-hour support','Unlimited content updates','Advanced analytics & conversion tracking','Custom integrations maintenance','$499 standard e-commerce · $699+ large or complex stores']:
+body('Tier 3 — Pro ($599/mo)', italic=False, color=BLUE)
+for b in ['Everything in Tier 2','E-commerce management & optimization','Daily automated backups','Up to 10 hrs dev work per month','Priority 24-hour support','Unlimited content updates','Advanced analytics & conversion tracking','Custom integrations maintenance']:
     bullet(b)
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -410,7 +410,8 @@ body(
     'keeps them on a monthly plan.'
 )
 for b in [
-    'Source code transfer = separate "Transfer Fee": $100 for new builds, $75 for redesigns',
+    'New builds ($900): source code is included in the base price — no transfer fee',
+    'Redesigns ($450): source code transfer is a separate +$75 fee — stated in every contract',
     'Exception: clients who have been on an active monthly plan for 12+ consecutive months receive the source code at no extra charge as a loyalty reward',
     'This should be clearly stated in every contract — no surprises, no arguments',
 ]:
@@ -545,7 +546,7 @@ table(
 body(
     'The recurring revenue line is the most important number. Every monthly plan client compounds — '
     'they pay every month whether you\'re building or not. Prioritize converting every project client '
-    'into a monthly plan at launch. A $750 client on Tier 1 ($199/mo) is worth $2,388 in year one alone.',
+    'into a monthly plan at launch. A $900 client on Tier 1 ($299/mo) is worth $4,488 in year one alone.',
     color=MUTED, italic=True
 )
 
