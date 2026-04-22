@@ -866,8 +866,36 @@
     }
     .form-field input::placeholder,
     .form-field textarea::placeholder { color: var(--muted2); opacity: 0.65; }
-    .form-field select option { background: var(--bg2); }
     .form-field textarea { resize: vertical; min-height: 110px; }
+
+    /* Custom select */
+    .select-wrap {
+      position: relative;
+      width: 100%;
+    }
+    .select-wrap select {
+      width: 100%;
+      padding-right: 2.75rem;
+      cursor: pointer;
+    }
+    .select-wrap select:hover {
+      border-color: var(--blue);
+    }
+    .select-wrap::after {
+      content: '';
+      position: absolute;
+      right: 0.9rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 18px; height: 18px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 18' fill='none'%3E%3Cpath d='M4.5 7l4.5 4.5 4.5-4.5' stroke='%2386868B' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center;
+      pointer-events: none;
+      transition: transform 0.2s;
+    }
+    .select-wrap select:focus ~ * { color: var(--blue); }
+    .select-wrap select option { background: var(--bg2); color: var(--fg); }
+    [data-theme="dark"] .select-wrap select option { background: var(--bg3); }
+    .select-wrap select option:disabled { color: var(--muted2); }
 
     .form-submit {
       grid-column: 1 / -1;
@@ -1232,17 +1260,19 @@
       </div>
       <div class="form-field">
         <label>Service</label>
-        <select>
-          <option value="" disabled selected>Select a service…</option>
-          <option>One-Time Build — New Site ($900+)</option>
-          <option>One-Time Build — Redesign ($450+)</option>
-          <option>Monthly — Starter ($299/mo)</option>
-          <option>Monthly — Growth Standard ($399/mo)</option>
-          <option>Monthly — Growth Advanced ($499/mo)</option>
-          <option>Monthly — Pro Standard Store ($599/mo)</option>
-          <option>Monthly — Pro High-Volume ($799/mo)</option>
-          <option>Not sure — tell me more</option>
-        </select>
+        <div class="select-wrap">
+          <select>
+            <option value="" disabled selected>Select a service…</option>
+            <option>One-Time Build — New Site ($900+)</option>
+            <option>One-Time Build — Redesign ($450+)</option>
+            <option>Monthly — Starter ($299/mo)</option>
+            <option>Monthly — Growth Standard ($399/mo)</option>
+            <option>Monthly — Growth Advanced ($499/mo)</option>
+            <option>Monthly — Pro Standard Store ($599/mo)</option>
+            <option>Monthly — Pro High-Volume ($799/mo)</option>
+            <option>Not sure — tell me more</option>
+          </select>
+        </div>
       </div>
       <div class="form-field full">
         <label>Tell Me About Your Project</label>
