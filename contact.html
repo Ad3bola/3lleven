@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3lleven — Contact</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Syne:wght@700;800&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #080808;
+    font-family: 'DM Mono', 'Courier New', monospace;
+    color: #d0d0d0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 24px;
+  }
+
+  .wordmark {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 40px;
+    letter-spacing: -0.5px;
+  }
+
+  .wordmark span { color: #ff4d00; }
+
+  .card {
+    width: 100%;
+    max-width: 480px;
+    background: #0d0d0d;
+    border: 1px solid #1a1a1a;
+    border-radius: 6px;
+    padding: 36px 32px;
+  }
+
+  .heading {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #444;
+    margin-bottom: 24px;
+  }
+
+  .field {
+    margin-bottom: 18px;
+  }
+
+  label {
+    display: block;
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #444;
+    margin-bottom: 6px;
+  }
+
+  input, textarea, select {
+    width: 100%;
+    font-family: inherit;
+    font-size: 12px;
+    background: #111;
+    border: 1px solid #222;
+    color: #d0d0d0;
+    border-radius: 4px;
+    padding: 10px 12px;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+
+  input:focus, textarea:focus, select:focus {
+    border-color: #ff4d00;
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 110px;
+  }
+
+  select option { background: #111; }
+
+  button[type="submit"] {
+    width: 100%;
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    background: #ff4d00;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 12px;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: opacity 0.15s;
+  }
+
+  button[type="submit"]:hover { opacity: 0.88; }
+
+  ::-webkit-scrollbar { width: 3px; }
+  ::-webkit-scrollbar-thumb { background: #222; }
+</style>
+</head>
+<body>
+
+<div class="wordmark">3<span>lleven</span></div>
+
+<div class="card">
+  <p class="heading">Get in touch</p>
+
+  <form action="https://formspree.io/f/xvzlpbev" method="POST">
+
+    <!-- Redirect to your own thank-you page after submission -->
+    <input type="hidden" name="_next" value="https://3lleven.dev/thanks.html">
+
+    <div class="field">
+      <label for="name">Name</label>
+      <input type="text" id="name" name="name" placeholder="Your name" required>
+    </div>
+
+    <div class="field">
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" placeholder="you@example.com" required>
+    </div>
+
+    <div class="field">
+      <label for="business">Business / Website</label>
+      <input type="text" id="business" name="business" placeholder="mybusiness.com">
+    </div>
+
+    <div class="field">
+      <label for="message">Message</label>
+      <textarea id="message" name="message" placeholder="Tell me about your project…" required></textarea>
+    </div>
+
+    <button type="submit">Send message →</button>
+
+  </form>
+</div>
+
+</body>
+</html>

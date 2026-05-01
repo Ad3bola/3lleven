@@ -849,9 +849,22 @@
     const HOLD    = 1400;
     const OVERLAP = 300;
 
-    document.addEventListener('DOMContentLoaded', function() {
-      const steps = Array.from(document.querySelectorAll('.steps-row .step'));
-      let cur = 0;
+  // Form submit — sends to your email via Formspree
+  // 1. Go to https://formspree.io → sign up free → New Form
+  // 2. Replace YOUR_FORM_ID below with the ID from your Formspree dashboard
+  const FORMSPREE_ID = 'xvzlpbev';
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const form      = e.target;
+    const submitBtn = form.querySelector('.form-submit');
+    const data      = new FormData(form);
+
+    if (FORMSPREE_ID === 'YOUR_FORM_ID') {
+      submitBtn.textContent = '⚠ Add your Formspree ID to activate';
+      submitBtn.style.background = '#FF9500';
+      return;
+    }
 
       function activate(idx) {
         steps.forEach(s => s.classList.remove('active'));
