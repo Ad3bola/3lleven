@@ -182,6 +182,69 @@
     .dr-sub { font-size: 0.75rem; color: var(--muted); margin-top: 0.15rem; font-weight: 300; }
     .dr-val { font-size: 0.9rem; font-weight: 600; color: var(--blue); white-space: nowrap; }
 
+    /* COMPARISON TABLE */
+    .plans-section { padding: 60px 22px 0; background: var(--bg2); }
+    .plans-inner { max-width: 980px; margin: 0 auto; }
+
+    .plans-intro { margin-bottom: 2rem; }
+    .plans-intro .svc-tag { font-size: 0.72rem; font-weight: 700; color: var(--blue); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.75rem; }
+    .plans-intro h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 700; letter-spacing: -0.025em; line-height: 1.1; margin-bottom: 0.75rem; }
+    .plans-intro p { font-size: 0.95rem; color: var(--muted); line-height: 1.75; font-weight: 300; max-width: 580px; }
+
+    .compare-table-wrap { background: var(--bg); border-radius: 20px; overflow: hidden; box-shadow: var(--shadow2); margin-bottom: 4rem; }
+    [data-theme="dark"] .compare-table-wrap { background: var(--bg2); border: 1px solid var(--border); }
+
+    .ct { width: 100%; border-collapse: collapse; }
+
+    /* Header row */
+    .ct-header { border-bottom: 2px solid var(--border2); }
+    .ct-header th { padding: 2rem 1.5rem; text-align: center; vertical-align: top; }
+    .ct-header th:first-child { text-align: left; width: 36%; }
+
+    .th-tier { font-size: 0.72rem; font-weight: 700; color: var(--muted2); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.5rem; }
+    .th-price { font-size: 2.4rem; font-weight: 700; letter-spacing: -0.04em; line-height: 1; background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .th-price sup { font-size: 1rem; font-weight: 400; vertical-align: super; }
+    .th-price-sub { font-size: 0.75rem; color: var(--muted); margin: 0.3rem 0 1rem; font-weight: 300; }
+    .th-featured-badge { display: inline-block; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; background: rgba(41,151,255,0.12); color: var(--blue); padding: 0.25rem 0.75rem; border-radius: 980px; margin-bottom: 0.6rem; }
+
+    .ct-col-featured { background: rgba(41,151,255,0.04); }
+    [data-theme="dark"] .ct-col-featured { background: rgba(41,151,255,0.07); }
+
+    .plan-cta {
+      display: block; width: 100%; text-align: center;
+      padding: 0.65rem 1rem;
+      border-radius: 980px;
+      font-size: 0.8rem; font-weight: 600;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      border: none; cursor: pointer;
+      transition: opacity 0.2s, transform 0.15s;
+    }
+    .plan-cta:hover { opacity: 0.85; transform: translateY(-1px); }
+    .plan-cta-ghost { background: var(--bg2); color: var(--blue); }
+    [data-theme="dark"] .plan-cta-ghost { background: var(--bg3); }
+    .plan-cta-fill { background: var(--blue); color: #fff; }
+
+    /* Category header rows */
+    .ct-cat td { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted2); padding: 0.75rem 1.5rem; background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    [data-theme="dark"] .ct-cat td { background: var(--bg3); }
+    .ct-cat td.ct-col-featured { background: rgba(41,151,255,0.07); }
+    [data-theme="dark"] .ct-cat td.ct-col-featured { background: rgba(41,151,255,0.1); }
+
+    /* Feature rows */
+    .ct-row td { padding: 1rem 1.5rem; border-bottom: 1px solid var(--border); font-size: 0.875rem; text-align: center; color: var(--muted); vertical-align: middle; }
+    .ct-row:last-child td { border-bottom: none; }
+    .ct-row td:first-child { text-align: left; color: var(--fg); font-weight: 500; font-size: 0.875rem; }
+
+    .ck { color: #34C759; font-size: 1.1rem; font-weight: 700; }
+    .cx { color: var(--muted2); font-size: 1.1rem; }
+    .cv { font-weight: 600; font-size: 0.875rem; color: var(--fg); }
+    .cv-muted { font-weight: 400; font-size: 0.82rem; color: var(--muted); }
+
+    @media (max-width: 680px) {
+      .ct-header th, .ct-row td, .ct-cat td { padding: 0.75rem 0.75rem; font-size: 0.8rem; }
+      .th-price { font-size: 1.8rem; }
+    }
+
     /* ADD-ONS */
     .addons-section { padding: 80px 22px; background: var(--bg); }
     .addons-inner { max-width: 980px; margin: 0 auto; }
@@ -383,41 +446,149 @@
       </div>
     </div>
 
-    <div class="svc-block fade-up">
-      <div>
-        <p class="svc-tag">Service 03</p>
-        <h2>Monthly Plans</h2>
-        <p>Need ongoing support after the build? Monthly plans keep your site fast, secure, and up to date — with dev hours, content updates, and SEO monitoring built in. No lock-in, cancel anytime.</p>
-        <ul class="svc-list">
-          <li><strong>Starter — $299/mo</strong> — Hosting, SSL, backups, 1 hr dev support</li>
-          <li><strong>Growth — $399/mo</strong> — 5 hrs dev work, SEO report, Google Business, 2 content updates</li>
-          <li><strong>Pro — $599/mo</strong> — 10 hrs dev work, e-commerce management, 24-hr support, unlimited content updates</li>
-        </ul>
-        <a href="pricing.html" class="svc-cta">See All Plans →</a>
-      </div>
-      <div class="detail-card">
-        <div class="detail-header"><p>Monthly Plan Comparison</p></div>
-        <div class="detail-rows">
-          <div class="detail-row">
-            <div><div class="dr-label">Starter</div><div class="dr-sub">Hosting, SSL, uptime monitoring</div></div>
-            <div class="dr-val">$299/mo</div>
-          </div>
-          <div class="detail-row">
-            <div><div class="dr-label">Growth</div><div class="dr-sub">Everything + 5 hrs dev + SEO</div></div>
-            <div class="dr-val">$399/mo</div>
-          </div>
-          <div class="detail-row">
-            <div><div class="dr-label">Pro</div><div class="dr-sub">Everything + 10 hrs + e-commerce</div></div>
-            <div class="dr-val">$599/mo</div>
-          </div>
-          <div class="detail-row">
-            <div><div class="dr-label">Contract</div><div class="dr-sub">No lock-in</div></div>
-            <div class="dr-val">Cancel anytime</div>
-          </div>
-        </div>
-      </div>
+  </div>
+</section>
+
+<!-- MONTHLY PLANS COMPARISON -->
+<section class="plans-section">
+  <div class="plans-inner">
+    <div class="plans-intro">
+      <p class="svc-tag">Service 03</p>
+      <h2>Monthly Plans</h2>
+      <p>Need ongoing support after the build? Monthly plans keep your site fast, secure, and up to date — with dev hours, content updates, and SEO monitoring built in. No lock-in, cancel anytime.</p>
     </div>
 
+    <div class="compare-table-wrap fade-up">
+      <table class="ct">
+        <thead>
+          <tr class="ct-header">
+            <th></th>
+            <th>
+              <div class="th-tier">Basic</div>
+              <div class="th-price"><sup>$</sup>299</div>
+              <div class="th-price-sub">per month</div>
+              <a href="contact.html" class="plan-cta plan-cta-ghost">Get Started</a>
+            </th>
+            <th class="ct-col-featured">
+              <div class="th-featured-badge">Most Popular</div>
+              <div class="th-tier">Standard</div>
+              <div class="th-price"><sup>$</sup>399</div>
+              <div class="th-price-sub">per month</div>
+              <a href="contact.html" class="plan-cta plan-cta-fill">Get Started</a>
+            </th>
+            <th>
+              <div class="th-tier">Enterprise</div>
+              <div class="th-price"><sup>$</sup>599</div>
+              <div class="th-price-sub">per month</div>
+              <a href="contact.html" class="plan-cta plan-cta-ghost">Get Started</a>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr class="ct-cat">
+            <td colspan="4">Hosting &amp; Infrastructure</td>
+          </tr>
+          <tr class="ct-row">
+            <td>Managed hosting &amp; SSL</td>
+            <td><span class="ck">✓</span></td>
+            <td class="ct-col-featured"><span class="ck">✓</span></td>
+            <td><span class="ck">✓</span></td>
+          </tr>
+          <tr class="ct-row">
+            <td>24/7 uptime monitoring</td>
+            <td><span class="ck">✓</span></td>
+            <td class="ct-col-featured"><span class="ck">✓</span></td>
+            <td><span class="ck">✓</span></td>
+          </tr>
+          <tr class="ct-row">
+            <td>Automated monthly backups</td>
+            <td><span class="ck">✓</span></td>
+            <td class="ct-col-featured"><span class="ck">✓</span></td>
+            <td><span class="ck">✓</span></td>
+          </tr>
+          <tr class="ct-row">
+            <td>Security &amp; dependency updates</td>
+            <td><span class="ck">✓</span></td>
+            <td class="ct-col-featured"><span class="ck">✓</span></td>
+            <td><span class="ck">✓</span></td>
+          </tr>
+
+          <tr class="ct-cat">
+            <td colspan="4">Development &amp; Design</td>
+          </tr>
+          <tr class="ct-row">
+            <td>Monthly dev / design hours</td>
+            <td><span class="cv">1 hr</span></td>
+            <td class="ct-col-featured"><span class="cv">5 hrs</span></td>
+            <td><span class="cv">10 hrs</span></td>
+          </tr>
+          <tr class="ct-row">
+            <td>Content updates per month</td>
+            <td><span class="cx">—</span></td>
+            <td class="ct-col-featured"><span class="cv">2 updates</span></td>
+            <td><span class="cv">Unlimited</span></td>
+          </tr>
+          <tr class="ct-row">
+            <td>E-commerce management</td>
+            <td><span class="cx">—</span></td>
+            <td class="ct-col-featured"><span class="cx">—</span></td>
+            <td><span class="ck">✓</span></td>
+          </tr>
+          <tr class="ct-row">
+            <td>Custom integrations maintenance</td>
+            <td><span class="cx">—</span></td>
+            <td class="ct-col-featured"><span class="cx">—</span></td>
+            <td><span class="ck">✓</span></td>
+          </tr>
+
+          <tr class="ct-cat">
+            <td colspan="4">SEO &amp; Marketing</td>
+          </tr>
+          <tr class="ct-row">
+            <td>Monthly performance report</td>
+            <td><span class="ck">✓</span></td>
+            <td class="ct-col-featured"><span class="ck">✓</span></td>
+            <td><span class="ck">✓</span></td>
+          </tr>
+          <tr class="ct-row">
+            <td>Monthly SEO report &amp; recommendations</td>
+            <td><span class="cx">—</span></td>
+            <td class="ct-col-featured"><span class="ck">✓</span></td>
+            <td><span class="ck">✓</span></td>
+          </tr>
+          <tr class="ct-row">
+            <td>Google Business profile management</td>
+            <td><span class="cx">—</span></td>
+            <td class="ct-col-featured"><span class="ck">✓</span></td>
+            <td><span class="ck">✓</span></td>
+          </tr>
+          <tr class="ct-row">
+            <td>Advanced analytics &amp; conversion tracking</td>
+            <td><span class="cx">—</span></td>
+            <td class="ct-col-featured"><span class="cx">—</span></td>
+            <td><span class="ck">✓</span></td>
+          </tr>
+
+          <tr class="ct-cat">
+            <td colspan="4">Support</td>
+          </tr>
+          <tr class="ct-row">
+            <td>Support response time</td>
+            <td><span class="cv-muted">2–3 business days</span></td>
+            <td class="ct-col-featured"><span class="cv">Next business day</span></td>
+            <td><span class="cv">24-hour priority</span></td>
+          </tr>
+          <tr class="ct-row">
+            <td>Contract</td>
+            <td><span class="cv-muted">Cancel anytime</span></td>
+            <td class="ct-col-featured"><span class="cv-muted">Cancel anytime</span></td>
+            <td><span class="cv-muted">Cancel anytime</span></td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
   </div>
 </section>
 
