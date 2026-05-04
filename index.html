@@ -473,17 +473,9 @@
     .fade-up:nth-child(4) { transition-delay: 0.3s; }
 
     /* ── SMOOTH THEME ───────────────────────────────── */
-    *, *::before, *::after {
-      transition: background-color 0.3s ease, border-color 0.25s ease, color 0.2s ease;
-    }
-    .btn-pill, .pkg-cta, .form-submit, .cta-btn, .svc-card, .pkg-card, .stat-card,
-    .proc-circle, .r-circle, .sp-cell, .addon-plan, .step-num, .theme-btn {
-      transition: background-color 0.3s ease, border-color 0.25s ease, color 0.2s ease,
-                  opacity 0.2s, transform 0.15s, box-shadow 0.2s;
-    }
-    .fade-up {
-      transition: background-color 0.3s ease, border-color 0.25s ease, color 0.2s ease,
-                  opacity 0.6s ease, transform 0.6s ease;
+    *, *::before, *::after { transition: background-color 0.3s ease, border-color 0.25s ease, color 0.2s ease; }
+    .fade-up, .btn-pill, .cta-btn, .svc-card, .stat-card, .step-num, .theme-btn {
+      transition: background-color 0.3s ease, border-color 0.25s ease, color 0.2s ease, opacity 0.2s, transform 0.15s, box-shadow 0.2s;
     }
 
     @media (max-width: 580px) { .nav-links { display: none; } }
@@ -852,38 +844,34 @@
   }, { threshold: 0.1 });
   document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 
-  /* ── Form submit ── */
-  const FORMSPREE_ID = 'xvzlpbev';
+  /* ── Process step animation ── */
+  (function() {
+    const HOLD    = 1400;
+    const OVERLAP = 300;
 
-  async function handleSubmit(e) {
-    e.preventDefault();
-    const form      = e.target;
-    const submitBtn = form.querySelector('.form-submit');
-    const data      = new FormData(form);
+    document.addEventListener('DOMContentLoaded', function() {
+      const steps = Array.from(document.querySelectorAll('.steps-row .step'));
+      let cur = 0;
 
-    submitBtn.textContent = 'Sending…';
-    submitBtn.disabled    = true;
-
-    try {
-      const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
-        method:  'POST',
-        body:    data,
-        headers: { 'Accept': 'application/json' },
-      });
-
-      if (res.ok) {
-        submitBtn.textContent      = 'Message Sent ✓';
-        submitBtn.style.background = '#34C759';
-        form.reset();
-      } else {
-        throw new Error('Server error');
+      function activate(idx) {
+        steps.forEach(s => s.classList.remove('active'));
+        if (idx >= 0) steps[idx].classList.add('active');
       }
-    } catch {
-      submitBtn.textContent      = 'Something went wrong — try again';
-      submitBtn.style.background = '#FF3B30';
-      submitBtn.disabled         = false;
-    }
-  }
+
+      function cycle() {
+        activate(cur);
+        setTimeout(function() {
+          steps[cur].classList.remove('active');
+          setTimeout(function() {
+            cur = (cur + 1) % steps.length;
+            cycle();
+          }, OVERLAP);
+        }, HOLD);
+      }
+
+      cycle();
+    });
+  })();
 
   /* ── Before/After slider ── */
   const LERP = 0.12;
