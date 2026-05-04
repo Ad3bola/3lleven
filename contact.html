@@ -297,6 +297,20 @@
     localStorage.setItem('3lleven-theme', next);
   });
 
+  // Pre-fill from pricing calculator
+  (function() {
+    const raw = sessionStorage.getItem('3lleven-quote');
+    if (!raw) return;
+    try {
+      const q  = JSON.parse(raw);
+      const ta = document.querySelector('.contact-form textarea');
+      if (ta && !ta.value) {
+        ta.value = `From pricing calculator:\n${q.rows}\n\nEstimated total: ${q.amount}${q.suffix}\n\nTell me more about your project:`;
+      }
+      sessionStorage.removeItem('3lleven-quote');
+    } catch(e) {}
+  })();
+
   const FORMSPREE_ID = 'xvzlpbev';
 
   async function handleSubmit(e) {
