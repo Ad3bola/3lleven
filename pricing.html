@@ -910,7 +910,7 @@
       <div class="tier-option" id="tier-starter" data-tier="starter">
         <div class="tier-top">
           <div>
-            <div class="tier-name">Starter</div>
+            <div class="tier-name">Basic</div>
             <div class="tier-tag">Maintenance & Hosting</div>
           </div>
           <div class="tier-price-display">
@@ -932,7 +932,7 @@
       <div class="tier-option" id="tier-growth" data-tier="growth">
         <div class="tier-top">
           <div>
-            <div class="tier-name">Growth</div>
+            <div class="tier-name">Standard</div>
             <div class="tier-tag">Active Management</div>
           </div>
           <div class="tier-price-display">
@@ -941,7 +941,7 @@
           </div>
         </div>
         <ul class="tier-features">
-          <li>Everything in Starter</li>
+          <li>Everything in Basic</li>
           <li>5 hrs dev / design work per month</li>
           <li>Monthly SEO report & recommendations</li>
           <li>Google Business profile management</li>
@@ -954,7 +954,7 @@
       <div class="tier-option" id="tier-pro" data-tier="pro">
         <div class="tier-top">
           <div>
-            <div class="tier-name">Pro</div>
+            <div class="tier-name">Enterprise</div>
             <div class="tier-tag">E-Commerce & Enterprise</div>
           </div>
           <div class="tier-price-display">
@@ -963,7 +963,7 @@
           </div>
         </div>
         <ul class="tier-features">
-          <li>Everything in Growth</li>
+          <li>Everything in Standard</li>
           <li>E-commerce management & optimization</li>
           <li>Up to 10 hrs dev work per month</li>
           <li>Priority 24-hr support</li>
@@ -1201,7 +1201,7 @@
       }
 
       const tierPrices = { starter: 299, growth: 399, pro: 599 };
-      const tierNames  = { starter: 'Starter plan', growth: 'Growth plan', pro: 'Pro plan' };
+      const tierNames  = { starter: 'Basic plan', growth: 'Standard plan', pro: 'Enterprise plan' };
       total = tierPrices[selectedTier];
       rows.push({ label: tierNames[selectedTier], val: `$${total}/mo` });
 
