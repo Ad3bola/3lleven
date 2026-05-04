@@ -852,14 +852,7 @@
   }, { threshold: 0.1 });
   document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 
-  /* ── Process step animation ── */
-  (function() {
-    const HOLD    = 1400;
-    const OVERLAP = 300;
-
-  // Form submit — sends to your email via Formspree
-  // 1. Go to https://formspree.io → sign up free → New Form
-  // 2. Replace YOUR_FORM_ID below with the ID from your Formspree dashboard
+  /* ── Form submit ── */
   const FORMSPREE_ID = 'xvzlpbev';
 
   async function handleSubmit(e) {
@@ -868,31 +861,29 @@
     const submitBtn = form.querySelector('.form-submit');
     const data      = new FormData(form);
 
-    if (FORMSPREE_ID === 'YOUR_FORM_ID') {
-      submitBtn.textContent = '⚠ Add your Formspree ID to activate';
-      submitBtn.style.background = '#FF9500';
-      return;
+    submitBtn.textContent = 'Sending…';
+    submitBtn.disabled    = true;
+
+    try {
+      const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+        method:  'POST',
+        body:    data,
+        headers: { 'Accept': 'application/json' },
+      });
+
+      if (res.ok) {
+        submitBtn.textContent      = 'Message Sent ✓';
+        submitBtn.style.background = '#34C759';
+        form.reset();
+      } else {
+        throw new Error('Server error');
+      }
+    } catch {
+      submitBtn.textContent      = 'Something went wrong — try again';
+      submitBtn.style.background = '#FF3B30';
+      submitBtn.disabled         = false;
     }
-
-      function activate(idx) {
-        steps.forEach(s => s.classList.remove('active'));
-        if (idx >= 0) steps[idx].classList.add('active');
-      }
-
-      function cycle() {
-        activate(cur);
-        setTimeout(function() {
-          steps[cur].classList.remove('active');
-          setTimeout(function() {
-            cur = (cur + 1) % steps.length;
-            cycle();
-          }, OVERLAP);
-        }, HOLD);
-      }
-
-      cycle();
-    });
-  })();
+  }
 
   /* ── Before/After slider ── */
   const LERP = 0.12;
