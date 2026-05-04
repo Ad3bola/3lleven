@@ -202,52 +202,141 @@
     .ba-head h3 { font-size: clamp(1.4rem, 2.5vw, 2rem); font-weight: 700; letter-spacing: -0.025em; line-height: 1.15; }
     .ba-head p { font-size: 0.9rem; color: var(--muted); line-height: 1.7; font-weight: 300; }
 
-    .ba-wrap { position: relative; width: 100%; overflow: hidden; border-radius: 14px; border: 1px solid var(--border2); cursor: ew-resize; user-select: none; -webkit-user-select: none; box-shadow: var(--shadow); }
-    .ba-after { display: block; width: 100%; height: auto; vertical-align: middle; }
-    .ba-before { position: absolute; inset: 0; width: 100%; height: 100%; clip-path: inset(0 50% 0 0); }
-    .ba-before img { display: block; width: 100%; height: 100%; object-fit: cover; }
-    .ba-divider { position: absolute; top: 0; bottom: 0; left: 50%; width: 2px; background: #fff; transform: translateX(-50%); pointer-events: none; z-index: 10; }
-    .ba-handle { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 40px; height: 40px; background: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 11; pointer-events: none; box-shadow: 0 2px 16px rgba(0,0,0,0.25); }
-    .ba-handle svg { width: 18px; height: 18px; }
-    .ba-badge { position: absolute; top: 16px; padding: 5px 12px; font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 600; border-radius: 980px; z-index: 12; pointer-events: none; }
-    .ba-badge-before { left: 16px; background: rgba(0,0,0,0.55); color: #aaa; }
-    .ba-badge-after { right: 16px; background: rgba(255,255,255,0.18); color: #fff; backdrop-filter: blur(6px); }
+    .ba-wrap {
+      position: relative; width: 100%; overflow: hidden;
+      aspect-ratio: 16/9;
+      border-radius: 18px; cursor: ew-resize;
+      user-select: none; -webkit-user-select: none;
+      border: 1px solid var(--border2);
+      box-shadow: 0 24px 80px rgba(0,0,0,0.18), 0 0 0 1px rgba(255,255,255,0.04);
+    }
+    .ba-after { display: flex; flex-direction: column; width: 100%; height: 100%; }
+    .ba-before { position: absolute; inset: 0; width: 100%; height: 100%; clip-path: inset(0 50% 0 0); overflow: hidden; }
+    .ba-before > div { width: 100%; height: 100%; }
+    .ba-divider {
+      position: absolute; top: 0; bottom: 0; left: 50%;
+      width: 3px;
+      background: linear-gradient(180deg, #2997FF 0%, #BF5AF2 100%);
+      transform: translateX(-50%);
+      pointer-events: none; z-index: 10;
+      box-shadow: 0 0 16px rgba(41,151,255,0.6), 0 0 40px rgba(191,90,242,0.35);
+    }
+    .ba-handle {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      width: 48px; height: 48px;
+      background: linear-gradient(135deg, #2997FF, #BF5AF2);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      z-index: 11; pointer-events: none;
+      box-shadow: 0 0 0 3px rgba(255,255,255,0.15), 0 4px 24px rgba(41,151,255,0.5), 0 8px 40px rgba(191,90,242,0.3);
+    }
+    .ba-handle svg { width: 20px; height: 20px; }
+    .ba-badge {
+      position: absolute; top: 16px;
+      padding: 5px 14px;
+      font-size: 0.68rem; letter-spacing: 0.1em;
+      text-transform: uppercase; font-weight: 700;
+      border-radius: 980px; z-index: 12; pointer-events: none;
+    }
+    .ba-badge-before {
+      left: 16px;
+      background: rgba(0,0,0,0.5); color: rgba(255,255,255,0.45);
+      border: 1px solid rgba(255,255,255,0.08); backdrop-filter: blur(8px);
+    }
+    .ba-badge-after {
+      right: 16px;
+      background: linear-gradient(135deg, rgba(41,151,255,0.25), rgba(191,90,242,0.25));
+      color: #fff; border: 1px solid rgba(255,255,255,0.18); backdrop-filter: blur(8px);
+    }
+    .ba-hint {
+      text-align: center; font-size: 0.72rem; color: var(--muted2); margin-top: 1rem;
+      letter-spacing: 0.06em;
+      display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+    }
+    .ba-hint::before, .ba-hint::after {
+      content: ''; display: inline-block; width: 28px; height: 1px; background: var(--border2);
+    }
 
-    .ba-hint { text-align: center; font-size: 0.72rem; color: var(--muted2); margin-top: 0.75rem; letter-spacing: 0.04em; }
+    /* ── BEFORE MOCKUP — 2009-era site ── */
+    .fake-before {
+      background: #c8d8f0; display: flex; flex-direction: column;
+      width: 100%; height: 100%; font-family: 'Times New Roman', Georgia, serif; overflow: hidden;
+    }
+    .fb-nav {
+      background: linear-gradient(180deg, #2255aa 0%, #1a3d7c 100%);
+      height: 44px; display: flex; align-items: center; padding: 0 14px;
+      border-bottom: 3px solid #f5c400; flex-shrink: 0;
+    }
+    .fb-logo { font-family: 'Times New Roman', serif; font-size: 13px; font-weight: bold; color: #f5c400; margin-right: 16px; white-space: nowrap; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); }
+    .fb-nav-links { display: flex; gap: 1px; }
+    .fb-nav-link { background: linear-gradient(180deg, #4477cc 0%, #2255aa 100%); border: 1px solid #6699dd; border-bottom: none; padding: 4px 8px; font-family: Arial, sans-serif; font-size: 7px; color: #fff; white-space: nowrap; text-transform: uppercase; }
+    .fb-nav-link.active { background: linear-gradient(180deg, #f5c400 0%, #d4a800 100%); color: #1a3d7c; font-weight: bold; }
+    .fb-search { margin-left: auto; display: flex; gap: 3px; align-items: center; }
+    .fb-search-input { background: white; border: 2px inset #999; width: 70px; height: 16px; font-size: 7px; font-family: Arial, sans-serif; padding: 0 4px; color: #999; }
+    .fb-search-btn { background: linear-gradient(180deg, #eee 0%, #ccc 100%); border: 1px outset #bbb; font-size: 7px; font-family: Arial, sans-serif; padding: 2px 5px; color: #333; white-space: nowrap; }
+    .fb-hero {
+      background: linear-gradient(rgba(0,20,60,0.55), rgba(0,20,60,0.65)), repeating-linear-gradient(45deg, #2a4a8a 0px, #2a4a8a 2px, #1e3a6e 2px, #1e3a6e 12px);
+      padding: 14px 16px; display: flex; align-items: center; gap: 14px;
+      border-bottom: 4px solid #f5c400; flex-shrink: 0;
+    }
+    .fb-hero-text { flex: 1; }
+    .fb-hero-h1 { font-family: 'Times New Roman', serif; font-size: 13px; font-weight: bold; color: #f5c400; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); line-height: 1.3; margin-bottom: 5px; }
+    .fb-hero-sub { font-family: Arial, sans-serif; font-size: 7px; color: rgba(255,255,255,0.8); line-height: 1.5; margin-bottom: 8px; }
+    .fb-hero-btns { display: flex; gap: 5px; }
+    .fb-btn-red { background: linear-gradient(180deg, #ee3333 0%, #cc0000 100%); border: 1px outset #ff5555; padding: 4px 10px; font-family: Arial, sans-serif; font-size: 7px; font-weight: bold; color: white; text-transform: uppercase; white-space: nowrap; }
+    .fb-btn-outline { background: transparent; border: 1px solid rgba(255,255,255,0.5); padding: 4px 8px; font-family: Arial, sans-serif; font-size: 7px; color: white; white-space: nowrap; }
+    .fb-hero-img { width: 80px; height: 56px; flex-shrink: 0; background: linear-gradient(135deg, #8baed4 0%, #5580b0 50%, #7aa0cc 100%); border: 2px solid rgba(255,255,255,0.3); position: relative; overflow: hidden; }
+    .fb-hero-img::before { content: ''; position: absolute; bottom: 6px; left: 50%; transform: translateX(-50%); width: 28px; height: 36px; background: linear-gradient(180deg, #ffcc99 0%, #e8a870 40%, #cc8855 100%); border-radius: 14px 14px 4px 4px; }
+    .fb-hero-img::after { content: ''; position: absolute; bottom: 34px; left: 50%; transform: translateX(-50%); width: 20px; height: 20px; background: linear-gradient(180deg, #ffcc99, #e8a870); border-radius: 50%; }
+    .fb-body { display: flex; flex: 1; background: #c8d8f0; overflow: hidden; padding: 8px; }
+    .fb-main { flex: 1; padding: 8px 10px; display: flex; flex-direction: column; gap: 6px; overflow: hidden; }
+    .fb-main-title { font-family: 'Times New Roman', serif; font-size: 12px; font-weight: bold; color: #1a3d7c; border-bottom: 2px solid #2255aa; padding-bottom: 3px; }
+    .fb-main-cards { display: flex; gap: 6px; margin-top: 4px; }
+    .fb-main-card { flex: 1; background: white; border: 1px solid #9ab; padding: 5px; display: flex; flex-direction: column; gap: 3px; }
+    .fb-main-card-img { height: 28px; background: linear-gradient(135deg, #c8d8e8, #a8b8c8); border: 1px solid #bbb; }
+    .fb-main-card-title { font-family: Arial, sans-serif; font-size: 6.5px; font-weight: bold; color: #1a3d7c; }
+    .fb-main-card-text { font-family: Arial, sans-serif; font-size: 5.5px; color: #555; line-height: 1.4; }
+    .fb-main-card-link { font-family: Arial, sans-serif; font-size: 6px; color: #cc0000; font-weight: bold; }
+    .fb-footer { background: linear-gradient(180deg, #2255aa, #1a3d7c); padding: 5px 14px; display: flex; align-items: center; border-top: 3px solid #f5c400; flex-shrink: 0; }
+    .fb-footer-text { font-family: Arial, sans-serif; font-size: 6px; color: rgba(255,255,255,0.7); }
 
-    /* fake mockups */
-    .fake-before { background: #f0f0f0; display: flex; flex-direction: column; width: 100%; aspect-ratio: 16/9; }
-    .fake-before-nav { background: #003399; height: 52px; display: flex; align-items: center; padding: 0 20px; gap: 16px; }
-    .fake-before-logo { background: white; width: 100px; height: 24px; border-radius: 2px; opacity: 0.9; }
-    .fake-before-navlinks { display: flex; gap: 12px; margin-left: auto; }
-    .fake-before-navlink { background: rgba(255,255,255,0.3); width: 48px; height: 14px; border-radius: 2px; }
-    .fake-before-hero { background: linear-gradient(135deg, #003399 0%, #6699ff 100%); padding: 32px 24px; display: flex; flex-direction: column; gap: 10px; }
-    .fake-before-h1 { background: rgba(255,255,255,0.9); height: 28px; width: 55%; border-radius: 2px; }
-    .fake-before-sub { background: rgba(255,255,255,0.5); height: 14px; width: 75%; border-radius: 2px; }
-    .fake-before-cta { background: #ff6600; height: 36px; width: 130px; border-radius: 4px; margin-top: 8px; }
-    .fake-before-body { display: flex; gap: 12px; padding: 16px; flex: 1; background: #f0f0f0; }
-    .fake-before-card { flex: 1; background: white; border: 2px solid #ccc; border-radius: 4px; padding: 12px; display: flex; flex-direction: column; gap: 8px; }
-    .fake-before-card-img { background: #ddd; height: 60px; border-radius: 2px; }
-    .fake-before-card-line { background: #ccc; height: 10px; border-radius: 1px; }
-    .fake-before-card-line.short { width: 60%; }
-
-    .fake-after { background: #080808; display: flex; flex-direction: column; width: 100%; aspect-ratio: 16/9; }
-    .fake-after-nav { background: #0d0d0d; height: 52px; display: flex; align-items: center; padding: 0 24px; border-bottom: 1px solid #1a1a1a; }
-    .fake-after-logo { display: flex; align-items: center; gap: 6px; }
-    .fake-after-logo-mark svg { display: block; }
-    .fake-after-logo-text { background: white; width: 60px; height: 12px; border-radius: 1px; opacity: 0.9; }
-    .fake-after-navlinks { display: flex; gap: 20px; margin-left: auto; margin-right: 16px; }
-    .fake-after-navlink { background: #2a2a2a; width: 36px; height: 10px; border-radius: 1px; }
-    .fake-after-cta-nav { background: #2997FF; width: 70px; height: 28px; border-radius: 980px; }
-    .fake-after-hero { padding: 32px 28px; flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 8px; }
-    .fake-after-eyebrow { background: #1a1a1a; height: 8px; width: 100px; border-radius: 1px; margin-bottom: 4px; }
-    .fake-after-h1 { background: white; height: 32px; width: 60%; border-radius: 1px; opacity: 0.95; }
-    .fake-after-h1b { background: white; height: 32px; width: 45%; border-radius: 1px; opacity: 0.35; }
-    .fake-after-sub { background: #333; height: 10px; width: 70%; border-radius: 1px; margin-top: 4px; }
-    .fake-after-sub2 { background: #2a2a2a; height: 10px; width: 55%; border-radius: 1px; }
-    .fake-after-actions { display: flex; gap: 10px; margin-top: 12px; }
-    .fake-after-btn-primary { background: #2997FF; width: 110px; height: 34px; border-radius: 980px; }
-    .fake-after-btn-secondary { background: transparent; border: 1px solid #333; width: 100px; height: 34px; border-radius: 980px; }
+    /* ── AFTER MOCKUP — clean, modern ── */
+    .fake-after {
+      background: #040404; display: flex; flex-direction: column;
+      width: 100%; height: 100%; position: relative; overflow: hidden;
+      font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+    }
+    .fake-after::before { content: ''; position: absolute; top: -20%; left: 10%; right: 20%; bottom: 30%; background: radial-gradient(ellipse, rgba(41,151,255,0.09) 0%, transparent 65%); pointer-events: none; z-index: 0; }
+    .fake-after::after { content: ''; position: absolute; bottom: -10%; right: 5%; width: 40%; height: 60%; background: radial-gradient(ellipse, rgba(191,90,242,0.06) 0%, transparent 65%); pointer-events: none; z-index: 0; }
+    .fa-nav { height: 46px; display: flex; align-items: center; padding: 0 24px; border-bottom: 1px solid rgba(255,255,255,0.05); position: relative; z-index: 2; flex-shrink: 0; }
+    .fa-logo { display: flex; align-items: center; gap: 7px; }
+    .fa-logo-mark { width: 20px; height: 20px; border-radius: 6px; background: linear-gradient(135deg, #2997FF, #BF5AF2); display: flex; align-items: center; justify-content: center; }
+    .fa-logo-mark-inner { width: 8px; height: 8px; border: 1.5px solid rgba(255,255,255,0.9); border-radius: 2px; }
+    .fa-logo-name { font-size: 9px; font-weight: 700; color: rgba(255,255,255,0.9); }
+    .fa-nav-links { display: flex; gap: 20px; margin: 0 auto; }
+    .fa-nav-link { font-size: 7px; color: rgba(255,255,255,0.4); white-space: nowrap; }
+    .fa-nav-link.active { color: rgba(255,255,255,0.9); }
+    .fa-nav-cta { background: linear-gradient(135deg, #2997FF, #BF5AF2); border-radius: 980px; padding: 5px 14px; font-size: 7px; font-weight: 700; color: white; white-space: nowrap; }
+    .fa-hero { flex: 1; display: flex; align-items: center; padding: 0 32px; position: relative; z-index: 1; overflow: hidden; }
+    .fa-hero-left { display: flex; flex-direction: column; gap: 8px; max-width: 68%; }
+    .fa-eyebrow { display: inline-flex; align-items: center; gap: 5px; background: rgba(41,151,255,0.1); border: 1px solid rgba(41,151,255,0.2); border-radius: 980px; padding: 3px 8px; width: fit-content; }
+    .fa-eyebrow-dot { width: 4px; height: 4px; background: #2997FF; border-radius: 50%; }
+    .fa-eyebrow-text { font-size: 6px; color: #2997FF; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; }
+    .fa-h1 { display: flex; flex-direction: column; gap: 3px; }
+    .fa-h1-line { font-size: 16px; font-weight: 700; color: rgba(255,255,255,0.96); letter-spacing: -0.03em; line-height: 1.1; }
+    .fa-h1-line.dim { color: rgba(255,255,255,0.25); }
+    .fa-sub { font-size: 7px; color: rgba(255,255,255,0.45); line-height: 1.6; max-width: 90%; }
+    .fa-actions { display: flex; gap: 8px; align-items: center; margin-top: 4px; }
+    .fa-btn-primary { background: linear-gradient(135deg, #2997FF, #5AC8FA); border-radius: 980px; padding: 6px 14px; font-size: 7px; font-weight: 700; color: white; white-space: nowrap; }
+    .fa-btn-ghost { border: 1px solid rgba(255,255,255,0.15); border-radius: 980px; padding: 6px 12px; font-size: 7px; color: rgba(255,255,255,0.6); white-space: nowrap; display: flex; align-items: center; gap: 4px; }
+    .fa-btn-ghost::after { content: '→'; }
+    .fa-chips { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 4px; }
+    .fa-chip { display: inline-flex; align-items: center; gap: 4px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.09); border-radius: 980px; padding: 3px 9px; font-size: 6px; color: rgba(255,255,255,0.5); white-space: nowrap; }
+    .fa-chip-dot { width: 4px; height: 4px; border-radius: 50%; flex-shrink: 0; }
+    .fa-chip-dot.green { background: #34d399; }
+    .fa-chip-dot.blue  { background: #60a5fa; }
+    .fa-chip-dot.purple{ background: #BF5AF2; }
 
     /* ── PROCESS ───────────────────────────────────── */
     #process { background: var(--bg); padding: 100px 22px; }
@@ -562,53 +651,100 @@
       </div>
 
       <div class="ba-wrap" id="slider1">
+        <!-- AFTER (bottom layer, full width) -->
         <div class="ba-after fake-after">
-          <div class="fake-after-nav">
-            <div class="fake-after-logo">
-              <div class="fake-after-logo-mark"><svg width="12" height="12" viewBox="0 0 12 12"><rect x="1" y="1" width="10" height="10" stroke="white" stroke-width="0.8" fill="none"/></svg></div>
-              <div class="fake-after-logo-text"></div>
+          <div class="fa-nav">
+            <div class="fa-logo">
+              <div class="fa-logo-mark"><div class="fa-logo-mark-inner"></div></div>
+              <div class="fa-logo-name">Meridian</div>
             </div>
-            <div class="fake-after-navlinks">
-              <div class="fake-after-navlink"></div>
-              <div class="fake-after-navlink"></div>
-              <div class="fake-after-navlink"></div>
+            <div class="fa-nav-links">
+              <span class="fa-nav-link active">Home</span>
+              <span class="fa-nav-link">Services</span>
+              <span class="fa-nav-link">Work</span>
+              <span class="fa-nav-link">About</span>
             </div>
-            <div class="fake-after-cta-nav"></div>
+            <div class="fa-nav-cta">Get a Quote</div>
           </div>
-          <div class="fake-after-hero">
-            <div class="fake-after-eyebrow"></div>
-            <div class="fake-after-h1"></div>
-            <div class="fake-after-h1b"></div>
-            <div class="fake-after-sub"></div>
-            <div class="fake-after-sub2"></div>
-            <div class="fake-after-actions">
-              <div class="fake-after-btn-primary"></div>
-              <div class="fake-after-btn-secondary"></div>
+          <div class="fa-hero">
+            <div class="fa-hero-left">
+              <div class="fa-eyebrow">
+                <div class="fa-eyebrow-dot"></div>
+                <span class="fa-eyebrow-text">Detroit, MI · Est. 2019</span>
+              </div>
+              <div class="fa-h1">
+                <span class="fa-h1-line">Your home,</span>
+                <span class="fa-h1-line">transformed.</span>
+              </div>
+              <div class="fa-sub">Premium remodeling with transparent pricing and guaranteed workmanship.</div>
+              <div class="fa-actions">
+                <div class="fa-btn-primary">Free Estimate</div>
+                <div class="fa-btn-ghost">See Our Work</div>
+              </div>
+              <div class="fa-chips">
+                <div class="fa-chip"><span class="fa-chip-dot green"></span>200+ projects</div>
+                <div class="fa-chip"><span class="fa-chip-dot blue"></span>5-star rated</div>
+                <div class="fa-chip"><span class="fa-chip-dot purple"></span>Licensed &amp; insured</div>
+              </div>
             </div>
           </div>
         </div>
 
+        <!-- BEFORE (clipped top layer) -->
         <div class="ba-before" id="slider1-before">
-          <div class="fake-before" style="height:100%">
-            <div class="fake-before-nav">
-              <div class="fake-before-logo"></div>
-              <div class="fake-before-navlinks">
-                <div class="fake-before-navlink"></div>
-                <div class="fake-before-navlink"></div>
-                <div class="fake-before-navlink"></div>
-                <div class="fake-before-navlink"></div>
+          <div class="fake-before">
+            <div class="fb-nav">
+              <div class="fb-logo">Meridian Remodeling LLC</div>
+              <div class="fb-nav-links">
+                <div class="fb-nav-link active">HOME</div>
+                <div class="fb-nav-link">ABOUT US</div>
+                <div class="fb-nav-link">SERVICES</div>
+                <div class="fb-nav-link">GALLERY</div>
+                <div class="fb-nav-link">CONTACT</div>
+              </div>
+              <div class="fb-search">
+                <div class="fb-search-input"></div>
+                <div class="fb-search-btn">GO</div>
               </div>
             </div>
-            <div class="fake-before-hero">
-              <div class="fake-before-h1"></div>
-              <div class="fake-before-sub"></div>
-              <div class="fake-before-sub" style="width:50%"></div>
-              <div class="fake-before-cta"></div>
+            <div class="fb-hero">
+              <div class="fb-hero-text">
+                <div class="fb-hero-h1">Welcome to Meridian<br>Remodeling LLC!</div>
+                <div class="fb-hero-sub">Serving Metro Detroit Since 1999 · Licensed &amp; Insured<br>Call us today for a FREE no-obligation estimate!</div>
+                <div class="fb-hero-btns">
+                  <div class="fb-btn-red">CALL NOW!</div>
+                  <div class="fb-btn-outline">Learn More</div>
+                </div>
+              </div>
+              <div class="fb-hero-img"></div>
             </div>
-            <div class="fake-before-body">
-              <div class="fake-before-card"><div class="fake-before-card-img"></div><div class="fake-before-card-line"></div><div class="fake-before-card-line short"></div></div>
-              <div class="fake-before-card"><div class="fake-before-card-img"></div><div class="fake-before-card-line"></div><div class="fake-before-card-line short"></div></div>
-              <div class="fake-before-card"><div class="fake-before-card-img"></div><div class="fake-before-card-line"></div><div class="fake-before-card-line short"></div></div>
+            <div class="fb-body">
+              <div class="fb-main">
+                <div class="fb-main-title">Our Services</div>
+                <div class="fb-main-cards">
+                  <div class="fb-main-card">
+                    <div class="fb-main-card-img"></div>
+                    <div class="fb-main-card-title">Kitchen Remodeling</div>
+                    <div class="fb-main-card-text">Transform your kitchen into the space you've always dreamed of.</div>
+                    <div class="fb-main-card-link">&gt;&gt; Read More</div>
+                  </div>
+                  <div class="fb-main-card">
+                    <div class="fb-main-card-img"></div>
+                    <div class="fb-main-card-title">Bathroom Remodeling</div>
+                    <div class="fb-main-card-text">Custom bathrooms designed to fit your lifestyle and budget.</div>
+                    <div class="fb-main-card-link">&gt;&gt; Read More</div>
+                  </div>
+                  <div class="fb-main-card">
+                    <div class="fb-main-card-img"></div>
+                    <div class="fb-main-card-title">Basement Finishing</div>
+                    <div class="fb-main-card-text">Turn your unfinished basement into valuable living space.</div>
+                    <div class="fb-main-card-link">&gt;&gt; Read More</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="fb-footer">
+              <div class="fb-footer-text">© 2009 Meridian Remodeling LLC · Designed by WebsByBob.net</div>
             </div>
           </div>
         </div>
@@ -616,14 +752,14 @@
         <div class="ba-divider" id="slider1-divider"></div>
         <div class="ba-handle" id="slider1-handle">
           <svg viewBox="0 0 20 20" fill="none">
-            <path d="M7 4L3 10L7 16" stroke="#1D1D1F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M13 4L17 10L13 16" stroke="#1D1D1F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M6 5L2 10L6 15" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M14 5L18 10L14 15" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
         <div class="ba-badge ba-badge-before">Before</div>
         <div class="ba-badge ba-badge-after">After</div>
       </div>
-      <p class="ba-hint">← drag to compare →</p>
+      <p class="ba-hint">drag to compare</p>
     </div>
   </div>
 </section>
