@@ -1,150 +1,332 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>3lleven — Contact</title>
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Syne:wght@700;800&display=swap');
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3lleven — Contact</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:      #FFFFFF;
+      --bg2:     #F5F5F7;
+      --bg3:     #E8E8ED;
+      --fg:      #1D1D1F;
+      --muted:   #6E6E73;
+      --muted2:  #86868B;
+      --border:  rgba(0,0,0,0.08);
+      --border2: rgba(0,0,0,0.13);
+      --blue:    #0066CC;
+      --grad:    linear-gradient(135deg, #2997FF 0%, #5AC8FA 50%, #BF5AF2 100%);
+      --nav-bg:  rgba(255,255,255,0.72);
+      --shadow:  0 2px 24px rgba(0,0,0,0.07);
+      --shadow2: 0 8px 48px rgba(0,0,0,0.11);
+    }
 
-  body {
-    background: #080808;
-    font-family: 'DM Mono', 'Courier New', monospace;
-    color: #d0d0d0;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 60px 24px;
-  }
+    [data-theme="dark"] {
+      --bg:      #000000;
+      --bg2:     #1D1D1F;
+      --bg3:     #2C2C2E;
+      --fg:      #F5F5F7;
+      --muted:   #A1A1A6;
+      --muted2:  #86868B;
+      --border:  rgba(255,255,255,0.09);
+      --border2: rgba(255,255,255,0.15);
+      --blue:    #2997FF;
+      --nav-bg:  rgba(0,0,0,0.72);
+      --shadow:  0 2px 24px rgba(0,0,0,0.4);
+      --shadow2: 0 8px 48px rgba(0,0,0,0.55);
+    }
 
-  .wordmark {
-    font-family: 'Syne', sans-serif;
-    font-size: 22px;
-    font-weight: 800;
-    color: #fff;
-    margin-bottom: 40px;
-    letter-spacing: -0.5px;
-  }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--bg); color: var(--fg); line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+    a { color: inherit; text-decoration: none; }
 
-  .wordmark span { color: #ff4d00; }
+    /* NAV */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; height: 48px; background: var(--nav-bg); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); border-bottom: 1px solid var(--border); }
+    .nav-inner { max-width: 980px; margin: 0 auto; padding: 0 22px; height: 100%; display: flex; align-items: center; justify-content: space-between; }
+    .logo { font-size: 1rem; font-weight: 700; letter-spacing: -0.02em; }
+    .logo em { font-style: normal; background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { font-size: 0.8rem; font-weight: 400; color: var(--muted); transition: color 0.2s; }
+    .nav-links a:hover { color: var(--fg); }
+    .nav-right { display: flex; align-items: center; gap: 1.25rem; }
+    .theme-btn { background: none; border: none; cursor: pointer; color: var(--muted); font-size: 0.9rem; padding: 4px; line-height: 1; transition: color 0.2s; }
+    .theme-btn:hover { color: var(--fg); }
+    .nav-cta { font-size: 0.82rem; font-weight: 700; padding: 0.5rem 1.1rem; border-radius: 980px; background: linear-gradient(135deg, #2997FF, #BF5AF2); color: #fff; position: relative; overflow: hidden; transition: opacity 0.2s, transform 0.15s; }
+    .nav-cta::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent); transition: left 0.5s ease; }
+    .nav-cta:hover::before { left: 100%; }
+    .nav-cta:hover { opacity: 0.9; transform: translateY(-1px); }
+    @media (max-width: 580px) { .nav-links { display: none; } }
 
-  .card {
-    width: 100%;
-    max-width: 480px;
-    background: #0d0d0d;
-    border: 1px solid #1a1a1a;
-    border-radius: 6px;
-    padding: 36px 32px;
-  }
+    /* CONTACT LAYOUT */
+    .contact-section {
+      min-height: 100vh;
+      padding: 100px 22px 80px;
+      background: var(--bg2);
+      display: flex;
+      align-items: center;
+    }
 
-  .heading {
-    font-size: 11px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: #444;
-    margin-bottom: 24px;
-  }
+    .contact-inner {
+      max-width: 980px;
+      margin: 0 auto;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+    @media (max-width: 760px) { .contact-inner { grid-template-columns: 1fr; gap: 3rem; } }
 
-  .field {
-    margin-bottom: 18px;
-  }
+    /* LEFT */
+    .contact-left .eyebrow { font-size: 0.82rem; font-weight: 600; color: var(--blue); margin-bottom: 0.75rem; }
+    .contact-left h1 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.05; margin-bottom: 1rem; }
+    .grad-text { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .contact-left > p { font-size: 0.95rem; color: var(--muted); font-weight: 300; line-height: 1.75; margin-bottom: 2.5rem; }
 
-  label {
-    display: block;
-    font-size: 9px;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: #444;
-    margin-bottom: 6px;
-  }
+    .contact-details { display: flex; flex-direction: column; gap: 1.25rem; }
+    .contact-detail { display: flex; align-items: flex-start; gap: 1rem; }
+    .cd-icon { width: 36px; height: 36px; border-radius: 10px; background: rgba(0,102,204,0.08); display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--blue); }
+    [data-theme="dark"] .cd-icon { background: rgba(41,151,255,0.12); }
+    .cd-label { font-size: 0.72rem; font-weight: 600; color: var(--muted2); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.2rem; }
+    .cd-val { font-size: 0.9rem; font-weight: 500; }
 
-  input, textarea, select {
-    width: 100%;
-    font-family: inherit;
-    font-size: 12px;
-    background: #111;
-    border: 1px solid #222;
-    color: #d0d0d0;
-    border-radius: 4px;
-    padding: 10px 12px;
-    outline: none;
-    transition: border-color 0.15s;
-  }
+    /* FORM CARD */
+    .form-card {
+      background: var(--bg);
+      border-radius: 24px;
+      padding: 2.5rem;
+      box-shadow: var(--shadow2);
+    }
+    [data-theme="dark"] .form-card { background: var(--bg2); }
 
-  input:focus, textarea:focus, select:focus {
-    border-color: #ff4d00;
-  }
+    .contact-form { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    @media (max-width: 500px) { .contact-form { grid-template-columns: 1fr; } }
 
-  textarea {
-    resize: vertical;
-    min-height: 110px;
-  }
+    .form-field { display: flex; flex-direction: column; gap: 0.4rem; min-width: 0; }
+    .form-field.full { grid-column: 1 / -1; }
 
-  select option { background: #111; }
+    .form-field label { font-size: 0.75rem; font-weight: 600; color: var(--muted); letter-spacing: 0.03em; }
 
-  button[type="submit"] {
-    width: 100%;
-    font-family: inherit;
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    background: #ff4d00;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    padding: 12px;
-    cursor: pointer;
-    margin-top: 8px;
-    transition: opacity 0.15s;
-  }
+    .form-field input,
+    .form-field select,
+    .form-field textarea {
+      width: 100%; min-width: 0;
+      background: var(--bg2);
+      border: 1px solid var(--border2);
+      border-radius: 10px;
+      padding: 0.8rem 1rem;
+      color: var(--fg);
+      font-size: 0.9rem;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      appearance: none;
+    }
+    [data-theme="dark"] .form-field input,
+    [data-theme="dark"] .form-field select,
+    [data-theme="dark"] .form-field textarea { background: var(--bg3); }
 
-  button[type="submit"]:hover { opacity: 0.88; }
+    .form-field input:focus,
+    .form-field select:focus,
+    .form-field textarea:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(0,102,204,0.12); }
+    .form-field input::placeholder,
+    .form-field textarea::placeholder { color: var(--muted2); opacity: 0.65; }
+    .form-field textarea { resize: vertical; min-height: 110px; }
 
-  ::-webkit-scrollbar { width: 3px; }
-  ::-webkit-scrollbar-thumb { background: #222; }
-</style>
+    .select-wrap { position: relative; width: 100%; }
+    .select-wrap select { width: 100%; padding-right: 2.75rem; cursor: pointer; }
+    .select-wrap::after { content: ''; position: absolute; right: 0.9rem; top: 50%; transform: translateY(-50%); width: 18px; height: 18px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 18' fill='none'%3E%3Cpath d='M4.5 7l4.5 4.5 4.5-4.5' stroke='%2386868B' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center; pointer-events: none; }
+    .select-wrap select option { background: var(--bg2); color: var(--fg); }
+    [data-theme="dark"] .select-wrap select option { background: var(--bg3); }
+
+    .form-submit {
+      grid-column: 1 / -1;
+      padding: 0.9rem;
+      background: var(--blue);
+      color: #fff;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 980px;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.15s;
+    }
+    .form-submit:hover { opacity: 0.88; transform: translateY(-1px); }
+
+    /* FOOTER */
+    footer { background: var(--bg); border-top: 1px solid var(--border); padding: 2rem 22px; }
+    .footer-inner { max-width: 980px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+    .footer-logo { font-size: 0.95rem; font-weight: 700; letter-spacing: -0.02em; }
+    .footer-logo em { font-style: normal; background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    footer .copy { font-size: 0.75rem; color: var(--muted2); }
+    .footer-links { display: flex; gap: 1.75rem; list-style: none; }
+    .footer-links a { font-size: 0.75rem; color: var(--muted2); transition: color 0.2s; }
+    .footer-links a:hover { color: var(--fg); }
+
+    *, *::before, *::after { transition: background-color 0.3s ease, border-color 0.25s ease, color 0.2s ease; }
+    .form-submit, .theme-btn { transition: background-color 0.3s ease, border-color 0.25s ease, color 0.2s ease, opacity 0.2s, transform 0.15s; }
+  </style>
 </head>
 <body>
 
-<div class="wordmark">3<span>lleven</span></div>
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="logo"><em>3</em>lleven</a>
+    <ul class="nav-links">
+      <li><a href="services.html">Services</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="process.html">Process</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="theme-btn" id="themeToggle" aria-label="Toggle theme">🌙</button>
+      <a href="contact.html" class="nav-cta">Get a Quote</a>
+    </div>
+  </div>
+</nav>
 
-<div class="card">
-  <p class="heading">Get in touch</p>
+<!-- CONTACT -->
+<section class="contact-section">
+  <div class="contact-inner">
 
-  <form action="https://formspree.io/f/xvzlpbev" method="POST">
+    <div class="contact-left">
+      <p class="eyebrow">Get in Touch</p>
+      <h1>Let's build something <span class="grad-text">great.</span></h1>
+      <p>Fill out the form and you'll hear back within 24 hours with a free consultation and rough quote. No commitment required.</p>
 
-    <!-- Redirect to your own thank-you page after submission -->
-    <input type="hidden" name="_next" value="https://3lleven.dev/thanks.html">
-
-    <div class="field">
-      <label for="name">Name</label>
-      <input type="text" id="name" name="name" placeholder="Your name" required>
+      <div class="contact-details">
+        <div class="contact-detail">
+          <div class="cd-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          <div>
+            <div class="cd-label">Response time</div>
+            <div class="cd-val">Within 24 hours</div>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="cd-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <div>
+            <div class="cd-label">Avg. delivery</div>
+            <div class="cd-val">7–14 days from kick-off</div>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="cd-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div>
+            <div class="cd-label">Based in</div>
+            <div class="cd-val">Detroit, MI</div>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div class="field">
-      <label for="email">Email</label>
-      <input type="email" id="email" name="email" placeholder="you@example.com" required>
+    <div class="form-card">
+      <form class="contact-form" id="contactForm" onsubmit="handleSubmit(event)">
+        <div class="form-field">
+          <label>Your Name</label>
+          <input type="text" name="name" placeholder="John Smith" required />
+        </div>
+        <div class="form-field">
+          <label>Email Address</label>
+          <input type="email" name="email" placeholder="hello@yourbusiness.com" required />
+        </div>
+        <div class="form-field">
+          <label>Business Name</label>
+          <input type="text" name="business" placeholder="Your Business" />
+        </div>
+        <div class="form-field">
+          <label>Service</label>
+          <div class="select-wrap">
+            <select name="service">
+              <option value="" disabled selected>Select a service…</option>
+              <option>New Build — from $900</option>
+              <option>Redesign — from $450</option>
+              <option>Monthly — Starter ($299/mo)</option>
+              <option>Monthly — Growth ($399/mo)</option>
+              <option>Monthly — Pro ($599/mo)</option>
+              <option>Not sure — tell me more</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-field full">
+          <label>Tell Me About Your Project</label>
+          <textarea name="message" placeholder="What does your business do? What's not working about your current site? What's your goal?"></textarea>
+        </div>
+        <button type="submit" class="form-submit">Send Message →</button>
+      </form>
     </div>
 
-    <div class="field">
-      <label for="business">Business / Website</label>
-      <input type="text" id="business" name="business" placeholder="mybusiness.com">
-    </div>
+  </div>
+</section>
 
-    <div class="field">
-      <label for="message">Message</label>
-      <textarea id="message" name="message" placeholder="Tell me about your project…" required></textarea>
-    </div>
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo"><em>3</em>lleven</div>
+    <p class="copy">© 2026 3lleven. All rights reserved.</p>
+    <ul class="footer-links">
+      <li><a href="services.html">Services</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </div>
+</footer>
 
-    <button type="submit">Send message →</button>
+<script>
+  const html  = document.documentElement;
+  const btn   = document.getElementById('themeToggle');
+  const saved = localStorage.getItem('3lleven-theme') || 'light';
+  html.setAttribute('data-theme', saved);
+  btn.textContent = saved === 'dark' ? '☀️' : '🌙';
+  btn.addEventListener('click', () => {
+    const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    btn.textContent = next === 'dark' ? '☀️' : '🌙';
+    localStorage.setItem('3lleven-theme', next);
+  });
 
-  </form>
-</div>
+  const FORMSPREE_ID = 'xvzlpbev';
 
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const form      = e.target;
+    const submitBtn = form.querySelector('.form-submit');
+    const data      = new FormData(form);
+
+    submitBtn.textContent = 'Sending…';
+    submitBtn.disabled    = true;
+
+    try {
+      const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+        method:  'POST',
+        body:    data,
+        headers: { 'Accept': 'application/json' },
+      });
+      if (res.ok) {
+        submitBtn.textContent      = 'Message Sent ✓';
+        submitBtn.style.background = '#34C759';
+        form.reset();
+      } else {
+        throw new Error('Server error');
+      }
+    } catch {
+      submitBtn.textContent      = 'Something went wrong — try again';
+      submitBtn.style.background = '#FF3B30';
+      submitBtn.disabled         = false;
+    }
+  }
+</script>
 </body>
 </html>
