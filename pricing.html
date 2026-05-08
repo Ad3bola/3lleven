@@ -263,6 +263,11 @@
         padding-bottom: 160px;
       }
     }
+    @media (max-width: 480px) {
+      .build-type-grid { grid-template-columns: 1fr !important; }
+      .calc-hero { padding: 88px 16px 48px; }
+      .calc-body { padding: 40px 16px 160px; }
+    }
 
     /* ── CALC MAIN ─────────────────────────────── */
     .calc-panel { display: none; }
@@ -839,7 +844,7 @@
           </div>
           <div class="card-price" id="basePrice">$900</div>
         </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-bottom:1.5rem;padding-bottom:1.5rem;border-bottom:1px solid var(--border);">
+        <div class="build-type-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-bottom:1.5rem;padding-bottom:1.5rem;border-bottom:1px solid var(--border);">
           <div id="bt-new" onclick="setBuildType('new')" style="padding:1rem;border:1.5px solid var(--blue);border-radius:12px;cursor:pointer;background:rgba(0,102,204,0.04);transition:border-color 0.2s,background 0.2s;">
             <div style="font-size:0.7rem;font-weight:600;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:0.35rem;">New Build</div>
             <div style="font-size:1.5rem;font-weight:700;letter-spacing:-0.03em;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">$900</div>
