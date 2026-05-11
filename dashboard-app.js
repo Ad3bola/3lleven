@@ -6,7 +6,7 @@ const {
   Plus, Pencil, Trash2, ExternalLink, Eye, EyeOff, X, Search,
   Lock, TrendingUp, AlertTriangle, CheckCircle, Clock,
   ChevronRight, Target, Building2, Calendar
-} = lucideReact;
+} = LucideReact;
 
 // ── THEME ──────────────────────────────────────────────────────────────
 const C = {
