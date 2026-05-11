@@ -329,8 +329,7 @@
     <h2>Get a Quote</h2>
     <p>Tell me about your project and I'll put together a proposal with a flat-fee price — no hourly surprises.</p>
 
-    <form action="https://formspree.io/f/xvzlpbev" method="POST">
-      <input type="hidden" name="_next" value="https://3lleven.com/thanks.html">
+    <form id="contactForm">
 
       <div class="field-row">
         <div class="field">
@@ -381,7 +380,7 @@
       <!-- Hidden quote data from pricing calculator -->
       <input type="hidden" name="quote_estimate" id="quoteHidden">
 
-      <button type="submit" class="submit-btn">Send Message →</button>
+      <button type="submit" class="submit-btn" id="submitBtn">Send Message →</button>
     </form>
   </div>
 
@@ -484,6 +483,30 @@
       else if (q.rows && q.rows.toLowerCase().includes('new build')) sel.value = 'New Build — From scratch';
     } catch(e) {}
   }
+
+  /* Contact form AJAX */
+  document.getElementById('contactForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const btn = document.getElementById('submitBtn');
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+    try {
+      const res = await fetch('https://formspree.io/f/xvzlpbev', {
+        method: 'POST',
+        body: new FormData(this),
+        headers: { 'Accept': 'application/json' }
+      });
+      if (res.ok) {
+        window.location.href = 'thanks.html';
+      } else {
+        btn.textContent = 'Something went wrong — try again';
+        btn.disabled = false;
+      }
+    } catch(err) {
+      btn.textContent = 'Something went wrong — try again';
+      btn.disabled = false;
+    }
+  });
 </script>
 </body>
 </html>
