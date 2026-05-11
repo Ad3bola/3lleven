@@ -6,7 +6,7 @@
   <link rel="apple-touch-icon" href="favicon.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>3lleven — Dashboard</title>
-  <style>*, *::before, *::after {{ box-sizing: border-box; margin: 0; padding: 0; }} html, body, #root {{ height: 100%; }} body {{ margin: 0; background: #000000; }}</style>
+  <style>*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; } html, body, #root { height: 100%; } body { margin: 0; background: #000000; }</style>
 </head>
 <body>
   <div id="root"></div>
@@ -17,6 +17,11 @@
   <script src="https://unpkg.com/recharts@2.12.7/umd/Recharts.js"></script>
   <script src="https://unpkg.com/lucide-react@0.400.0/dist/umd/lucide-react.min.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script>
+    window.addEventListener('error', function(e) {
+      document.getElementById('root').innerHTML = '<div style="color:#ef4444;padding:40px;font-family:monospace;font-size:13px;background:#1D1D1F;min-height:100vh"><strong>Dashboard Error:</strong><br><br>' + e.message + '<br><br>File: ' + e.filename + '<br>Line: ' + e.lineno + '</div>';
+    });
+  </script>
   <script type="text/babel">
 // ── UMD GLOBALS ────────────────────────────────────────────────────────
 const { useState, useEffect, useMemo } = React;
