@@ -124,7 +124,7 @@ function LoginScreen({pw, onAuth}) {
           </div>
           <button onClick={attempt} style={{...S.btnSolid(),width:"100%",padding:"10px"}}>Unlock Dashboard →</button>
         </div>
-        <div style={{marginTop:14,fontSize:10,color:C.muted2,fontFamily:"'DM Mono',monospace"}}>3lleven.dev · private</div>
+        <div style={{marginTop:14,fontSize:10,color:C.muted2,fontFamily:"'DM Mono',monospace"}}>3lleven.com · private</div>
       </div>
       <style>{`@keyframes shake{0%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-6px)}80%{transform:translateX(6px)}100%{transform:translateX(0)}}`}</style>
     </div>
