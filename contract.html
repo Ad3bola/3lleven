@@ -2,49 +2,58 @@
 <html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8">
-<link rel="icon" type="image/png" href="assets/311 icon.png">
-  <link rel="apple-touch-icon" href="assets/311 icon.png">
+<link rel="icon" type="image/png" href="favicon.png">
+  <link rel="apple-touch-icon" href="favicon.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>3lleven — Web Design &amp; Development Agreement</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #fafafa;
-    --surface: #ffffff;
-    --surface2: #f3f3f7;
-    --border: #e4e4ec;
-    --fg: #0d0d14;
-    --muted: #555570;
-    --muted2: #aaaacc;
-    --accent: #6366f1;
-    --accent2: #a855f7;
-    --grad: linear-gradient(135deg,#6366f1,#a855f7);
+    --bg:      #FFFFFF;
+    --bg2:     #F5F5F7;
+    --surface: #F5F5F7;
+    --surface2: #E8E8ED;
+    --border: rgba(0,0,0,0.08);
+    --border-focus: rgba(41,151,255,0.5);
+    --fg:      #1D1D1F;
+    --muted:   #6E6E73;
+    --muted2:  #86868B;
+    --accent:  #0066CC;
+    --accent2: #BF5AF2;
+    --grad:    linear-gradient(135deg, #2997FF 0%, #5AC8FA 50%, #BF5AF2 100%);
     --radius: 10px;
     --max: 820px;
   }
   [data-theme="dark"] {
-    --bg: #0a0a0f; --surface: #111118; --surface2: #16161f;
-    --border: rgba(255,255,255,0.08); --fg: #f0f0f8; --muted: #8888aa; --muted2: #555570;
+    --bg:      #000000;
+    --surface: #1D1D1F;
+    --surface2: #2C2C2E;
+    --border: rgba(255,255,255,0.09);
+    --fg:      #F5F5F7;
+    --muted:   #A1A1A6;
+    --muted2:  #86868B;
+    --accent:  #2997FF;
+    --accent2: #BF5AF2;
   }
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--fg); line-height: 1.7; font-size: 15px; padding-bottom: 80px; }
+  body { font-family: 'Plus Jakarta Sans', -apple-system, sans-serif; background: var(--bg); color: var(--fg); line-height: 1.7; font-size: 15px; padding-bottom: 80px; }
 
   /* NAV */
   nav {
     position: sticky; top: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between;
     padding: 0 2rem; height: 58px;
-    background: rgba(250,250,250,0.88); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border);
+    background: rgba(255,255,255,0.72); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); border-bottom: 1px solid var(--border);
   }
-  [data-theme="dark"] nav { background: rgba(10,10,15,0.88); }
-  .logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.1rem; text-decoration: none; color: var(--fg); letter-spacing: -0.03em; }
+  [data-theme="dark"] nav { background: rgba(0,0,0,0.72); }
+  .logo { font-family: 'Plus Jakarta Sans', -apple-system, sans-serif; font-weight: 800; font-size: 1.1rem; text-decoration: none; color: var(--fg); letter-spacing: -0.03em; }
   .logo em { font-style: normal; background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
   .nav-links { display: flex; gap: 2rem; list-style: none; }
   .nav-links a { font-size: 0.8rem; font-weight: 400; color: var(--muted); text-decoration: none; transition: color 0.2s; }
   .nav-links a:hover { color: var(--fg); }
   .nav-actions { display: flex; gap: 10px; align-items: center; }
   .theme-btn { background: none; border: 1px solid var(--border); border-radius: 50%; width: 34px; height: 34px; cursor: pointer; font-size: 14px; color: var(--fg); }
-  .print-btn { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 6px 14px; border: 1px solid var(--accent); border-radius: 20px; color: var(--accent); background: rgba(99,102,241,0.06); cursor: pointer; transition: all 0.15s; }
+  .print-btn { font-family: 'Plus Jakarta Sans', monospace; font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 6px 14px; border: 1px solid var(--accent); border-radius: 20px; color: var(--accent); background: rgba(99,102,241,0.06); cursor: pointer; transition: all 0.15s; }
   .print-btn:hover { background: var(--accent); color: #fff; }
   .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
   .hamburger span { display: block; width: 22px; height: 2px; background: var(--fg); border-radius: 2px; transition: transform 0.25s ease, opacity 0.2s ease; }
@@ -52,7 +61,7 @@
   .hamburger.open span:nth-child(2) { opacity: 0; }
   .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
   .mobile-menu { display: none; position: fixed; top: 58px; left: 0; right: 0; background: rgba(250,250,250,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 1.25rem 2rem 1.5rem; flex-direction: column; gap: 0; z-index: 999; }
-  [data-theme="dark"] .mobile-menu { background: rgba(10,10,15,0.95); }
+  [data-theme="dark"] .mobile-menu { background: rgba(0,0,0,0.72); }
   .mobile-menu.open { display: flex; }
   .mobile-menu a { font-size: 0.95rem; font-weight: 500; color: var(--muted); padding: 0.75rem 0; border-bottom: 1px solid var(--border); text-decoration: none; transition: color 0.2s; }
   .mobile-menu a:last-child { border-bottom: none; }
@@ -73,11 +82,11 @@
   .contract-header {
     text-align: center; padding: 40px 0 36px; border-bottom: 2px solid var(--border); margin-bottom: 40px;
   }
-  .contract-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 2.2rem; letter-spacing: -0.05em; margin-bottom: 4px; }
+  .contract-logo { font-family: 'Plus Jakarta Sans', -apple-system, sans-serif; font-weight: 800; font-size: 2.2rem; letter-spacing: -0.05em; margin-bottom: 4px; }
   .contract-logo em { font-style: normal; background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-  .contract-subtitle { font-family: 'DM Mono', monospace; font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted2); margin-bottom: 24px; }
-  .contract-title { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.7rem; letter-spacing: -0.04em; margin-bottom: 8px; }
-  .contract-meta { font-size: 0.82rem; color: var(--muted); font-family: 'DM Mono', monospace; }
+  .contract-subtitle { font-family: 'Plus Jakarta Sans', monospace; font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted2); margin-bottom: 24px; }
+  .contract-title { font-family: 'Plus Jakarta Sans', -apple-system, sans-serif; font-weight: 800; font-size: 1.7rem; letter-spacing: -0.04em; margin-bottom: 8px; }
+  .contract-meta { font-size: 0.82rem; color: var(--muted); font-family: 'Plus Jakarta Sans', monospace; }
 
   /* PARTIES BOX */
   .parties-box {
@@ -87,8 +96,8 @@
   }
   @media (max-width: 520px) { .parties-box { grid-template-columns: 1fr; } }
   .party { }
-  .party-label { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
-  .party-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; letter-spacing: -0.02em; margin-bottom: 6px; }
+  .party-label { font-family: 'Plus Jakarta Sans', monospace; font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+  .party-name { font-family: 'Plus Jakarta Sans', -apple-system, sans-serif; font-weight: 700; font-size: 1rem; letter-spacing: -0.02em; margin-bottom: 6px; }
   .party-info { font-size: 0.82rem; color: var(--muted); line-height: 1.8; }
   .fill-line {
     display: inline-block; border-bottom: 1px solid var(--border); min-width: 180px; color: var(--fg);
@@ -96,7 +105,7 @@
   }
   .fill-field {
     background: none; border: none; border-bottom: 1px dashed var(--muted2); color: var(--fg);
-    font-family: 'DM Sans', sans-serif; font-size: 0.85rem; width: 100%; outline: none; padding: 2px 0;
+    font-family: 'Plus Jakarta Sans', -apple-system, sans-serif; font-size: 0.85rem; width: 100%; outline: none; padding: 2px 0;
     font-style: italic;
   }
   .fill-field::placeholder { color: var(--muted2); font-style: italic; }
@@ -104,11 +113,11 @@
   /* SECTIONS */
   .section { margin-bottom: 32px; }
   .section-num {
-    font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase;
+    font-family: 'Plus Jakarta Sans', monospace; font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase;
     color: var(--accent); margin-bottom: 4px;
   }
   h2 {
-    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.1rem; letter-spacing: -0.03em;
+    font-family: 'Plus Jakarta Sans', -apple-system, sans-serif; font-weight: 700; font-size: 1.1rem; letter-spacing: -0.03em;
     margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border);
   }
   p { color: var(--muted); font-size: 0.9rem; margin-bottom: 10px; line-height: 1.75; }
@@ -118,7 +127,7 @@
   .scope-table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 0.85rem; }
   .scope-table th {
     background: var(--surface2); padding: 10px 14px; text-align: left;
-    font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase;
+    font-family: 'Plus Jakarta Sans', monospace; font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase;
     color: var(--muted); border: 1px solid var(--border);
   }
   .scope-table td { padding: 10px 14px; border: 1px solid var(--border); color: var(--muted); vertical-align: top; }
@@ -127,7 +136,7 @@
 
   /* PAYMENT TABLE */
   .payment-table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 0.88rem; }
-  .payment-table th { background: var(--surface2); padding: 10px 14px; text-align: left; font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); border: 1px solid var(--border); }
+  .payment-table th { background: var(--surface2); padding: 10px 14px; text-align: left; font-family: 'Plus Jakarta Sans', monospace; font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); border: 1px solid var(--border); }
   .payment-table td { padding: 12px 14px; border: 1px solid var(--border); color: var(--muted); }
   .payment-table td:first-child { font-weight: 600; color: var(--fg); }
   .payment-table tr.total td { background: rgba(99,102,241,0.06); font-weight: 700; color: var(--fg); }
@@ -153,19 +162,19 @@
   }
   @media (max-width: 520px) { .sig-block { grid-template-columns: 1fr; } }
   .sig-party { }
-  .sig-party-label { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
+  .sig-party-label { font-family: 'Plus Jakarta Sans', monospace; font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
   .sig-line { border-bottom: 1px solid var(--fg); margin-bottom: 6px; height: 44px; }
-  .sig-meta { font-size: 0.78rem; color: var(--muted); font-family: 'DM Mono', monospace; }
+  .sig-meta { font-size: 0.78rem; color: var(--muted); font-family: 'Plus Jakarta Sans', monospace; }
 
   /* FOOTER */
   .contract-footer { text-align: center; margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--border); }
-  .contract-footer p { font-size: 0.75rem; color: var(--muted2); font-family: 'DM Mono', monospace; letter-spacing: 0.05em; }
+  .contract-footer p { font-size: 0.75rem; color: var(--muted2); font-family: 'Plus Jakarta Sans', monospace; letter-spacing: 0.05em; }
 
   /* VERSION / DATE */
   .version-bar {
     display: flex; justify-content: space-between; align-items: center;
     background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius);
-    padding: 10px 16px; margin-bottom: 32px; font-family: 'DM Mono', monospace; font-size: 0.68rem;
+    padding: 10px 16px; margin-bottom: 32px; font-family: 'Plus Jakarta Sans', monospace; font-size: 0.68rem;
     letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);
   }
 

@@ -10,11 +10,11 @@ const {
 
 // ── THEME ──────────────────────────────────────────────────────────────
 const C = {
-  bg:"#09090e", surface:"#0f0f17", surface2:"#16161f", surface3:"#1d1d28",
-  border:"rgba(255,255,255,0.07)", borderHi:"rgba(99,102,241,0.45)",
-  fg:"#e8e8f4", muted:"#7878a0", muted2:"#3a3a50",
-  accent:"#6366f1", accent2:"#a855f7",
-  green:"#22c55e", yellow:"#eab308", red:"#ef4444", orange:"#f97316", blue:"#3b82f6",
+  bg:"#000000", surface:"#1D1D1F", surface2:"#2C2C2E", surface3:"#3A3A3C",
+  border:"rgba(255,255,255,0.09)", borderHi:"rgba(41,151,255,0.45)",
+  fg:"#F5F5F7", muted:"#A1A1A6", muted2:"#86868B",
+  accent:"#2997FF", accent2:"#BF5AF2",
+  green:"#22c55e", yellow:"#eab308", red:"#ef4444", orange:"#f97316", blue:"#0066CC",
 };
 
 // ── CONSTANTS ──────────────────────────────────────────────────────────
@@ -106,14 +106,14 @@ function LoginScreen({pw, onAuth}) {
   }
 
   return (
-    <div style={{minHeight:"100vh",background:C.bg,display:"flex",alignItems:"center",justifyContent:"center",fontFamily:"'DM Sans',system-ui,sans-serif"}}>
-      <style>{`@import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap');body{margin:0;}`}</style>
+    <div style={{minHeight:"100vh",background:C.bg,display:"flex",alignItems:"center",justifyContent:"center",fontFamily:"'Plus Jakarta Sans',system-ui,sans-serif"}}>
+      <style>{`@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300&display=swap');body{margin:0;}`}</style>
       <div style={{width:360,textAlign:"center"}}>
-        <div style={{fontFamily:"'Syne',sans-serif",fontWeight:800,fontSize:28,letterSpacing:"-.05em",marginBottom:6}}>
+        <div style={{fontFamily:"'Plus Jakarta Sans',sans-serif",fontWeight:800,fontSize:28,letterSpacing:"-.05em",marginBottom:6}}>
           <span style={{background:`linear-gradient(135deg,${C.accent},${C.accent2})`,WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent"}}>3</span>
           <span style={{color:C.fg}}>lleven</span>
         </div>
-        <div style={{fontFamily:"'DM Mono',monospace",fontSize:9,letterSpacing:"2.5px",textTransform:"uppercase",color:C.muted2,marginBottom:40}}>// Dashboard</div>
+        <div style={{fontFamily:"'Plus Jakarta Sans',monospace",fontSize:9,letterSpacing:"2.5px",textTransform:"uppercase",color:C.muted2,marginBottom:40}}>// Dashboard</div>
         <div style={{background:C.surface,border:`1px solid ${C.border}`,borderRadius:14,padding:"32px 28px",animation:shake?"shake .3s ease":"none"}}>
           <div style={{width:48,height:48,borderRadius:"50%",background:`${C.accent}18`,border:`1px solid ${C.accent}33`,display:"flex",alignItems:"center",justifyContent:"center",margin:"0 auto 20px"}}><Lock size={20} color={C.accent}/></div>
           <div style={{fontSize:13,fontWeight:600,color:C.fg,marginBottom:6}}>Access Required</div>
@@ -124,7 +124,7 @@ function LoginScreen({pw, onAuth}) {
           </div>
           <button onClick={attempt} style={{...S.btnSolid(),width:"100%",padding:"10px"}}>Unlock Dashboard →</button>
         </div>
-        <div style={{marginTop:14,fontSize:10,color:C.muted2,fontFamily:"'DM Mono',monospace"}}>3lleven.com · private</div>
+        <div style={{marginTop:14,fontSize:10,color:C.muted2,fontFamily:"'Plus Jakarta Sans',monospace"}}>3lleven.com · private</div>
       </div>
       <style>{`@keyframes shake{0%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-6px)}80%{transform:translateX(6px)}100%{transform:translateX(0)}}`}</style>
     </div>
@@ -143,11 +143,11 @@ function Sidebar({tab, setTab, onLogout}) {
   return (
     <div style={{width:200,background:C.surface,borderRight:`1px solid ${C.border}`,display:"flex",flexDirection:"column",flexShrink:0}}>
       <div style={{padding:"18px 16px 14px",borderBottom:`1px solid ${C.border}`}}>
-        <div style={{fontFamily:"'Syne',sans-serif",fontWeight:800,fontSize:16,letterSpacing:"-.04em"}}>
+        <div style={{fontFamily:"'Plus Jakarta Sans',sans-serif",fontWeight:800,fontSize:16,letterSpacing:"-.04em"}}>
           <span style={{background:`linear-gradient(135deg,${C.accent},${C.accent2})`,WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent"}}>3</span>
           <span style={{color:C.fg}}>lleven</span>
         </div>
-        <div style={{fontFamily:"'DM Mono',monospace",fontSize:8,color:C.muted2,letterSpacing:"2px",textTransform:"uppercase",marginTop:2}}>Dashboard</div>
+        <div style={{fontFamily:"'Plus Jakarta Sans',monospace",fontSize:8,color:C.muted2,letterSpacing:"2px",textTransform:"uppercase",marginTop:2}}>Dashboard</div>
       </div>
       <nav style={{flex:1,padding:"10px 8px"}}>
         {items.map(item=>(
@@ -199,7 +199,7 @@ function OverviewTab({leads, projects, payments}) {
   return (
     <div style={{padding:"24px",overflowY:"auto",flex:1}}>
       <div style={{marginBottom:20}}>
-        <div style={{fontFamily:"'DM Mono',monospace",fontSize:9,color:C.accent,letterSpacing:"2px",textTransform:"uppercase",marginBottom:4}}>// Overview</div>
+        <div style={{fontFamily:"'Plus Jakarta Sans',monospace",fontSize:9,color:C.accent,letterSpacing:"2px",textTransform:"uppercase",marginBottom:4}}>// Overview</div>
         <div style={{fontSize:20,fontWeight:700,color:C.fg,letterSpacing:"-.04em"}}>Good{new Date().getHours()<12?" morning":new Date().getHours()<17?" afternoon":" evening"}, Adebola.</div>
       </div>
 
@@ -213,7 +213,7 @@ function OverviewTab({leads, projects, payments}) {
           {label:"Pipeline Value",val:fmt$(pipelineVal),sub:`${leads.filter(l=>!["Won","Lost"].includes(l.stage)).length} open leads`,color:C.accent2},
         ].map(s=>(
           <div key={s.label} style={S.statCard(s.color)}>
-            <div style={{fontSize:9,fontFamily:"'DM Mono',monospace",letterSpacing:"1.5px",textTransform:"uppercase",color:C.muted2,marginBottom:8}}>{s.label}</div>
+            <div style={{fontSize:9,fontFamily:"'Plus Jakarta Sans',monospace",letterSpacing:"1.5px",textTransform:"uppercase",color:C.muted2,marginBottom:8}}>{s.label}</div>
             <div style={{fontSize:22,fontWeight:700,color:s.color,letterSpacing:"-.03em",marginBottom:2}}>{s.val}</div>
             <div style={{fontSize:10,color:C.muted}}>{s.sub}</div>
           </div>
@@ -222,7 +222,7 @@ function OverviewTab({leads, projects, payments}) {
 
       <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:16}}>
         <div style={{...S.card}}>
-          <div style={{fontSize:10,fontFamily:"'DM Mono',monospace",letterSpacing:"1.5px",textTransform:"uppercase",color:C.muted2,marginBottom:16}}>Revenue — Last 6 Months</div>
+          <div style={{fontSize:10,fontFamily:"'Plus Jakarta Sans',monospace",letterSpacing:"1.5px",textTransform:"uppercase",color:C.muted2,marginBottom:16}}>Revenue — Last 6 Months</div>
           <ResponsiveContainer width="100%" height={140}>
             <BarChart data={revenueData} barSize={20}>
               <XAxis dataKey="label" axisLine={false} tickLine={false} tick={{fontSize:10,fill:C.muted2}} />
@@ -236,7 +236,7 @@ function OverviewTab({leads, projects, payments}) {
         </div>
 
         <div style={{...S.card}}>
-          <div style={{fontSize:10,fontFamily:"'DM Mono',monospace",letterSpacing:"1.5px",textTransform:"uppercase",color:C.muted2,marginBottom:14}}>Recent Activity</div>
+          <div style={{fontSize:10,fontFamily:"'Plus Jakarta Sans',monospace",letterSpacing:"1.5px",textTransform:"uppercase",color:C.muted2,marginBottom:14}}>Recent Activity</div>
           {recentActivity.length===0 && <div style={{color:C.muted2,fontSize:11,textAlign:"center",padding:"20px 0"}}>No activity yet — add leads, projects, and payments to see the feed.</div>}
           <div style={{display:"flex",flexDirection:"column",gap:10}}>
             {recentActivity.map((a,i)=>(
@@ -254,7 +254,7 @@ function OverviewTab({leads, projects, payments}) {
 
       {projects.filter(p=>["Kickoff","Design","Development","Review"].includes(p.status)).length>0 && (
         <div style={{...S.card,marginTop:16}}>
-          <div style={{fontSize:10,fontFamily:"'DM Mono',monospace",letterSpacing:"1.5px",textTransform:"uppercase",color:C.muted2,marginBottom:14}}>Active Builds</div>
+          <div style={{fontSize:10,fontFamily:"'Plus Jakarta Sans',monospace",letterSpacing:"1.5px",textTransform:"uppercase",color:C.muted2,marginBottom:14}}>Active Builds</div>
           <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(200px,1fr))",gap:10}}>
             {projects.filter(p=>["Kickoff","Design","Development","Review"].includes(p.status)).map(p=>(
               <div key={p.id} style={{background:C.surface2,border:`1px solid ${C.border}`,borderLeft:`2px solid ${PROJ_DOT[p.status]}`,borderRadius:8,padding:"10px 12px"}}>
@@ -262,7 +262,7 @@ function OverviewTab({leads, projects, payments}) {
                 <div style={{fontSize:10,color:C.muted,marginBottom:6}}>{p.domain||"domain TBD"}</div>
                 <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
                   <span style={S.pill(PROJ_DOT[p.status])}>{p.status}</span>
-                  {p.targetLaunch && <span style={{fontSize:9,color:C.muted2,fontFamily:"'DM Mono',monospace"}}>{fmtDate(p.targetLaunch)}</span>}
+                  {p.targetLaunch && <span style={{fontSize:9,color:C.muted2,fontFamily:"'Plus Jakarta Sans',monospace"}}>{fmtDate(p.targetLaunch)}</span>}
                 </div>
               </div>
             ))}
@@ -324,7 +324,7 @@ function LeadsTab({leads, saveLeads, showToast, setModal, onConvertToProject}) {
     <div style={{display:"flex",flexDirection:"column",flex:1,overflow:"hidden"}}>
       <div style={{padding:"14px 20px",borderBottom:`1px solid ${C.border}`,display:"flex",alignItems:"center",gap:10,flexShrink:0}}>
         <div style={{flex:1}}>
-          <div style={{fontFamily:"'DM Mono',monospace",fontSize:8,color:C.accent,letterSpacing:"2px",textTransform:"uppercase"}}>// Leads</div>
+          <div style={{fontFamily:"'Plus Jakarta Sans',monospace",fontSize:8,color:C.accent,letterSpacing:"2px",textTransform:"uppercase"}}>// Leads</div>
           <div style={{fontSize:14,fontWeight:700,color:C.fg,letterSpacing:"-.03em"}}>Pipeline</div>
         </div>
         <div style={{display:"flex",gap:6,alignItems:"center"}}>
@@ -342,7 +342,7 @@ function LeadsTab({leads, saveLeads, showToast, setModal, onConvertToProject}) {
           {l:"Pipeline $",v:fmt$(leads.filter(l=>!["Won","Lost"].includes(l.stage)&&l.value).reduce((s,l)=>s+(Number(l.value)||0),0)),c:C.yellow},
         ].map(s=>(
           <div key={s.l} style={{flex:1,padding:"10px 14px",borderRight:`1px solid ${C.border}`}}>
-            <div style={{fontSize:8,fontFamily:"'DM Mono',monospace",letterSpacing:"1.5px",textTransform:"uppercase",color:C.muted2,marginBottom:3}}>{s.l}</div>
+            <div style={{fontSize:8,fontFamily:"'Plus Jakarta Sans',monospace",letterSpacing:"1.5px",textTransform:"uppercase",color:C.muted2,marginBottom:3}}>{s.l}</div>
             <div style={{fontSize:16,fontWeight:700,color:s.c}}>{s.v}</div>
           </div>
         ))}
@@ -421,7 +421,7 @@ function LeadsTab({leads, saveLeads, showToast, setModal, onConvertToProject}) {
                       <div style={{fontSize:12,color:C.fg,fontWeight:600}}>{lead.business}</div>
                       <div style={{fontSize:10,color:C.muted2}}>{[lead.contact,lead.channel,lead.city].filter(Boolean).join(" · ")}</div>
                     </div>
-                    {lead.value&&<div style={{fontSize:11,color:C.yellow,fontFamily:"'DM Mono',monospace"}}>{fmt$(lead.value)}</div>}
+                    {lead.value&&<div style={{fontSize:11,color:C.yellow,fontFamily:"'Plus Jakarta Sans',monospace"}}>{fmt$(lead.value)}</div>}
                     {fu?<div style={{fontSize:10,color:fu.overdue?C.red:C.muted2,whiteSpace:"nowrap"}}>{fu.label}</div>:<div/>}
                     <div style={{display:"flex",alignItems:"center",gap:6}}>
                       <span style={S.pill(dot)}>{lead.stage}</span>
@@ -506,7 +506,7 @@ function ProjectsTab({projects, saveProjects, leads, showToast, setModal}) {
     <div style={{display:"flex",flexDirection:"column",flex:1,overflow:"hidden"}}>
       <div style={{padding:"14px 20px",borderBottom:`1px solid ${C.border}`,display:"flex",alignItems:"center",gap:10,flexShrink:0}}>
         <div style={{flex:1}}>
-          <div style={{fontFamily:"'DM Mono',monospace",fontSize:8,color:C.accent,letterSpacing:"2px",textTransform:"uppercase"}}>// Projects</div>
+          <div style={{fontFamily:"'Plus Jakarta Sans',monospace",fontSize:8,color:C.accent,letterSpacing:"2px",textTransform:"uppercase"}}>// Projects</div>
           <div style={{fontSize:14,fontWeight:700,color:C.fg,letterSpacing:"-.03em"}}>Client Sites</div>
         </div>
         <button onClick={openAdd} style={{...S.btnSolid(),padding:"6px 14px",display:"flex",alignItems:"center",gap:6}}><Plus size={13}/> Add Project</button>
@@ -515,7 +515,7 @@ function ProjectsTab({projects, saveProjects, leads, showToast, setModal}) {
       <div style={{display:"flex",borderBottom:`1px solid ${C.border}`,flexShrink:0}}>
         {[{l:"Total Budget",v:fmt$(totalBudget),c:C.fg},{l:"Collected",v:fmt$(totalCollected),c:C.green},{l:"MRR",v:fmt$(mrr),c:C.accent},{l:"Launched",v:projects.filter(p=>p.status==="Launched").length,c:C.green},{l:"In Progress",v:projects.filter(p=>["Kickoff","Design","Development","Review"].includes(p.status)).length,c:C.blue}].map(s=>(
           <div key={s.l} style={{flex:1,padding:"10px 14px",borderRight:`1px solid ${C.border}`}}>
-            <div style={{fontSize:8,fontFamily:"'DM Mono',monospace",letterSpacing:"1.5px",textTransform:"uppercase",color:C.muted2,marginBottom:3}}>{s.l}</div>
+            <div style={{fontSize:8,fontFamily:"'Plus Jakarta Sans',monospace",letterSpacing:"1.5px",textTransform:"uppercase",color:C.muted2,marginBottom:3}}>{s.l}</div>
             <div style={{fontSize:16,fontWeight:700,color:s.c}}>{s.v}</div>
           </div>
         ))}
@@ -557,14 +557,14 @@ function ProjectsTab({projects, saveProjects, leads, showToast, setModal}) {
                   </div>
                 </div>
                 <div style={{display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:10}}>
-                  <div><div style={{fontSize:8,fontFamily:"'DM Mono',monospace",letterSpacing:"1.5px",textTransform:"uppercase",color:C.muted2,marginBottom:2}}>Budget</div><div style={{fontSize:12,color:C.fg,fontWeight:600}}>{fmt$(p.budget)}</div></div>
+                  <div><div style={{fontSize:8,fontFamily:"'Plus Jakarta Sans',monospace",letterSpacing:"1.5px",textTransform:"uppercase",color:C.muted2,marginBottom:2}}>Budget</div><div style={{fontSize:12,color:C.fg,fontWeight:600}}>{fmt$(p.budget)}</div></div>
                   <div>
-                    <div style={{fontSize:8,fontFamily:"'DM Mono',monospace",letterSpacing:"1.5px",textTransform:"uppercase",color:C.muted2,marginBottom:2}}>Collected</div>
+                    <div style={{fontSize:8,fontFamily:"'Plus Jakarta Sans',monospace",letterSpacing:"1.5px",textTransform:"uppercase",color:C.muted2,marginBottom:2}}>Collected</div>
                     <div style={{fontSize:12,color:C.green,fontWeight:600}}>{fmt$(collected)} <span style={{color:C.muted2,fontWeight:400,fontSize:10}}>({pct}%)</span></div>
                     <div style={{marginTop:4,height:3,background:C.surface3,borderRadius:2}}><div style={{height:"100%",width:`${Math.min(pct,100)}%`,background:C.green,borderRadius:2,transition:"width .3s"}}/></div>
                   </div>
-                  <div><div style={{fontSize:8,fontFamily:"'DM Mono',monospace",letterSpacing:"1.5px",textTransform:"uppercase",color:C.muted2,marginBottom:2}}>Target Launch</div><div style={{fontSize:12,color:tl?.overdue?C.red:C.fg,fontWeight:600}}>{fmtDate(p.targetLaunch)}</div></div>
-                  <div><div style={{fontSize:8,fontFamily:"'DM Mono',monospace",letterSpacing:"1.5px",textTransform:"uppercase",color:C.muted2,marginBottom:2}}>Lighthouse</div><div style={{fontSize:12,color:Number(p.lighthouse)>=95?C.green:Number(p.lighthouse)>=80?C.yellow:C.muted,fontWeight:600}}>{p.lighthouse||"—"}{p.lighthouse&&"/100"}</div></div>
+                  <div><div style={{fontSize:8,fontFamily:"'Plus Jakarta Sans',monospace",letterSpacing:"1.5px",textTransform:"uppercase",color:C.muted2,marginBottom:2}}>Target Launch</div><div style={{fontSize:12,color:tl?.overdue?C.red:C.fg,fontWeight:600}}>{fmtDate(p.targetLaunch)}</div></div>
+                  <div><div style={{fontSize:8,fontFamily:"'Plus Jakarta Sans',monospace",letterSpacing:"1.5px",textTransform:"uppercase",color:C.muted2,marginBottom:2}}>Lighthouse</div><div style={{fontSize:12,color:Number(p.lighthouse)>=95?C.green:Number(p.lighthouse)>=80?C.yellow:C.muted,fontWeight:600}}>{p.lighthouse||"—"}{p.lighthouse&&"/100"}</div></div>
                 </div>
                 {p.notes&&<div style={{marginTop:10,fontSize:10,color:C.muted2,borderTop:`1px solid ${C.border}`,paddingTop:8,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{p.notes}</div>}
               </div>
@@ -642,7 +642,7 @@ function PaymentsTab({payments, savePayments, projects, showToast, setModal}) {
     <div style={{display:"flex",flexDirection:"column",flex:1,overflow:"hidden"}}>
       <div style={{padding:"14px 20px",borderBottom:`1px solid ${C.border}`,display:"flex",alignItems:"center",gap:10,flexShrink:0}}>
         <div style={{flex:1}}>
-          <div style={{fontFamily:"'DM Mono',monospace",fontSize:8,color:C.accent,letterSpacing:"2px",textTransform:"uppercase"}}>// Payments</div>
+          <div style={{fontFamily:"'Plus Jakarta Sans',monospace",fontSize:8,color:C.accent,letterSpacing:"2px",textTransform:"uppercase"}}>// Payments</div>
           <div style={{fontSize:14,fontWeight:700,color:C.fg,letterSpacing:"-.03em"}}>Revenue Tracker</div>
         </div>
         <button onClick={openAdd} style={{...S.btnSolid(),padding:"6px 14px",display:"flex",alignItems:"center",gap:6}}><Plus size={13}/> Log Payment</button>
@@ -651,7 +651,7 @@ function PaymentsTab({payments, savePayments, projects, showToast, setModal}) {
       <div style={{display:"flex",borderBottom:`1px solid ${C.border}`,flexShrink:0}}>
         {[{l:"Total Collected",v:fmt$(totalPaid),c:C.green},{l:"MRR",v:fmt$(mrr),c:C.accent},{l:"Pending",v:fmt$(pending),c:C.yellow},{l:"Overdue",v:fmt$(overdue),c:overdue>0?C.red:C.muted2}].map(s=>(
           <div key={s.l} style={{flex:1,padding:"10px 16px",borderRight:`1px solid ${C.border}`}}>
-            <div style={{fontSize:8,fontFamily:"'DM Mono',monospace",letterSpacing:"1.5px",textTransform:"uppercase",color:C.muted2,marginBottom:3}}>{s.l}</div>
+            <div style={{fontSize:8,fontFamily:"'Plus Jakarta Sans',monospace",letterSpacing:"1.5px",textTransform:"uppercase",color:C.muted2,marginBottom:3}}>{s.l}</div>
             <div style={{fontSize:18,fontWeight:700,color:s.c}}>{s.v}</div>
           </div>
         ))}
@@ -676,7 +676,7 @@ function PaymentsTab({payments, savePayments, projects, showToast, setModal}) {
                   <div style={{fontSize:12,color:C.fg,fontWeight:600}}>{pay.clientName}</div>
                   <div style={{fontSize:10,color:C.muted2}}>{[pay.type,pay.method,pay.description].filter(Boolean).join(" · ")}</div>
                 </div>
-                <div style={{fontSize:12,fontFamily:"'DM Mono',monospace",color:C.fg,fontWeight:700}}>{fmt$(pay.amount)}</div>
+                <div style={{fontSize:12,fontFamily:"'Plus Jakarta Sans',monospace",color:C.fg,fontWeight:700}}>{fmt$(pay.amount)}</div>
                 <div style={{fontSize:10,color:C.muted2}}>{fmtDate(pay.paidDate||pay.dueDate)}</div>
                 <span style={S.pill(sc)}>{pay.status}</span>
                 <button onClick={()=>openEdit(pay)} style={{...S.btn(C.muted2),padding:"4px 8px"}}><Pencil size={11}/></button>
@@ -721,14 +721,14 @@ function SettingsTab({savedPw, setSavedPw, leads, projects, payments, saveLeads,
   return (
     <div style={{flex:1,overflowY:"auto",padding:"24px"}}>
       <div style={{marginBottom:20}}>
-        <div style={{fontFamily:"'DM Mono',monospace",fontSize:8,color:C.accent,letterSpacing:"2px",textTransform:"uppercase",marginBottom:4}}>// Settings</div>
+        <div style={{fontFamily:"'Plus Jakarta Sans',monospace",fontSize:8,color:C.accent,letterSpacing:"2px",textTransform:"uppercase",marginBottom:4}}>// Settings</div>
         <div style={{fontSize:20,fontWeight:700,color:C.fg,letterSpacing:"-.04em"}}>Dashboard Settings</div>
       </div>
 
       <div style={{maxWidth:480,display:"flex",flexDirection:"column",gap:16}}>
         <div style={S.card}>
           <div style={{fontSize:11,fontWeight:700,color:C.fg,marginBottom:4}}>Change Password</div>
-          <div style={{fontSize:11,color:C.muted,marginBottom:16}}>Current default is <span style={{fontFamily:"'DM Mono',monospace",color:C.accent}}>311</span> (your birthday 🎂 — March 11)</div>
+          <div style={{fontSize:11,color:C.muted,marginBottom:16}}>Current default is <span style={{fontFamily:"'Plus Jakarta Sans',monospace",color:C.accent}}>311</span> (your birthday 🎂 — March 11)</div>
           <div style={{display:"grid",gap:10}}>
             <Field label="New Password">
               <div style={{position:"relative"}}>
@@ -747,7 +747,7 @@ function SettingsTab({savedPw, setSavedPw, leads, projects, payments, saveLeads,
             {[{l:"Leads",v:leads.length,c:C.blue},{l:"Projects",v:projects.length,c:C.accent},{l:"Payments",v:payments.length,c:C.green}].map(s=>(
               <div key={s.l} style={{background:C.surface2,border:`1px solid ${C.border}`,borderRadius:8,padding:"10px 12px",textAlign:"center"}}>
                 <div style={{fontSize:18,fontWeight:700,color:s.c}}>{s.v}</div>
-                <div style={{fontSize:9,color:C.muted2,fontFamily:"'DM Mono',monospace",letterSpacing:"1px",textTransform:"uppercase"}}>{s.l}</div>
+                <div style={{fontSize:9,color:C.muted2,fontFamily:"'Plus Jakarta Sans',monospace",letterSpacing:"1px",textTransform:"uppercase"}}>{s.l}</div>
               </div>
             ))}
           </div>
@@ -856,8 +856,8 @@ function App() {
   if(!authed) return <LoginScreen pw={savedPw} onAuth={()=>setAuthed(true)}/>;
 
   return (
-    <div style={{display:"flex",height:"100vh",background:C.bg,fontFamily:"'DM Sans',system-ui,sans-serif",color:C.fg,overflow:"hidden"}}>
-      <style>{`@import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap');*{box-sizing:border-box;margin:0;padding:0;}::-webkit-scrollbar{width:4px;height:4px;}::-webkit-scrollbar-track{background:transparent;}::-webkit-scrollbar-thumb{background:${C.muted2};border-radius:2px;}select option{background:${C.surface3};}input[type=checkbox]{accent-color:${C.accent};}`}</style>
+    <div style={{display:"flex",height:"100vh",background:C.bg,fontFamily:"'Plus Jakarta Sans',system-ui,sans-serif",color:C.fg,overflow:"hidden"}}>
+      <style>{`@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300&display=swap');*{box-sizing:border-box;margin:0;padding:0;}::-webkit-scrollbar{width:4px;height:4px;}::-webkit-scrollbar-track{background:transparent;}::-webkit-scrollbar-thumb{background:${C.muted2};border-radius:2px;}select option{background:${C.surface3};}input[type=checkbox]{accent-color:${C.accent};}`}</style>
       <Sidebar tab={tab} setTab={setTab} onLogout={()=>setAuthed(false)}/>
       <div style={{flex:1,display:"flex",flexDirection:"column",overflow:"hidden"}}>
         {tab==="overview" && <OverviewTab leads={leads} projects={projects} payments={payments}/>}
