@@ -268,6 +268,11 @@
     .footer-links a { font-size: 0.75rem; color: var(--muted2); transition: color 0.2s; }
     .footer-links a:hover { color: var(--fg); }
 
+    .intake-banner { background: rgba(0,102,204,0.07); border: 1px solid rgba(0,102,204,0.18); border-radius: 12px; padding: 0.875rem 1.25rem; margin-bottom: 1.5rem; font-size: 0.875rem; color: var(--muted); }
+    [data-theme="dark"] .intake-banner { background: rgba(41,151,255,0.08); border-color: rgba(41,151,255,0.2); }
+    .intake-banner a { color: var(--blue); font-weight: 600; text-decoration: underline; text-underline-offset: 2px; }
+    .intake-banner a:hover { opacity: 0.8; }
+
     *, *::before, *::after { transition: background-color 0.3s ease, border-color 0.25s ease, color 0.2s ease; }
     input, textarea, select, .submit-btn, .theme-btn { transition: background-color 0.3s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s, opacity 0.2s, transform 0.15s; }
   </style>
@@ -311,6 +316,11 @@
 
 <!-- BODY -->
 <div class="contact-body">
+
+  <!-- INTAKE BANNER -->
+  <div class="intake-banner">
+    Got a project ready? <a href="intake.html">Fill out the full project brief →</a> for a faster proposal.
+  </div>
 
   <!-- FORM -->
   <div class="form-card">

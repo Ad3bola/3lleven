@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3lleven — Client Intake Form</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #111118;
+    --surface2: #16161f;
+    --border: rgba(255,255,255,0.07);
+    --border-focus: rgba(99,102,241,0.6);
+    --fg: #f0f0f8;
+    --muted: #8888aa;
+    --muted2: #555570;
+    --accent: #6366f1;
+    --accent2: #a855f7;
+    --grad: linear-gradient(135deg, #6366f1, #a855f7);
+    --success: #22c55e;
+    --tag-bg: rgba(99,102,241,0.12);
+    --radius: 12px;
+    --radius-sm: 8px;
+  }
+  [data-theme="light"] {
+    --bg: #f4f4f8;
+    --surface: #ffffff;
+    --surface2: #f0f0f6;
+    --border: rgba(0,0,0,0.09);
+    --border-focus: rgba(99,102,241,0.5);
+    --fg: #0d0d14;
+    --muted: #6666880;
+    --muted2: #aaaacc;
+    --tag-bg: rgba(99,102,241,0.08);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--fg);
+    min-height: 100vh;
+    line-height: 1.6;
+    padding-bottom: 80px;
+  }
+
+  /* — NAV — */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 2rem; height: 60px;
+    background: rgba(10,10,15,0.85);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+  }
+  [data-theme="light"] nav { background: rgba(244,244,248,0.85); }
+  .logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.1rem; text-decoration: none; color: var(--fg); letter-spacing: -0.03em; }
+  .logo em { font-style: normal; background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { font-size: 0.8rem; font-weight: 400; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--fg); }
+  .nav-right { display: flex; align-items: center; gap: 1rem; }
+  .theme-btn { background: none; border: 1px solid var(--border); border-radius: 50%; width: 34px; height: 34px; cursor: pointer; font-size: 14px; color: var(--fg); display: flex; align-items: center; justify-content: center; }
+  .nav-cta { font-size: 0.82rem; font-weight: 700; padding: 0.5rem 1.1rem; border-radius: 980px; background: var(--grad); color: #fff; text-decoration: none; transition: opacity 0.2s; }
+  .nav-cta:hover { opacity: 0.88; }
+  .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
+  .hamburger span { display: block; width: 22px; height: 2px; background: var(--fg); border-radius: 2px; transition: transform 0.25s ease, opacity 0.2s ease; }
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  .mobile-menu { display: none; position: fixed; top: 60px; left: 0; right: 0; background: rgba(10,10,15,0.95); backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); padding: 1.25rem 2rem 1.5rem; flex-direction: column; gap: 0; z-index: 999; }
+  [data-theme="light"] .mobile-menu { background: rgba(244,244,248,0.95); }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a { font-size: 0.95rem; font-weight: 500; color: var(--muted); padding: 0.75rem 0; border-bottom: 1px solid var(--border); text-decoration: none; transition: color 0.2s; }
+  .mobile-menu a:last-child { border-bottom: none; }
+  .mobile-menu a:hover { color: var(--fg); }
+  .mobile-menu .mob-cta { margin-top: 1rem; padding: 0.75rem; border-radius: 980px; background: var(--grad); color: #fff !important; text-align: center; font-weight: 700; font-size: 0.875rem; border-bottom: none !important; }
+  @media (max-width: 580px) { .nav-links { display: none; } .hamburger { display: flex; } }
+
+  /* — PAGE HEADER — */
+  .page-header {
+    max-width: 760px; margin: 0 auto; padding: 56px 2rem 32px;
+  }
+  .eyebrow {
+    font-family: 'DM Mono', monospace; font-size: 0.7rem; font-weight: 500;
+    letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent);
+    margin-bottom: 12px;
+  }
+  .page-header h1 {
+    font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(2rem, 5vw, 2.8rem);
+    letter-spacing: -0.04em; line-height: 1.1; margin-bottom: 14px;
+  }
+  .page-header h1 span { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .page-header p { color: var(--muted); font-size: 0.95rem; max-width: 500px; }
+
+  /* — PROGRESS — */
+  .progress-bar {
+    max-width: 760px; margin: 0 auto 32px; padding: 0 2rem;
+  }
+  .progress-steps { display: flex; gap: 0; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); }
+  .progress-step {
+    flex: 1; padding: 10px 6px; text-align: center;
+    font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--muted2); background: var(--surface); cursor: pointer; transition: all 0.2s;
+    border-right: 1px solid var(--border);
+  }
+  .progress-step:last-child { border-right: none; }
+  .progress-step.active { background: var(--tag-bg); color: var(--accent); }
+  .progress-step.done { background: rgba(34,197,94,0.08); color: var(--success); }
+
+  /* — FORM WRAPPER — */
+  .form-wrap { max-width: 760px; margin: 0 auto; padding: 0 2rem; }
+
+  /* — SECTION — */
+  .form-section {
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 32px; margin-bottom: 20px; display: none;
+    animation: fadeSlide 0.35s ease;
+  }
+  .form-section.active { display: block; }
+  @keyframes fadeSlide { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+
+  .section-header { margin-bottom: 28px; }
+  .section-num {
+    font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 6px;
+  }
+  .section-header h2 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.3rem; letter-spacing: -0.03em; margin-bottom: 6px; }
+  .section-header p { color: var(--muted); font-size: 0.85rem; }
+
+  /* — FIELDS — */
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+  .field-row.single { grid-template-columns: 1fr; }
+  .field-row.triple { grid-template-columns: 1fr 1fr 1fr; }
+  @media (max-width: 580px) { .field-row, .field-row.triple { grid-template-columns: 1fr; } }
+
+  .field { display: flex; flex-direction: column; gap: 6px; }
+  .field label {
+    font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--muted); font-weight: 500;
+  }
+  .field label .req { color: var(--accent); margin-left: 2px; }
+  .field input, .field select, .field textarea {
+    background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius-sm);
+    padding: 10px 14px; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; color: var(--fg);
+    outline: none; transition: border-color 0.2s, box-shadow 0.2s; width: 100%;
+    -webkit-appearance: none;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus {
+    border-color: var(--border-focus);
+    box-shadow: 0 0 0 3px rgba(99,102,241,0.1);
+  }
+  .field textarea { resize: vertical; min-height: 100px; }
+  .field select option { background: var(--surface); }
+  .field .hint { font-size: 0.75rem; color: var(--muted2); }
+
+  /* — SOCIAL GRID — */
+  .social-grid { display: flex; flex-direction: column; gap: 12px; }
+  .social-row {
+    display: grid; grid-template-columns: 120px 1fr; gap: 0; align-items: center;
+    background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius-sm); overflow: hidden;
+  }
+  .social-label {
+    padding: 10px 14px; font-family: 'DM Mono', monospace; font-size: 0.7rem; letter-spacing: 0.06em;
+    color: var(--muted); border-right: 1px solid var(--border); white-space: nowrap;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .social-icon { font-size: 1rem; }
+  .social-row input {
+    background: transparent; border: none; padding: 10px 14px;
+    font-family: 'DM Sans', sans-serif; font-size: 0.88rem; color: var(--fg); outline: none; width: 100%;
+  }
+  .social-row:focus-within { border-color: var(--border-focus); box-shadow: 0 0 0 3px rgba(99,102,241,0.08); }
+
+  /* — COLOR SWATCHES — */
+  .color-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 10px; margin-top: 4px; }
+  .color-chip {
+    border: 2px solid transparent; border-radius: var(--radius-sm); padding: 8px 4px; text-align: center;
+    cursor: pointer; transition: all 0.15s; background: var(--surface2);
+  }
+  .color-chip:hover { border-color: var(--border-focus); }
+  .color-chip.selected { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(99,102,241,0.2); }
+  .color-chip .swatch { width: 100%; height: 32px; border-radius: 6px; margin-bottom: 4px; }
+  .color-chip span { font-size: 0.62rem; font-family: 'DM Mono', monospace; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+
+  /* — CHECKBOXES / PILLS — */
+  .pill-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+  .pill {
+    padding: 6px 14px; border: 1px solid var(--border); border-radius: 20px;
+    font-size: 0.8rem; cursor: pointer; transition: all 0.15s;
+    font-family: 'DM Sans', sans-serif; color: var(--muted); background: var(--surface2);
+    user-select: none;
+  }
+  .pill:hover { border-color: var(--border-focus); color: var(--fg); }
+  .pill.selected { background: var(--tag-bg); border-color: var(--accent); color: var(--accent); }
+
+  /* — FILE DROP — */
+  .file-drop {
+    border: 2px dashed var(--border); border-radius: var(--radius); padding: 32px;
+    text-align: center; cursor: pointer; transition: all 0.2s;
+    background: var(--surface2);
+  }
+  .file-drop:hover, .file-drop.drag-over { border-color: var(--accent); background: var(--tag-bg); }
+  .file-drop-icon { font-size: 2rem; margin-bottom: 8px; }
+  .file-drop p { font-size: 0.85rem; color: var(--muted); }
+  .file-drop p strong { color: var(--fg); }
+  .file-drop small { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--muted2); letter-spacing: 0.08em; text-transform: uppercase; }
+  .file-list { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+  .file-tag {
+    display: flex; align-items: center; gap: 6px;
+    background: var(--tag-bg); border: 1px solid var(--border-focus); border-radius: 20px;
+    padding: 4px 12px; font-size: 0.75rem; color: var(--accent); font-family: 'DM Mono', monospace;
+  }
+  .file-tag button { background: none; border: none; cursor: pointer; color: var(--accent); font-size: 1rem; line-height: 1; padding: 0; }
+  #fileInput { display: none; }
+
+  /* — RANGE SLIDER — */
+  .range-wrap { display: flex; align-items: center; gap: 16px; }
+  .range-wrap input[type="range"] {
+    flex: 1; -webkit-appearance: none; height: 4px; background: var(--surface2); border-radius: 2px;
+    border: 1px solid var(--border); outline: none;
+  }
+  .range-wrap input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%;
+    background: var(--accent); cursor: pointer; border: 2px solid var(--bg);
+    box-shadow: 0 0 0 2px var(--accent);
+  }
+  .range-val { font-family: 'DM Mono', monospace; font-size: 0.8rem; color: var(--accent); min-width: 60px; text-align: right; }
+
+  /* — RADIO CARDS — */
+  .radio-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media (max-width: 480px) { .radio-cards { grid-template-columns: 1fr; } }
+  .radio-card {
+    border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; cursor: pointer;
+    transition: all 0.15s; background: var(--surface2);
+  }
+  .radio-card:hover { border-color: var(--border-focus); }
+  .radio-card.selected { border-color: var(--accent); background: var(--tag-bg); }
+  .radio-card input { display: none; }
+  .radio-card-title { font-weight: 600; font-size: 0.9rem; margin-bottom: 3px; }
+  .radio-card-desc { font-size: 0.78rem; color: var(--muted); }
+  .radio-card-price { font-family: 'DM Mono', monospace; font-size: 0.75rem; color: var(--accent); margin-top: 6px; }
+
+  /* — NAVIGATION BUTTONS — */
+  .form-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 28px; }
+  .btn-back {
+    background: none; border: 1px solid var(--border); border-radius: var(--radius-sm);
+    padding: 10px 20px; color: var(--muted); cursor: pointer; font-size: 0.85rem;
+    font-family: 'DM Sans', sans-serif; transition: all 0.15s;
+  }
+  .btn-back:hover { border-color: var(--fg); color: var(--fg); }
+  .btn-next {
+    background: var(--grad); border: none; border-radius: var(--radius-sm);
+    padding: 11px 28px; color: #fff; cursor: pointer; font-weight: 600; font-size: 0.9rem;
+    font-family: 'DM Sans', sans-serif; letter-spacing: -0.01em; transition: opacity 0.15s;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .btn-next:hover { opacity: 0.88; }
+  .btn-submit {
+    background: linear-gradient(135deg, #22c55e, #16a34a); border: none; border-radius: var(--radius-sm);
+    padding: 13px 32px; color: #fff; cursor: pointer; font-weight: 700; font-size: 0.95rem;
+    font-family: 'DM Sans', sans-serif; letter-spacing: -0.01em; transition: opacity 0.15s;
+  }
+  .btn-submit:hover { opacity: 0.88; }
+
+  /* — DIVIDER — */
+  .divider { height: 1px; background: var(--border); margin: 24px 0; }
+
+  /* — SUCCESS SCREEN — */
+  .success-screen {
+    display: none; max-width: 760px; margin: 60px auto; padding: 0 2rem; text-align: center;
+  }
+  .success-screen.show { display: block; animation: fadeSlide 0.4s ease; }
+  .success-icon { font-size: 3.5rem; margin-bottom: 20px; }
+  .success-screen h2 { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 2rem; letter-spacing: -0.04em; margin-bottom: 12px; }
+  .success-screen h2 span { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .success-screen p { color: var(--muted); max-width: 420px; margin: 0 auto; line-height: 1.7; }
+
+  /* — DECORATIVE GRID BG — */
+  body::before {
+    content: ''; position: fixed; inset: 0; z-index: -1;
+    background-image: linear-gradient(var(--border) 1px, transparent 1px),
+                      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 48px 48px;
+    opacity: 0.4;
+  }
+
+  @media print {
+    nav, .progress-bar, .form-nav { display: none !important; }
+    .form-section { display: block !important; page-break-inside: avoid; margin-bottom: 40px; }
+    body { background: white; color: black; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo"><em>3</em>lleven</a>
+  <ul class="nav-links">
+    <li><a href="services.html">Services</a></li>
+    <li><a href="pricing.html">Pricing</a></li>
+    <li><a href="process.html">Process</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="theme-btn" id="themeToggle">☀️</button>
+    <a href="contact.html" class="nav-cta">Get a Quote</a>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="services.html">Services</a>
+  <a href="pricing.html">Pricing</a>
+  <a href="process.html">Process</a>
+  <a href="about.html">About</a>
+  <a href="contact.html" class="mob-cta">Get a Quote</a>
+</div>
+
+<div class="page-header">
+  <div class="eyebrow">// Client Intake Form</div>
+  <h1>Let's build something <span>great together.</span></h1>
+  <p>Fill out the form below so we can understand your project. The more detail you provide, the more accurate your proposal will be.</p>
+</div>
+
+<div class="progress-bar">
+  <div class="progress-steps">
+    <div class="progress-step active" data-step="1" onclick="goToStep(1)">01 · Contact</div>
+    <div class="progress-step" data-step="2" onclick="goToStep(2)">02 · Project</div>
+    <div class="progress-step" data-step="3" onclick="goToStep(3)">03 · Design</div>
+    <div class="progress-step" data-step="4" onclick="goToStep(4)">04 · Content</div>
+    <div class="progress-step" data-step="5" onclick="goToStep(5)">05 · Assets</div>
+    <div class="progress-step" data-step="6" onclick="goToStep(6)">06 · Timeline</div>
+  </div>
+</div>
+
+<div class="form-wrap">
+
+  <!-- ── STEP 1: CONTACT INFO ── -->
+  <div class="form-section active" id="step-1">
+    <div class="section-header">
+      <div class="section-num">Step 01 / 06</div>
+      <h2>Contact Information</h2>
+      <p>Basic details so we can reach you and understand your business.</p>
+    </div>
+
+    <div class="field-row">
+      <div class="field">
+        <label>First Name <span class="req">*</span></label>
+        <input type="text" id="firstName" placeholder="Jordan" />
+      </div>
+      <div class="field">
+        <label>Last Name <span class="req">*</span></label>
+        <input type="text" id="lastName" placeholder="Smith" />
+      </div>
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label>Business Name <span class="req">*</span></label>
+        <input type="text" id="bizName" placeholder="Apex Auto Detailing" />
+      </div>
+      <div class="field">
+        <label>Industry / Niche</label>
+        <input type="text" id="industry" placeholder="Auto detailing, Restaurant, Law, etc." />
+      </div>
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label>Email Address <span class="req">*</span></label>
+        <input type="email" id="email" placeholder="you@yourbusiness.com" />
+      </div>
+      <div class="field">
+        <label>Phone Number</label>
+        <input type="tel" id="phone" placeholder="(313) 555-0100" />
+      </div>
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label>City / State</label>
+        <input type="text" id="location" placeholder="Detroit, MI" />
+      </div>
+      <div class="field">
+        <label>How did you hear about us?</label>
+        <select id="referral">
+          <option value="">— Select —</option>
+          <option>Instagram / TikTok</option>
+          <option>Google Search</option>
+          <option>LinkedIn</option>
+          <option>Referral from a friend</option>
+          <option>Facebook Group</option>
+          <option>Cold Outreach</option>
+          <option>Other</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-nav">
+      <span></span>
+      <button class="btn-next" onclick="nextStep()">Next: Project Details →</button>
+    </div>
+  </div>
+
+  <!-- ── STEP 2: PROJECT ── -->
+  <div class="form-section" id="step-2">
+    <div class="section-header">
+      <div class="section-num">Step 02 / 06</div>
+      <h2>Project Details</h2>
+      <p>Tell us about the website you need and what add-ons you're interested in.</p>
+    </div>
+
+    <div class="field-row single" style="margin-bottom:20px;">
+      <div class="field">
+        <label>Project Type <span class="req">*</span></label>
+        <div class="radio-cards">
+          <label class="radio-card selected" onclick="selectCard(this,'projectType')">
+            <input type="radio" name="projectType" value="new" checked>
+            <div class="radio-card-title">🆕 New Build</div>
+            <div class="radio-card-desc">Brand new website — starting fresh.</div>
+            <div class="radio-card-price">Starting at $900</div>
+          </label>
+          <label class="radio-card" onclick="selectCard(this,'projectType')">
+            <input type="radio" name="projectType" value="redesign">
+            <div class="radio-card-title">🔄 Redesign</div>
+            <div class="radio-card-desc">You have an existing site — refresh the design.</div>
+            <div class="radio-card-price">Starting at $550</div>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="field-row single" id="existingUrlRow" style="display:none;">
+      <div class="field">
+        <label>Existing Website URL</label>
+        <input type="url" id="existingUrl" placeholder="https://www.yourbusiness.com" />
+      </div>
+    </div>
+
+    <div class="field-row">
+      <div class="field">
+        <label>Desired Domain Name</label>
+        <input type="text" id="domain" placeholder="yourbusiness.com (or leave blank if unsure)" />
+        <span class="hint">Don't have one yet? No problem — we can help pick one.</span>
+      </div>
+      <div class="field">
+        <label>Do you own a domain already?</label>
+        <select id="hasDomain">
+          <option value="">— Select —</option>
+          <option>Yes — I own it already</option>
+          <option>No — I need one purchased</option>
+          <option>Not sure</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="field-row">
+      <div class="field">
+        <label>Number of Pages Needed</label>
+        <select id="pageCount">
+          <option>1–3 pages (included in base)</option>
+          <option>4–5 pages (+$75–$150)</option>
+          <option>6–10 pages (+$225–$525)</option>
+          <option>10+ pages (custom quote)</option>
+          <option>Not sure yet</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Preferred Monthly Plan</label>
+        <select id="plan">
+          <option value="">— Select a Plan —</option>
+          <option>Starter — $299/mo (hosting, security, 1hr support)</option>
+          <option>Growth — $399/mo (SEO, content updates, analytics)</option>
+          <option>Pro — $599/mo (e-commerce, daily backups, 10hr dev)</option>
+          <option>No monthly plan — one-time build only</option>
+          <option>Not sure yet — advise me</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+    <div class="section-num" style="margin-bottom:12px;">Add-Ons (Select all that apply)</div>
+    <div class="pill-grid" id="addons">
+      <div class="pill" onclick="togglePill(this)">Advanced Animations +$150</div>
+      <div class="pill" onclick="togglePill(this)">E-Commerce (Stripe/Shopify) +$300</div>
+      <div class="pill" onclick="togglePill(this)">Blog / CMS (Sanity.io) +$100</div>
+      <div class="pill" onclick="togglePill(this)">Booking / Scheduling +$150</div>
+      <div class="pill" onclick="togglePill(this)">Full SEO Package +$100</div>
+      <div class="pill" onclick="togglePill(this)">Client Portal / Dashboard +$150</div>
+      <div class="pill" onclick="togglePill(this)">API / Third-Party Integration +$100</div>
+    </div>
+
+    <div class="field-row single" style="margin-top:20px;">
+      <div class="field">
+        <label>Project Description <span class="req">*</span></label>
+        <textarea id="projectDesc" placeholder="Describe your business and what you want the website to accomplish. What should visitors do when they land on your site? (Book a service, buy a product, contact you, learn more, etc.)" style="min-height:120px;"></textarea>
+      </div>
+    </div>
+
+    <div class="form-nav">
+      <button class="btn-back" onclick="prevStep()">← Back</button>
+      <button class="btn-next" onclick="nextStep()">Next: Design Preferences →</button>
+    </div>
+  </div>
+
+  <!-- ── STEP 3: DESIGN ── -->
+  <div class="form-section" id="step-3">
+    <div class="section-header">
+      <div class="section-num">Step 03 / 06</div>
+      <h2>Design Preferences</h2>
+      <p>Help us understand your visual direction. The more you share, the more on-brand the final result.</p>
+    </div>
+
+    <div class="section-num" style="margin-bottom:12px;">Color Vibe — Pick your preference(s)</div>
+    <div class="color-grid" id="colorVibe">
+      <div class="color-chip" onclick="toggleChip(this)">
+        <div class="swatch" style="background:linear-gradient(135deg,#0a0a0f,#1a1a2e)"></div>
+        <span>Dark / Tech</span>
+      </div>
+      <div class="color-chip" onclick="toggleChip(this)">
+        <div class="swatch" style="background:linear-gradient(135deg,#ffffff,#f4f4f8)"></div>
+        <span>Clean / Light</span>
+      </div>
+      <div class="color-chip" onclick="toggleChip(this)">
+        <div class="swatch" style="background:linear-gradient(135deg,#6366f1,#a855f7)"></div>
+        <span>Bold / Purple</span>
+      </div>
+      <div class="color-chip" onclick="toggleChip(this)">
+        <div class="swatch" style="background:linear-gradient(135deg,#0ea5e9,#06b6d4)"></div>
+        <span>Blue / Ocean</span>
+      </div>
+      <div class="color-chip" onclick="toggleChip(this)">
+        <div class="swatch" style="background:linear-gradient(135deg,#f97316,#ef4444)"></div>
+        <span>Warm / Energy</span>
+      </div>
+      <div class="color-chip" onclick="toggleChip(this)">
+        <div class="swatch" style="background:linear-gradient(135deg,#22c55e,#16a34a)"></div>
+        <span>Green / Growth</span>
+      </div>
+      <div class="color-chip" onclick="toggleChip(this)">
+        <div class="swatch" style="background:linear-gradient(135deg,#b45309,#92400e)"></div>
+        <span>Earthy / Warm</span>
+      </div>
+      <div class="color-chip" onclick="toggleChip(this)">
+        <div class="swatch" style="background:linear-gradient(135deg,#ec4899,#f43f5e)"></div>
+        <span>Pink / Bold</span>
+      </div>
+      <div class="color-chip" onclick="toggleChip(this)">
+        <div class="swatch" style="background:linear-gradient(135deg,#1c1917,#292524)"></div>
+        <span>Minimal Black</span>
+      </div>
+      <div class="color-chip" onclick="toggleChip(this)">
+        <div class="swatch" style="background:linear-gradient(135deg,#fbbf24,#f59e0b)"></div>
+        <span>Gold / Luxury</span>
+      </div>
+    </div>
+
+    <div class="field-row single" style="margin-top:20px;">
+      <div class="field">
+        <label>Custom Brand Colors (Hex codes if known)</label>
+        <input type="text" id="brandColors" placeholder="e.g. #1a1a2e, #6366f1 — leave blank if unsure" />
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section-num" style="margin-bottom:12px;">Website Style</div>
+    <div class="pill-grid" id="stylePrefs">
+      <div class="pill" onclick="togglePill(this)">Minimal &amp; Clean</div>
+      <div class="pill" onclick="togglePill(this)">Bold &amp; High-Impact</div>
+      <div class="pill" onclick="togglePill(this)">Professional &amp; Corporate</div>
+      <div class="pill" onclick="togglePill(this)">Luxury &amp; Premium</div>
+      <div class="pill" onclick="togglePill(this)">Playful &amp; Creative</div>
+      <div class="pill" onclick="togglePill(this)">Industrial &amp; Gritty</div>
+      <div class="pill" onclick="togglePill(this)">Modern Tech / SaaS</div>
+      <div class="pill" onclick="togglePill(this)">Warm &amp; Friendly</div>
+      <div class="pill" onclick="togglePill(this)">Editorial / Magazine</div>
+      <div class="pill" onclick="togglePill(this)">Urban / Streetwear</div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="field-row">
+      <div class="field">
+        <label>Light Mode / Dark Mode Preference</label>
+        <select id="modePrefs">
+          <option>Dark Mode by default (can toggle)</option>
+          <option>Light Mode by default (can toggle)</option>
+          <option>Dark Mode only</option>
+          <option>Light Mode only</option>
+          <option>No preference — your recommendation</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Animation Level</label>
+        <select id="animLevel">
+          <option>Subtle — smooth fades and clean transitions</option>
+          <option>Moderate — scroll reveals and hover effects</option>
+          <option>Heavy — full motion, parallax, page transitions</option>
+          <option>None — fast and functional only</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="field-row single">
+      <div class="field">
+        <label>Website Inspiration Links</label>
+        <textarea id="inspiration" placeholder="Paste links to websites you love. Tell us what you like about each one — the layout, the colors, the vibe, etc." style="min-height:90px;"></textarea>
+      </div>
+    </div>
+
+    <div class="field-row single">
+      <div class="field">
+        <label>Competitors' Websites (so we can differentiate)</label>
+        <textarea id="competitors" placeholder="Links to your competitors' sites. We'll make sure you stand out from them." style="min-height:80px;"></textarea>
+      </div>
+    </div>
+
+    <div class="form-nav">
+      <button class="btn-back" onclick="prevStep()">← Back</button>
+      <button class="btn-next" onclick="nextStep()">Next: Content →</button>
+    </div>
+  </div>
+
+  <!-- ── STEP 4: CONTENT & SOCIAL ── -->
+  <div class="form-section" id="step-4">
+    <div class="section-header">
+      <div class="section-num">Step 04 / 06</div>
+      <h2>Content &amp; Social Media</h2>
+      <p>What pages do you need and where can we find your existing online presence?</p>
+    </div>
+
+    <div class="section-num" style="margin-bottom:12px;">Pages / Sections Needed (Select all)</div>
+    <div class="pill-grid" id="pages">
+      <div class="pill selected" onclick="togglePill(this)">Home</div>
+      <div class="pill" onclick="togglePill(this)">About / Our Story</div>
+      <div class="pill" onclick="togglePill(this)">Services</div>
+      <div class="pill" onclick="togglePill(this)">Portfolio / Gallery</div>
+      <div class="pill" onclick="togglePill(this)">Pricing</div>
+      <div class="pill" onclick="togglePill(this)">Contact</div>
+      <div class="pill" onclick="togglePill(this)">Blog</div>
+      <div class="pill" onclick="togglePill(this)">FAQ</div>
+      <div class="pill" onclick="togglePill(this)">Team</div>
+      <div class="pill" onclick="togglePill(this)">Testimonials</div>
+      <div class="pill" onclick="togglePill(this)">Book Appointment</div>
+      <div class="pill" onclick="togglePill(this)">Shop / Products</div>
+      <div class="pill" onclick="togglePill(this)">Menu</div>
+      <div class="pill" onclick="togglePill(this)">Events</div>
+      <div class="pill" onclick="togglePill(this)">Login / Members Area</div>
+    </div>
+
+    <div class="divider"></div>
+    <div class="section-num" style="margin-bottom:12px;">Social Media Profiles</div>
+    <p style="font-size:0.82rem; color:var(--muted); margin-bottom:14px;">Share your handles or full URLs. Leave blank if you don't have an account on that platform.</p>
+    <div class="social-grid">
+      <div class="social-row">
+        <div class="social-label"><span class="social-icon">📸</span> Instagram</div>
+        <input type="text" placeholder="@yourbusiness or instagram.com/yourbusiness" />
+      </div>
+      <div class="social-row">
+        <div class="social-label"><span class="social-icon">🎵</span> TikTok</div>
+        <input type="text" placeholder="@yourbusiness or tiktok.com/@yourbusiness" />
+      </div>
+      <div class="social-row">
+        <div class="social-label"><span class="social-icon">💼</span> LinkedIn</div>
+        <input type="text" placeholder="linkedin.com/company/yourbusiness" />
+      </div>
+      <div class="social-row">
+        <div class="social-label"><span class="social-icon">👥</span> Facebook</div>
+        <input type="text" placeholder="facebook.com/yourbusiness" />
+      </div>
+      <div class="social-row">
+        <div class="social-label"><span class="social-icon">🐦</span> X / Twitter</div>
+        <input type="text" placeholder="@yourbusiness or x.com/yourbusiness" />
+      </div>
+      <div class="social-row">
+        <div class="social-label"><span class="social-icon">▶️</span> YouTube</div>
+        <input type="text" placeholder="youtube.com/@yourchannel" />
+      </div>
+      <div class="social-row">
+        <div class="social-label"><span class="social-icon">📌</span> Pinterest</div>
+        <input type="text" placeholder="pinterest.com/yourbusiness" />
+      </div>
+      <div class="social-row">
+        <div class="social-label"><span class="social-icon">📍</span> Google Maps</div>
+        <input type="text" placeholder="Link to your Google Business profile" />
+      </div>
+    </div>
+
+    <div class="field-row single" style="margin-top:20px;">
+      <div class="field">
+        <label>Do you have written content ready? (text for each page)</label>
+        <select id="hasContent">
+          <option>Yes — I have all copy written and ready</option>
+          <option>Partially — I have some, need help with the rest</option>
+          <option>No — I need help writing content (+add-on)</option>
+          <option>Not sure yet</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="field-row single">
+      <div class="field">
+        <label>Business Tagline or Key Message</label>
+        <input type="text" id="tagline" placeholder="The one sentence that captures what you do and for who" />
+      </div>
+    </div>
+
+    <div class="form-nav">
+      <button class="btn-back" onclick="prevStep()">← Back</button>
+      <button class="btn-next" onclick="nextStep()">Next: Assets →</button>
+    </div>
+  </div>
+
+  <!-- ── STEP 5: ASSETS ── -->
+  <div class="form-section" id="step-5">
+    <div class="section-header">
+      <div class="section-num">Step 05 / 06</div>
+      <h2>Logos &amp; Assets</h2>
+      <p>Upload any branding assets, photos, or reference images you'd like us to use on the site.</p>
+    </div>
+
+    <div class="field-row">
+      <div class="field">
+        <label>Do you have a logo?</label>
+        <select id="hasLogo">
+          <option>Yes — I have a logo file ready</option>
+          <option>No — I need a logo designed (+add-on)</option>
+          <option>I have a low-res logo (needs cleanup)</option>
+          <option>I only have a text-based wordmark</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Logo File Format (if available)</label>
+        <select id="logoFormat">
+          <option>SVG (vector — ideal)</option>
+          <option>PNG with transparent background</option>
+          <option>JPG / JPEG</option>
+          <option>PDF</option>
+          <option>I'm not sure</option>
+          <option>N/A — no logo yet</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="field-row single" style="margin-bottom:16px;">
+      <div class="field">
+        <label>Upload Files (Logo, Photos, Brand Assets)</label>
+        <div class="file-drop" id="dropZone" onclick="document.getElementById('fileInput').click()">
+          <div class="file-drop-icon">📁</div>
+          <p><strong>Click to browse</strong> or drag and drop files here</p>
+          <div class="file-list" id="fileList"></div>
+          <small>SVG · PNG · JPG · PDF · ZIP — up to 20 files</small>
+        </div>
+        <input type="file" id="fileInput" multiple accept=".svg,.png,.jpg,.jpeg,.pdf,.zip,.gif,.webp">
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section-num" style="margin-bottom:12px;">Photography Needs</div>
+    <div class="pill-grid" id="photoNeeds">
+      <div class="pill" onclick="togglePill(this)">I have professional photos ready</div>
+      <div class="pill" onclick="togglePill(this)">I have phone photos (good quality)</div>
+      <div class="pill" onclick="togglePill(this)">Use stock photos (I'll choose)</div>
+      <div class="pill" onclick="togglePill(this)">Use stock photos (you choose)</div>
+      <div class="pill" onclick="togglePill(this)">Need a photoshoot (separate quote)</div>
+      <div class="pill" onclick="togglePill(this)">No photos needed</div>
+    </div>
+
+    <div class="field-row single" style="margin-top:20px;">
+      <div class="field">
+        <label>Google Drive / Dropbox Link (if you prefer to share files that way)</label>
+        <input type="url" id="driveLink" placeholder="https://drive.google.com/drive/folders/..." />
+      </div>
+    </div>
+
+    <div class="field-row single">
+      <div class="field">
+        <label>Asset Notes / Special Instructions</label>
+        <textarea id="assetNotes" placeholder="Any notes about your files — which logo version to use, image cropping preferences, specific photos for specific pages, etc." style="min-height:80px;"></textarea>
+      </div>
+    </div>
+
+    <div class="form-nav">
+      <button class="btn-back" onclick="prevStep()">← Back</button>
+      <button class="btn-next" onclick="nextStep()">Next: Timeline & Budget →</button>
+    </div>
+  </div>
+
+  <!-- ── STEP 6: TIMELINE ── -->
+  <div class="form-section" id="step-6">
+    <div class="section-header">
+      <div class="section-num">Step 06 / 06</div>
+      <h2>Timeline &amp; Budget</h2>
+      <p>Help us scope your project accurately with your timeline and budget expectations.</p>
+    </div>
+
+    <div class="field-row">
+      <div class="field">
+        <label>Project Urgency</label>
+        <select id="urgency">
+          <option>As soon as possible (rush fee may apply)</option>
+          <option>Within 2 weeks</option>
+          <option>Within 30 days (standard)</option>
+          <option>1–2 months — no rush</option>
+          <option>Flexible — quality over speed</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Hard Deadline (if any)</label>
+        <input type="date" id="deadline" />
+        <span class="hint">Leave blank if flexible.</span>
+      </div>
+    </div>
+
+    <div class="field-row single">
+      <div class="field">
+        <label>Overall Budget Range</label>
+        <div class="radio-cards" style="grid-template-columns:1fr 1fr 1fr;">
+          <label class="radio-card" onclick="selectCard(this,'budget')">
+            <input type="radio" name="budget" value="under1k">
+            <div class="radio-card-title">Under $1,000</div>
+            <div class="radio-card-desc">New build or redesign — standard package.</div>
+          </label>
+          <label class="radio-card" onclick="selectCard(this,'budget')">
+            <input type="radio" name="budget" value="1k-2k">
+            <div class="radio-card-title">$1,000 – $2,000</div>
+            <div class="radio-card-desc">Base + select add-ons.</div>
+          </label>
+          <label class="radio-card" onclick="selectCard(this,'budget')">
+            <input type="radio" name="budget" value="2k-5k">
+            <div class="radio-card-title">$2,000 – $5,000</div>
+            <div class="radio-card-desc">Full-featured with e-commerce, CMS, etc.</div>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="field-row single">
+      <div class="field">
+        <label>Anything Else We Should Know?</label>
+        <textarea id="extraNotes" placeholder="Special requests, technical requirements, things you loved or hated about past web experiences, concerns about the process — anything at all." style="min-height:120px;"></textarea>
+      </div>
+    </div>
+
+    <div class="field-row">
+      <div class="field">
+        <label>Preferred Contact Method</label>
+        <select id="contactMethod">
+          <option>Email</option>
+          <option>Phone / Text</option>
+          <option>Video Call (Google Meet / Zoom)</option>
+          <option>In-Person Meeting (Detroit area)</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Best Time to Reach You</label>
+        <select id="contactTime">
+          <option>Morning (9am–12pm)</option>
+          <option>Afternoon (12pm–5pm)</option>
+          <option>Evening (5pm–8pm)</option>
+          <option>Anytime</option>
+        </select>
+      </div>
+    </div>
+
+    <div style="margin-top:8px; padding:16px; background:var(--tag-bg); border:1px solid var(--border-focus); border-radius:var(--radius-sm);">
+      <p style="font-size:0.8rem; color:var(--muted); line-height:1.7;">
+        <strong style="color:var(--fg);">What happens next:</strong> After submitting, 3lleven will review your intake form and send a detailed proposal with a flat-fee price within <strong style="color:var(--accent);">24 hours</strong>. No commitment required. All projects require a <strong style="color:var(--accent);">50% deposit</strong> via Stripe before work begins.
+      </p>
+    </div>
+
+    <div class="form-nav">
+      <button class="btn-back" onclick="prevStep()">← Back</button>
+      <button class="btn-submit" onclick="submitForm()">✓ Submit Intake Form</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- SUCCESS -->
+<div class="success-screen" id="successScreen">
+  <div class="success-icon">✅</div>
+  <h2>You're all set, <span id="successName">friend</span>.</h2>
+  <p>Your intake form has been received. 3lleven will review your project and send a detailed flat-fee proposal within <strong>24 hours</strong>. Check your inbox — and feel free to email <a href="mailto:hello@3lleven.dev" style="color:var(--accent);">hello@3lleven.dev</a> if you have questions in the meantime.</p>
+</div>
+
+<script>
+  let currentStep = 1;
+  const totalSteps = 6;
+
+  /* Theme toggle */
+  const html = document.documentElement;
+  const themeBtn = document.getElementById('themeToggle');
+  themeBtn.addEventListener('click', () => {
+    const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    themeBtn.textContent = next === 'dark' ? '☀️' : '🌙';
+  });
+
+  function goToStep(n) {
+    document.getElementById('step-' + currentStep).classList.remove('active');
+    document.querySelector('[data-step="' + currentStep + '"]').classList.remove('active');
+    currentStep = n;
+    document.getElementById('step-' + currentStep).classList.add('active');
+    document.querySelector('[data-step="' + currentStep + '"]').classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function nextStep() {
+    if (currentStep < totalSteps) {
+      document.querySelector('[data-step="' + currentStep + '"]').classList.remove('active');
+      document.querySelector('[data-step="' + currentStep + '"]').classList.add('done');
+      goToStep(currentStep + 1);
+    }
+  }
+
+  function prevStep() {
+    if (currentStep > 1) {
+      document.querySelector('[data-step="' + currentStep + '"]').classList.remove('done', 'active');
+      goToStep(currentStep - 1);
+      document.querySelector('[data-step="' + currentStep + '"]').classList.remove('done');
+      document.querySelector('[data-step="' + currentStep + '"]').classList.add('active');
+    }
+  }
+
+  function togglePill(el) { el.classList.toggle('selected'); }
+  function toggleChip(el) { el.classList.toggle('selected'); }
+
+  function selectCard(el, name) {
+    document.querySelectorAll(`[onclick*="${name}"]`).forEach(c => c.classList.remove('selected'));
+    el.classList.add('selected');
+    if (name === 'projectType') {
+      const val = el.querySelector('input').value;
+      document.getElementById('existingUrlRow').style.display = val === 'redesign' ? '' : 'none';
+    }
+  }
+
+  /* File upload */
+  const dropZone = document.getElementById('dropZone');
+  const fileInput = document.getElementById('fileInput');
+  const fileList = document.getElementById('fileList');
+  let uploadedFiles = [];
+
+  dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
+  dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+  dropZone.addEventListener('drop', e => { e.preventDefault(); dropZone.classList.remove('drag-over'); handleFiles(e.dataTransfer.files); });
+  fileInput.addEventListener('change', () => handleFiles(fileInput.files));
+
+  function handleFiles(files) {
+    Array.from(files).forEach(f => {
+      if (!uploadedFiles.find(u => u.name === f.name)) {
+        uploadedFiles.push(f);
+        const tag = document.createElement('div');
+        tag.className = 'file-tag';
+        tag.innerHTML = `<span>${f.name}</span><button onclick="removeFile('${f.name}', this)">×</button>`;
+        fileList.appendChild(tag);
+      }
+    });
+  }
+  function removeFile(name, btn) {
+    uploadedFiles = uploadedFiles.filter(f => f.name !== name);
+    btn.parentElement.remove();
+  }
+
+  function submitForm() {
+    const name = document.getElementById('firstName').value || 'there';
+
+    // Collect all form data
+    const data = new FormData();
+    document.querySelectorAll('input[type="text"], input[type="email"], input[type="tel"], input[type="url"], textarea, select').forEach(el => {
+      if (el.id) data.append(el.id, el.value);
+    });
+    // Radio selections
+    document.querySelectorAll('input[type="radio"]:checked').forEach(el => {
+      data.append(el.name, el.value);
+    });
+    // Selected pills
+    const pills = [];
+    document.querySelectorAll('.pill.active').forEach(el => pills.push(el.textContent.trim()));
+    if (pills.length) data.append('addons', pills.join(', '));
+    // Selected color chips
+    const colors = [];
+    document.querySelectorAll('.color-chip.selected .color-name').forEach(el => colors.push(el.textContent.trim()));
+    if (colors.length) data.append('colors', colors.join(', '));
+
+    fetch('https://formspree.io/f/xvzlpbev', {
+      method: 'POST',
+      body: data,
+      headers: { 'Accept': 'application/json' }
+    }).catch(() => {}); // fire-and-forget; show success regardless
+
+    document.getElementById('successName').textContent = name;
+    document.querySelectorAll('.form-section').forEach(s => s.classList.remove('active'));
+    document.querySelector('.progress-bar').style.display = 'none';
+    document.querySelector('.page-header').style.display = 'none';
+    document.querySelector('.form-wrap').style.display = 'none';
+    document.getElementById('successScreen').classList.add('show');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // Hamburger menu
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  if (hamburger) {
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      mobileMenu.classList.toggle('open');
+    });
+    document.addEventListener('click', e => {
+      if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
+        hamburger.classList.remove('open');
+        mobileMenu.classList.remove('open');
+      }
+    });
+  }
+</script>
+</body>
+</html>

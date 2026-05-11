@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3lleven — Web Design &amp; Development Agreement</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fafafa;
+    --surface: #ffffff;
+    --surface2: #f3f3f7;
+    --border: #e4e4ec;
+    --fg: #0d0d14;
+    --muted: #555570;
+    --muted2: #aaaacc;
+    --accent: #6366f1;
+    --accent2: #a855f7;
+    --grad: linear-gradient(135deg,#6366f1,#a855f7);
+    --radius: 10px;
+    --max: 820px;
+  }
+  [data-theme="dark"] {
+    --bg: #0a0a0f; --surface: #111118; --surface2: #16161f;
+    --border: rgba(255,255,255,0.08); --fg: #f0f0f8; --muted: #8888aa; --muted2: #555570;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--fg); line-height: 1.7; font-size: 15px; padding-bottom: 80px; }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between;
+    padding: 0 2rem; height: 58px;
+    background: rgba(250,250,250,0.88); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border);
+  }
+  [data-theme="dark"] nav { background: rgba(10,10,15,0.88); }
+  .logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.1rem; text-decoration: none; color: var(--fg); letter-spacing: -0.03em; }
+  .logo em { font-style: normal; background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { font-size: 0.8rem; font-weight: 400; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--fg); }
+  .nav-actions { display: flex; gap: 10px; align-items: center; }
+  .theme-btn { background: none; border: 1px solid var(--border); border-radius: 50%; width: 34px; height: 34px; cursor: pointer; font-size: 14px; color: var(--fg); }
+  .print-btn { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 6px 14px; border: 1px solid var(--accent); border-radius: 20px; color: var(--accent); background: rgba(99,102,241,0.06); cursor: pointer; transition: all 0.15s; }
+  .print-btn:hover { background: var(--accent); color: #fff; }
+  .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
+  .hamburger span { display: block; width: 22px; height: 2px; background: var(--fg); border-radius: 2px; transition: transform 0.25s ease, opacity 0.2s ease; }
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  .mobile-menu { display: none; position: fixed; top: 58px; left: 0; right: 0; background: rgba(250,250,250,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 1.25rem 2rem 1.5rem; flex-direction: column; gap: 0; z-index: 999; }
+  [data-theme="dark"] .mobile-menu { background: rgba(10,10,15,0.95); }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a { font-size: 0.95rem; font-weight: 500; color: var(--muted); padding: 0.75rem 0; border-bottom: 1px solid var(--border); text-decoration: none; transition: color 0.2s; }
+  .mobile-menu a:last-child { border-bottom: none; }
+  .mobile-menu a:hover { color: var(--fg); }
+  .mobile-menu .mob-cta { margin-top: 1rem; padding: 0.75rem; border-radius: 980px; background: var(--grad); color: #fff !important; text-align: center; font-weight: 700; font-size: 0.875rem; border-bottom: none !important; }
+  @media (max-width: 580px) { .nav-links { display: none; } .hamburger { display: flex; } }
+
+  /* INSTRUCTION BANNER */
+  .instruction-banner { max-width: var(--max); margin: 24px auto 0; padding: 0 2rem; }
+  .instruction-banner-inner { background: rgba(99,102,241,0.08); border: 1px solid rgba(99,102,241,0.25); border-radius: var(--radius); padding: 14px 18px; font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
+  .instruction-banner-inner strong { color: var(--accent); }
+  @media print { .instruction-banner { display: none; } }
+
+  /* LAYOUT */
+  .contract-wrap { max-width: var(--max); margin: 0 auto; padding: 48px 2rem; }
+
+  /* HEADER */
+  .contract-header {
+    text-align: center; padding: 40px 0 36px; border-bottom: 2px solid var(--border); margin-bottom: 40px;
+  }
+  .contract-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 2.2rem; letter-spacing: -0.05em; margin-bottom: 4px; }
+  .contract-logo em { font-style: normal; background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .contract-subtitle { font-family: 'DM Mono', monospace; font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted2); margin-bottom: 24px; }
+  .contract-title { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.7rem; letter-spacing: -0.04em; margin-bottom: 8px; }
+  .contract-meta { font-size: 0.82rem; color: var(--muted); font-family: 'DM Mono', monospace; }
+
+  /* PARTIES BOX */
+  .parties-box {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+    background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 24px; margin-bottom: 36px;
+  }
+  @media (max-width: 520px) { .parties-box { grid-template-columns: 1fr; } }
+  .party { }
+  .party-label { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+  .party-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; letter-spacing: -0.02em; margin-bottom: 6px; }
+  .party-info { font-size: 0.82rem; color: var(--muted); line-height: 1.8; }
+  .fill-line {
+    display: inline-block; border-bottom: 1px solid var(--border); min-width: 180px; color: var(--fg);
+    font-style: italic; font-size: 0.85rem;
+  }
+  .fill-field {
+    background: none; border: none; border-bottom: 1px dashed var(--muted2); color: var(--fg);
+    font-family: 'DM Sans', sans-serif; font-size: 0.85rem; width: 100%; outline: none; padding: 2px 0;
+    font-style: italic;
+  }
+  .fill-field::placeholder { color: var(--muted2); font-style: italic; }
+
+  /* SECTIONS */
+  .section { margin-bottom: 32px; }
+  .section-num {
+    font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 4px;
+  }
+  h2 {
+    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.1rem; letter-spacing: -0.03em;
+    margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border);
+  }
+  p { color: var(--muted); font-size: 0.9rem; margin-bottom: 10px; line-height: 1.75; }
+  strong { color: var(--fg); }
+
+  /* SCOPE TABLE */
+  .scope-table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 0.85rem; }
+  .scope-table th {
+    background: var(--surface2); padding: 10px 14px; text-align: left;
+    font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--muted); border: 1px solid var(--border);
+  }
+  .scope-table td { padding: 10px 14px; border: 1px solid var(--border); color: var(--muted); vertical-align: top; }
+  .scope-table td:first-child { color: var(--fg); font-weight: 500; width: 35%; }
+  .scope-table td input.fill-field { width: 100%; }
+
+  /* PAYMENT TABLE */
+  .payment-table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 0.88rem; }
+  .payment-table th { background: var(--surface2); padding: 10px 14px; text-align: left; font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); border: 1px solid var(--border); }
+  .payment-table td { padding: 12px 14px; border: 1px solid var(--border); color: var(--muted); }
+  .payment-table td:first-child { font-weight: 600; color: var(--fg); }
+  .payment-table tr.total td { background: rgba(99,102,241,0.06); font-weight: 700; color: var(--fg); }
+
+  /* HIGHLIGHT BOX */
+  .highlight-box { background: rgba(99,102,241,0.07); border: 1px solid rgba(99,102,241,0.25); border-radius: var(--radius); padding: 16px 20px; margin: 14px 0; }
+  .highlight-box p { color: var(--fg); margin: 0; font-size: 0.85rem; }
+  .warning-box { background: rgba(239,68,68,0.06); border: 1px solid rgba(239,68,68,0.2); border-radius: var(--radius); padding: 14px 18px; margin: 12px 0; }
+  .warning-box p { color: #b91c1c; margin: 0; font-size: 0.82rem; }
+  [data-theme="dark"] .warning-box p { color: #fca5a5; }
+
+  /* NUMBERED LIST */
+  ol { padding-left: 20px; color: var(--muted); font-size: 0.88rem; margin: 10px 0; }
+  ol li { margin-bottom: 6px; line-height: 1.7; }
+  ol li strong { color: var(--fg); }
+  ul { padding-left: 20px; color: var(--muted); font-size: 0.88rem; margin: 10px 0; }
+  ul li { margin-bottom: 4px; line-height: 1.7; }
+
+  /* SIGNATURE BLOCK */
+  .sig-block {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 32px;
+    margin-top: 40px; padding-top: 32px; border-top: 2px solid var(--border);
+  }
+  @media (max-width: 520px) { .sig-block { grid-template-columns: 1fr; } }
+  .sig-party { }
+  .sig-party-label { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
+  .sig-line { border-bottom: 1px solid var(--fg); margin-bottom: 6px; height: 44px; }
+  .sig-meta { font-size: 0.78rem; color: var(--muted); font-family: 'DM Mono', monospace; }
+
+  /* FOOTER */
+  .contract-footer { text-align: center; margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--border); }
+  .contract-footer p { font-size: 0.75rem; color: var(--muted2); font-family: 'DM Mono', monospace; letter-spacing: 0.05em; }
+
+  /* VERSION / DATE */
+  .version-bar {
+    display: flex; justify-content: space-between; align-items: center;
+    background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 10px 16px; margin-bottom: 32px; font-family: 'DM Mono', monospace; font-size: 0.68rem;
+    letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted);
+  }
+
+  @media print {
+    nav { display: none !important; }
+    body { background: white; color: black; padding-bottom: 0; }
+    .version-bar { display: none; }
+    .fill-field { border-bottom: 1px solid #ccc; }
+    a { color: inherit; text-decoration: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo"><em>3</em>lleven</a>
+  <ul class="nav-links">
+    <li><a href="services.html">Services</a></li>
+    <li><a href="pricing.html">Pricing</a></li>
+    <li><a href="process.html">Process</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul>
+  <div class="nav-actions">
+    <button class="theme-btn" id="themeToggle">🌙</button>
+    <button class="print-btn" onclick="window.print()">⎙ Print / Save PDF</button>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="services.html">Services</a>
+  <a href="pricing.html">Pricing</a>
+  <a href="process.html">Process</a>
+  <a href="about.html">About</a>
+  <a href="contact.html" class="mob-cta">Get a Quote</a>
+</div>
+
+<div class="instruction-banner">
+  <div class="instruction-banner-inner">
+    <strong>How to use this contract:</strong> Fill in the highlighted client fields below, then click <strong>⎙ Print / Save PDF</strong> in the top-right to generate the contract. Send the PDF to your client for review and signature.
+  </div>
+</div>
+
+<div class="contract-wrap">
+
+  <!-- HEADER -->
+  <div class="contract-header">
+    <div class="contract-logo"><em>3</em>lleven</div>
+    <div class="contract-subtitle">3lleven.dev · Detroit, MI · hello@3lleven.dev</div>
+    <div class="contract-title">Web Design &amp; Development Agreement</div>
+    <div class="contract-meta">This agreement is entered into as of the date signed below.</div>
+  </div>
+
+  <div class="version-bar">
+    <span>Document: Service Agreement v1.0</span>
+    <span>3lleven · Confidential</span>
+  </div>
+
+  <!-- PARTIES -->
+  <div class="parties-box">
+    <div class="party">
+      <div class="party-label">Service Provider ("3lleven")</div>
+      <div class="party-name">3lleven Web Studio</div>
+      <div class="party-info">
+        Adebola Fagade<br>
+        Detroit, Michigan<br>
+        hello@3lleven.dev<br>
+        3lleven.dev
+      </div>
+    </div>
+    <div class="party">
+      <div class="party-label">Client ("You")</div>
+      <div class="party-info" style="line-height:2.2;">
+        Name: <input class="fill-field" placeholder="Full name" /><br>
+        Business: <input class="fill-field" placeholder="Business name" /><br>
+        Email: <input class="fill-field" placeholder="Email address" /><br>
+        Phone: <input class="fill-field" placeholder="Phone number" /><br>
+        City/State: <input class="fill-field" placeholder="City, State" />
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. PROJECT SCOPE -->
+  <div class="section">
+    <div class="section-num">Section 01</div>
+    <h2>Project Scope</h2>
+    <p>3lleven agrees to design and develop the following website for the Client, as described below. All features and deliverables are limited to those explicitly listed in this agreement. Any work outside this scope constitutes a <strong>Change Order</strong> (see Section 9).</p>
+
+    <table class="scope-table">
+      <tr>
+        <th>Item</th>
+        <th>Details</th>
+      </tr>
+      <tr>
+        <td>Project Type</td>
+        <td><input class="fill-field" placeholder="New Build / Redesign" /></td>
+      </tr>
+      <tr>
+        <td>Number of Pages</td>
+        <td><input class="fill-field" placeholder="e.g. 3 pages (Home, About, Contact)" /></td>
+      </tr>
+      <tr>
+        <td>Domain</td>
+        <td><input class="fill-field" placeholder="e.g. yourbusiness.com" /></td>
+      </tr>
+      <tr>
+        <td>Included Features</td>
+        <td><input class="fill-field" placeholder="Custom design, mobile responsive, light/dark mode, contact form, basic SEO, SSL, 2 revisions" /></td>
+      </tr>
+      <tr>
+        <td>Add-Ons Selected</td>
+        <td><input class="fill-field" placeholder="e.g. E-Commerce, Blog/CMS, Full SEO Package..." /></td>
+      </tr>
+      <tr>
+        <td>Monthly Plan</td>
+        <td><input class="fill-field" placeholder="e.g. Growth Plan — $399/mo, or None" /></td>
+      </tr>
+      <tr>
+        <td>Estimated Launch Date</td>
+        <td><input class="fill-field" placeholder="e.g. Within 30 days of deposit" /></td>
+      </tr>
+    </table>
+
+    <p><strong>Standard deliverables included in every build:</strong> custom responsive design, light &amp; dark mode toggle, hover &amp; scroll animations, mobile optimization (iOS &amp; Android tested), contact form with spam protection, on-page SEO (meta tags, Open Graph, sitemap), SSL certificate, and a Lighthouse performance score target of 95+.</p>
+  </div>
+
+  <!-- 2. PAYMENT TERMS -->
+  <div class="section">
+    <div class="section-num">Section 02</div>
+    <h2>Project Investment &amp; Payment Terms</h2>
+
+    <table class="payment-table">
+      <tr>
+        <th>Milestone</th>
+        <th>Amount Due</th>
+        <th>When Due</th>
+      </tr>
+      <tr>
+        <td>Deposit (50%)</td>
+        <td><input class="fill-field" placeholder="$___" style="width:80px;" /></td>
+        <td>Before any work begins</td>
+      </tr>
+      <tr>
+        <td>Final Payment (50%)</td>
+        <td><input class="fill-field" placeholder="$___" style="width:80px;" /></td>
+        <td>Before site goes live</td>
+      </tr>
+      <tr class="total">
+        <td>Total Project Investment</td>
+        <td><input class="fill-field" placeholder="$___" style="width:80px; font-weight:700;" /></td>
+        <td>—</td>
+      </tr>
+    </table>
+
+    <p style="font-size:0.8rem; color:var(--muted2); font-style:italic;">For projects over $1,000: 50% deposit / 25% at design approval / 25% at launch.</p>
+
+    <div class="highlight-box">
+      <p><strong>Payment Method:</strong> All payments are processed via Stripe (credit/debit card or ACH). Invoices are sent via email. The deposit invoice is sent upon signing. Work begins only after the deposit is received and cleared.</p>
+    </div>
+
+    <div class="warning-box">
+      <p><strong>Late Payment:</strong> Invoices unpaid after 7 days from the due date are subject to a 5% late fee added to the outstanding balance. Project work will be paused until payment is received. The site will not be transferred or launched until all balances are cleared.</p>
+    </div>
+
+    <p>Monthly plan billing begins on the date the website goes live. Stripe automatically charges the card on file each month on that date. If a payment fails, Stripe will retry automatically. If payment remains outstanding after 14 days, the plan will be suspended until resolved.</p>
+  </div>
+
+  <!-- 3. REVISIONS -->
+  <div class="section">
+    <div class="section-num">Section 03</div>
+    <h2>Revisions &amp; Feedback</h2>
+    <p>Every project includes <strong>2 rounds of revisions</strong> at no additional cost. A revision round is defined as a single consolidated list of changes provided by the Client in writing after reviewing a design or development deliverable.</p>
+    <ol>
+      <li><strong>Each revision round</strong> must be submitted as one complete list — not multiple separate requests sent over time.</li>
+      <li><strong>Additional revision rounds</strong> beyond the two included are billed at <strong>$75 per round</strong>, invoiced before work resumes.</li>
+      <li><strong>Scope changes</strong> (adding new features, pages, or sections not in this agreement) are not revisions and are handled as Change Orders (see Section 9).</li>
+      <li><strong>Feedback turnaround:</strong> Client agrees to provide revision feedback within <strong>5 business days</strong> of receiving a deliverable. Delays beyond this extend the project timeline accordingly.</li>
+    </ol>
+  </div>
+
+  <!-- 4. CLIENT RESPONSIBILITIES -->
+  <div class="section">
+    <div class="section-num">Section 04</div>
+    <h2>Client Responsibilities</h2>
+    <p>The Client agrees to provide the following materials in a timely manner. Delays in providing materials will result in equivalent delays to the project timeline:</p>
+    <ul>
+      <li>All written content (text for each page) unless a copywriting add-on was purchased</li>
+      <li>Logo files in SVG or high-resolution PNG format (transparent background preferred)</li>
+      <li>Photos, videos, and brand assets to be used on the site</li>
+      <li>Access to any existing domain registrar, hosting, or CMS accounts as needed</li>
+      <li>Timely feedback and approvals — response within 5 business days to avoid delays</li>
+      <li>A single point of contact for all project decisions to avoid conflicting instructions</li>
+    </ul>
+    <p>If the Client is unable to provide content within <strong>14 days</strong> of a formal content request, 3lleven reserves the right to use placeholder content to maintain the project timeline. The Client remains responsible for updating placeholder content after launch.</p>
+  </div>
+
+  <!-- 5. TIMELINE -->
+  <div class="section">
+    <div class="section-num">Section 05</div>
+    <h2>Project Timeline</h2>
+    <p>The estimated project timeline begins on the date the deposit is received. Standard timelines are as follows:</p>
+    <ul>
+      <li><strong>1–3 Page New Build:</strong> 10–14 business days after deposit and all materials received</li>
+      <li><strong>4–6 Page Site:</strong> 14–21 business days</li>
+      <li><strong>7+ Pages / E-Commerce / Complex Builds:</strong> 21–35 business days (or as agreed upon in writing)</li>
+      <li><strong>Rush delivery</strong> (shorter than standard timeline): subject to availability and a rush fee of 20% of the total project price</li>
+    </ul>
+    <p>The timeline is contingent on timely receipt of all Client materials and feedback. 3lleven is not liable for delays caused by the Client's failure to deliver materials or approvals on time.</p>
+  </div>
+
+  <!-- 6. INTELLECTUAL PROPERTY & OWNERSHIP -->
+  <div class="section">
+    <div class="section-num">Section 06</div>
+    <h2>Intellectual Property &amp; Ownership</h2>
+    <p>Upon receipt of <strong>full payment</strong> of all outstanding invoices, the Client owns the final website design and all custom assets created specifically for this project.</p>
+    <ol>
+      <li><strong>Source Code:</strong> By default, source code transfer is <em>not</em> included in the base package. If the Client has purchased the Source Code Transfer add-on (+$75), full source code will be delivered via GitHub or ZIP file upon final payment.</li>
+      <li><strong>Third-Party Assets:</strong> Open-source libraries, licensed fonts, stock photos, and plugins used in the build remain subject to their original licenses. 3lleven is not responsible for future licensing changes to third-party tools.</li>
+      <li><strong>Portfolio Rights:</strong> 3lleven reserves the right to display the completed website in its portfolio and to use it as a case study in marketing materials, unless the Client requests otherwise in writing.</li>
+      <li><strong>Prior to Full Payment:</strong> No ownership is transferred until all invoices are paid in full. 3lleven retains all rights to work-in-progress until that point.</li>
+    </ol>
+  </div>
+
+  <!-- 7. HOSTING & MAINTENANCE -->
+  <div class="section">
+    <div class="section-num">Section 07</div>
+    <h2>Hosting, Maintenance &amp; Ongoing Support</h2>
+    <p>The website will be hosted on Vercel or Netlify (infrastructure provided by 3lleven under a monthly plan, or transferred to the Client's own hosting for one-time build clients).</p>
+    <p><strong>Monthly Plan Clients:</strong> The selected plan (Starter, Growth, or Pro) covers hosting, security updates, backups, and support as detailed in the plan description. The plan auto-renews monthly and can be cancelled with <strong>30 days' written notice</strong>.</p>
+    <p><strong>One-Time Build Clients (No Monthly Plan):</strong> Hosting, maintenance, security updates, and domain renewals become the sole responsibility of the Client after the site goes live. 3lleven provides <strong>30 days of complimentary bug fixes</strong> after launch for issues directly related to the build (not third-party changes or Client modifications).</p>
+    <div class="highlight-box">
+      <p><strong>Uptime:</strong> 3lleven uses automated uptime monitoring and will address outages within 4 business hours for monthly plan clients. 3lleven is not liable for downtime caused by platform-level incidents (Vercel, Netlify, DNS providers, etc.).</p>
+    </div>
+  </div>
+
+  <!-- 8. WARRANTIES & LIABILITY -->
+  <div class="section">
+    <div class="section-num">Section 08</div>
+    <h2>Warranties &amp; Limitation of Liability</h2>
+    <p>3lleven warrants that all work is performed professionally and that the website will function as described in this agreement at the time of delivery.</p>
+    <p><strong>3lleven does not guarantee:</strong></p>
+    <ul>
+      <li>Specific search engine rankings or SEO outcomes</li>
+      <li>Sales, leads, revenue, or business results from the website</li>
+      <li>Compatibility with browsers or devices released after the project completion date</li>
+      <li>Uninterrupted uptime of third-party hosting platforms</li>
+    </ul>
+    <p>In no event shall 3lleven's total liability to the Client for any claim exceed the total amount paid by the Client under this agreement. 3lleven is not liable for indirect, incidental, or consequential damages of any kind.</p>
+    <p>The Client is solely responsible for ensuring all content provided to 3lleven (text, images, logos, etc.) does not infringe on the intellectual property rights of any third party.</p>
+  </div>
+
+  <!-- 9. CHANGE ORDERS -->
+  <div class="section">
+    <div class="section-num">Section 09</div>
+    <h2>Change Orders &amp; Scope Additions</h2>
+    <p>Any work requested beyond the scope defined in Section 1 of this agreement — including additional pages, new features, integrations, or design changes that alter the agreed-upon direction — constitutes a Change Order.</p>
+    <ol>
+      <li>Change Orders must be agreed upon in writing (email is acceptable) before additional work begins.</li>
+      <li>Each Change Order will include a price and estimated timeline for the additional work.</li>
+      <li>Change Orders are invoiced separately and do not alter the payment terms of the original project.</li>
+      <li>3lleven reserves the right to decline Change Orders that would significantly alter the project scope or timeline.</li>
+    </ol>
+  </div>
+
+  <!-- 10. CONFIDENTIALITY -->
+  <div class="section">
+    <div class="section-num">Section 10</div>
+    <h2>Confidentiality</h2>
+    <p>Both parties agree to keep confidential any proprietary information shared during the course of the project. This includes, but is not limited to, business strategies, pricing, login credentials, customer data, and any documents marked as confidential.</p>
+    <p>Credentials (hosting logins, domain registrar access, etc.) shared with 3lleven will be stored securely using encrypted credential management tools and deleted upon project completion or client request.</p>
+  </div>
+
+  <!-- 11. TERMINATION -->
+  <div class="section">
+    <div class="section-num">Section 11</div>
+    <h2>Termination</h2>
+    <p>Either party may terminate this agreement with <strong>7 days' written notice</strong>.</p>
+    <ol>
+      <li><strong>Client-Initiated Termination:</strong> The deposit is non-refundable. If work has begun, the Client owes a prorated payment for all work completed up to the termination date, not to exceed the total contract price.</li>
+      <li><strong>3lleven-Initiated Termination:</strong> If 3lleven terminates the agreement (e.g., due to Client non-communication exceeding 21 days, or a fundamental breakdown in the working relationship), the Client will be refunded any amount paid beyond the value of work completed.</li>
+      <li><strong>Non-Communication:</strong> If the Client is unresponsive for more than 21 consecutive days after a written follow-up, 3lleven reserves the right to close the project, retain the deposit, and release any reserved time slots.</li>
+    </ol>
+  </div>
+
+  <!-- 12. GOVERNING LAW -->
+  <div class="section">
+    <div class="section-num">Section 12</div>
+    <h2>Governing Law &amp; Dispute Resolution</h2>
+    <p>This agreement shall be governed by the laws of the <strong>State of Michigan</strong>. Any disputes arising under this agreement that cannot be resolved informally between the parties shall be subject to binding arbitration in Wayne County, Michigan, in accordance with applicable rules.</p>
+    <p>Both parties agree to attempt good-faith resolution of any dispute through direct communication before initiating any formal legal process.</p>
+  </div>
+
+  <!-- 13. ENTIRE AGREEMENT -->
+  <div class="section">
+    <div class="section-num">Section 13</div>
+    <h2>Entire Agreement</h2>
+    <p>This agreement, together with any written project proposals, change orders, or addenda expressly incorporated herein, constitutes the entire agreement between the parties and supersedes all prior discussions, negotiations, and agreements. No modification of this agreement is valid unless made in writing and signed by both parties.</p>
+    <p>By signing below, both parties confirm they have read, understood, and agreed to all terms set forth in this agreement.</p>
+  </div>
+
+  <!-- SIGNATURE BLOCK -->
+  <div class="sig-block">
+    <div class="sig-party">
+      <div class="sig-party-label">3lleven — Service Provider</div>
+      <div class="sig-line"></div>
+      <div class="sig-meta">Signature</div>
+      <br>
+      <div class="sig-line" style="height:28px;"></div>
+      <div class="sig-meta">Printed Name &amp; Title · Adebola Fagade, Founder</div>
+      <br>
+      <div class="sig-line" style="height:28px;"></div>
+      <div class="sig-meta">Date</div>
+    </div>
+    <div class="sig-party">
+      <div class="sig-party-label">Client</div>
+      <div class="sig-line"></div>
+      <div class="sig-meta">Signature</div>
+      <br>
+      <div class="sig-line" style="height:28px;"></div>
+      <div class="sig-meta">Printed Name &amp; Title</div>
+      <br>
+      <div class="sig-line" style="height:28px;"></div>
+      <div class="sig-meta">Date</div>
+    </div>
+  </div>
+
+  <!-- CONTRACT FOOTER -->
+  <div class="contract-footer">
+    <p>3lleven Web Studio · 3lleven.dev · hello@3lleven.dev · Detroit, MI</p>
+    <p style="margin-top:4px;">Web Design &amp; Development Agreement — v1.0 · Questions? Contact us before signing.</p>
+  </div>
+
+</div>
+
+<script>
+  const html = document.documentElement;
+  const btn = document.getElementById('themeToggle');
+  btn.addEventListener('click', () => {
+    const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    btn.textContent = next === 'dark' ? '☀️' : '🌙';
+  });
+
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+  });
+  document.addEventListener('click', e => {
+    if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+    }
+  });
+</script>
+</body>
+</html>
