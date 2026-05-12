@@ -444,8 +444,8 @@
       border: 1px solid var(--border2);
       box-shadow: 0 24px 80px rgba(0,0,0,0.18), 0 0 0 1px rgba(255,255,255,0.04);
     }
-    .ba-after { display: flex; flex-direction: column; width: 100%; height: 100%; }
-    .ba-before { position: absolute; inset: 0; width: 100%; height: 100%; clip-path: inset(0 50% 0 0); overflow: hidden; }
+    .ba-after { display: flex; flex-direction: column; width: 100%; height: 100%; isolation: isolate; }
+    .ba-before { position: absolute; inset: 0; width: 100%; height: 100%; clip-path: inset(0 50% 0 0); overflow: hidden; z-index: 5; }
     .ba-before > div { width: 100%; height: 100%; }
     .ba-divider {
       position: absolute; top: 0; bottom: 0; left: 50%;
