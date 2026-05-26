@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="apple-touch-icon" href="favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3lleven — Our Work</title>
+  <meta name="description" content="Portfolio of custom websites built by 3lleven — fast, custom, no templates." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:      #FFFFFF;
+      --bg2:     #F5F5F7;
+      --bg3:     #E8E8ED;
+      --fg:      #1D1D1F;
+      --muted:   #6E6E73;
+      --muted2:  #86868B;
+      --border:  rgba(0,0,0,0.08);
+      --border2: rgba(0,0,0,0.13);
+      --blue:    #0066CC;
+      --grad:    linear-gradient(135deg, #2997FF 0%, #5AC8FA 50%, #BF5AF2 100%);
+      --nav-bg:  rgba(255,255,255,0.72);
+      --shadow:  0 2px 24px rgba(0,0,0,0.07);
+      --shadow2: 0 8px 48px rgba(0,0,0,0.11);
+    }
+
+    [data-theme="dark"] {
+      --bg:      #000000;
+      --bg2:     #1D1D1F;
+      --bg3:     #2C2C2E;
+      --fg:      #F5F5F7;
+      --muted:   #A1A1A6;
+      --muted2:  #86868B;
+      --border:  rgba(255,255,255,0.09);
+      --border2: rgba(255,255,255,0.15);
+      --blue:    #2997FF;
+      --nav-bg:  rgba(0,0,0,0.72);
+      --shadow:  0 2px 24px rgba(0,0,0,0.4);
+      --shadow2: 0 8px 48px rgba(0,0,0,0.55);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      height: 48px;
+      background: var(--nav-bg);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner { max-width: 980px; margin: 0 auto; padding: 0 22px; height: 100%; display: flex; align-items: center; justify-content: space-between; }
+    .logo { font-size: 1rem; font-weight: 700; letter-spacing: -0.02em; }
+    .logo em { font-style: normal; background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { font-size: 0.8rem; font-weight: 400; color: var(--muted); transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--fg); }
+    .nav-right { display: flex; align-items: center; gap: 1.25rem; }
+    .theme-btn { background: none; border: none; cursor: pointer; color: var(--muted); font-size: 0.9rem; padding: 4px; line-height: 1; transition: color 0.2s; }
+    .theme-btn:hover { color: var(--fg); }
+    .nav-cta {
+      font-size: 0.82rem; font-weight: 700;
+      padding: 0.5rem 1.1rem;
+      border-radius: 980px;
+      background: linear-gradient(135deg, #2997FF, #BF5AF2);
+      color: #fff;
+      position: relative; overflow: hidden;
+      transition: opacity 0.2s, transform 0.15s;
+    }
+    .nav-cta::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent); transition: left 0.5s ease; }
+    .nav-cta:hover::before { left: 100%; }
+    .nav-cta:hover { opacity: 0.9; transform: translateY(-1px); }
+
+    /* HAMBURGER */
+    .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; z-index: 1001; }
+    .hamburger span { display: block; width: 22px; height: 2px; background: var(--fg); border-radius: 2px; transition: transform 0.25s ease, opacity 0.2s ease; }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .mobile-menu { display: none; position: fixed; top: 48px; left: 0; right: 0; background: var(--nav-bg); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); border-bottom: 1px solid var(--border); padding: 1.25rem 22px 1.5rem; flex-direction: column; gap: 0; z-index: 999; }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { font-size: 0.95rem; font-weight: 500; color: var(--muted); padding: 0.75rem 0; border-bottom: 1px solid var(--border); transition: color 0.2s; }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu a:hover { color: var(--fg); }
+    .mobile-menu .mob-cta { margin-top: 1rem; padding: 0.75rem; border-radius: 980px; background: linear-gradient(135deg, #2997FF, #BF5AF2); color: #fff !important; text-align: center; font-weight: 700; font-size: 0.875rem; border-bottom: none !important; }
+    @media (max-width: 580px) { .nav-links { display: none; } .hamburger { display: flex; } }
+
+    /* HERO */
+    .page-hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 22px 80px;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* subtle grid background */
+    .page-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(to right, var(--border) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--border) 1px, transparent 1px);
+      background-size: 80px 80px;
+      mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, #000 40%, transparent 100%);
+      -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, #000 40%, transparent 100%);
+      pointer-events: none;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--blue);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+
+    .page-hero h1 {
+      font-size: clamp(2.8rem, 8vw, 5.5rem);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 1.0;
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+
+    .grad-text {
+      background: var(--grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-sub {
+      font-size: 1.05rem;
+      color: var(--muted);
+      font-weight: 300;
+      max-width: 460px;
+      line-height: 1.7;
+      margin-bottom: 2.5rem;
+      position: relative;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.85rem 2rem;
+      border-radius: 980px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      background: linear-gradient(135deg, #2997FF, #BF5AF2);
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+      transition: opacity 0.2s, transform 0.15s;
+    }
+    .hero-cta::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent); transition: left 0.5s ease; }
+    .hero-cta:hover::before { left: 100%; }
+    .hero-cta:hover { opacity: 0.9; transform: translateY(-1px); }
+
+    /* Status pill */
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(52, 199, 89, 0.1);
+      border: 1px solid rgba(52, 199, 89, 0.25);
+      border-radius: 980px;
+      padding: 0.35rem 0.9rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #22a843;
+      margin-bottom: 2rem;
+      position: relative;
+    }
+    [data-theme="dark"] .status-pill { color: #34d399; background: rgba(52,211,153,0.1); border-color: rgba(52,211,153,0.2); }
+    .status-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #22a843;
+      animation: blink 2s ease-in-out infinite;
+    }
+    [data-theme="dark"] .status-dot { background: #34d399; }
+    @keyframes blink { 50% { opacity: 0.3; } }
+
+    /* FOOTER */
+    footer { background: var(--bg); border-top: 1px solid var(--border); padding: 2rem 22px; }
+    .footer-inner { max-width: 980px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+    .footer-logo { font-size: 0.95rem; font-weight: 700; letter-spacing: -0.02em; }
+    .footer-logo em { font-style: normal; background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    footer .copy { font-size: 0.75rem; color: var(--muted2); }
+    .footer-links { display: flex; gap: 1.75rem; list-style: none; }
+    .footer-links a { font-size: 0.75rem; color: var(--muted2); transition: color 0.2s; }
+    .footer-links a:hover { color: var(--fg); }
+
+    *, *::before, *::after { transition: background-color 0.3s ease, border-color 0.25s ease, color 0.2s ease; }
+    .hero-cta, .nav-cta, .theme-btn { transition: background-color 0.3s ease, border-color 0.25s ease, color 0.2s ease, opacity 0.2s, transform 0.15s; }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="logo"><em>3</em>lleven</a>
+    <ul class="nav-links">
+      <li><a href="work.html" class="active">Work</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="process.html">Process</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="theme-btn" id="themeToggle" aria-label="Toggle theme">🌙</button>
+      <a href="intake.html" class="nav-cta">Start a project</a>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="work.html">Work</a>
+  <a href="services.html">Services</a>
+  <a href="pricing.html">Pricing</a>
+  <a href="process.html">Process</a>
+  <a href="about.html">About</a>
+  <a href="intake.html" class="mob-cta">Start a project</a>
+</div>
+
+<!-- HERO -->
+<section class="page-hero">
+  <p class="hero-eyebrow">Portfolio</p>
+  <div class="status-pill">
+    <span class="status-dot"></span>
+    First client sites launching soon
+  </div>
+  <h1>Our <span class="grad-text">Work.</span></h1>
+  <p class="hero-sub">Custom sites built from scratch — no templates, no bloat. Each one designed to perform and owned outright by the client.</p>
+  <a href="intake.html" class="hero-cta">Start your project →</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo"><em>3</em>lleven</div>
+    <p class="copy">© 2026 3lleven. All rights reserved.</p>
+    <ul class="footer-links">
+      <li><a href="services.html">Services</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+  const html  = document.documentElement;
+  const btn   = document.getElementById('themeToggle');
+  const saved = localStorage.getItem('3lleven-theme') || 'light';
+  html.setAttribute('data-theme', saved);
+  btn.textContent = saved === 'dark' ? '☀️' : '🌙';
+  btn.addEventListener('click', () => {
+    const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    btn.textContent = next === 'dark' ? '☀️' : '🌙';
+    localStorage.setItem('3lleven-theme', next);
+  });
+
+  const hamburger  = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+  });
+  document.addEventListener('click', e => {
+    if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+    }
+  });
+</script>
+</body>
+</html>
