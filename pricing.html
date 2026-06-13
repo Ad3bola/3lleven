@@ -1,792 +1,194 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="apple-touch-icon" href="favicon.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>3lleven — Pricing Calculator</title>
+  <title>3lleven — Pricing</title>
+  <meta name="description" content="Build your package — pick what you need and see your price instantly. Flat fee or monthly, no surprises." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --bg:      #FFFFFF;
-      --bg2:     #F5F5F7;
-      --bg3:     #E8E8ED;
-      --fg:      #1D1D1F;
-      --muted:   #6E6E73;
-      --muted2:  #86868B;
-      --border:  rgba(0,0,0,0.08);
-      --border2: rgba(0,0,0,0.13);
-      --blue:    #0066CC;
-      --grad:    linear-gradient(135deg, #2997FF 0%, #5AC8FA 50%, #BF5AF2 100%);
-      --nav-bg:  rgba(255,255,255,0.72);
-      --shadow:  0 2px 24px rgba(0,0,0,0.07);
-      --shadow2: 0 8px 48px rgba(0,0,0,0.11);
-    }
-
-    [data-theme="dark"] {
-      --bg:      #000000;
-      --bg2:     #1D1D1F;
-      --bg3:     #2C2C2E;
-      --fg:      #F5F5F7;
-      --muted:   #A1A1A6;
-      --muted2:  #86868B;
-      --border:  rgba(255,255,255,0.09);
-      --border2: rgba(255,255,255,0.15);
-      --blue:    #2997FF;
-      --nav-bg:  rgba(0,0,0,0.72);
-      --shadow:  0 2px 24px rgba(0,0,0,0.4);
-      --shadow2: 0 8px 48px rgba(0,0,0,0.55);
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: var(--bg);
-      color: var(--fg);
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
-    }
-
-    a { color: inherit; text-decoration: none; }
-
-    /* ── NAV ───────────────────────────────────── */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 1000;
-      height: 48px;
-      background: var(--nav-bg);
-      backdrop-filter: saturate(180%) blur(20px);
-      -webkit-backdrop-filter: saturate(180%) blur(20px);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .nav-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 22px;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .logo {
-      font-size: 1rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-    }
-    .logo em { font-style: normal; background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-
-    .nav-links { display: flex; gap: 2rem; list-style: none; }
-    .nav-links a { font-size: 0.8rem; font-weight: 400; color: var(--muted); transition: color 0.2s; }
-    .nav-links a:hover, .nav-links a.active { color: var(--fg); }
-
-    .nav-right { display: flex; align-items: center; gap: 1.25rem; }
-
-    .theme-btn {
-      background: none; border: none; cursor: pointer;
-      color: var(--muted); font-size: 0.9rem; padding: 4px; line-height: 1;
-      transition: color 0.2s;
-    }
-    .theme-btn:hover { color: var(--fg); }
-
-    .nav-cta {
-      font-size: 0.82rem;
-      font-weight: 700;
-      padding: 0.5rem 1.1rem;
-      border-radius: 980px;
-      background: linear-gradient(135deg, #2997FF, #BF5AF2);
-      color: #fff;
-      position: relative;
-      overflow: hidden;
-      transition: opacity 0.2s, transform 0.15s;
-    }
-    .nav-cta::before {
-      content: '';
-      position: absolute;
-      top: 0; left: -100%;
-      width: 100%; height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-      transition: left 0.5s ease;
-    }
-    .nav-cta:hover::before { left: 100%; }
-    .nav-cta:hover { opacity: 0.9; transform: translateY(-1px); }
-
-    /* ── HAMBURGER ─────────────────────────────────── */
-    .hamburger {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 4px;
-      z-index: 1001;
-    }
-    .hamburger span {
-      display: block;
-      width: 22px;
-      height: 2px;
-      background: var(--fg);
-      border-radius: 2px;
-      transition: transform 0.25s ease, opacity 0.2s ease;
-    }
-    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-    .hamburger.open span:nth-child(2) { opacity: 0; }
-    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
-    .mobile-menu {
-      display: none;
-      position: fixed;
-      top: 48px; left: 0; right: 0;
-      background: var(--nav-bg);
-      backdrop-filter: saturate(180%) blur(20px);
-      -webkit-backdrop-filter: saturate(180%) blur(20px);
-      border-bottom: 1px solid var(--border);
-      padding: 1.25rem 22px 1.5rem;
-      flex-direction: column;
-      gap: 0;
-      z-index: 999;
-    }
-    .mobile-menu.open { display: flex; }
-    .mobile-menu a {
-      font-size: 0.95rem;
-      font-weight: 500;
-      color: var(--muted);
-      padding: 0.75rem 0;
-      border-bottom: 1px solid var(--border);
-      transition: color 0.2s;
-    }
-    .mobile-menu a:last-child { border-bottom: none; }
-    .mobile-menu a:hover { color: var(--fg); }
-    .mobile-menu .mob-cta {
-      margin-top: 1rem;
-      padding: 0.75rem;
-      border-radius: 980px;
-      background: linear-gradient(135deg, #2997FF, #BF5AF2);
-      color: #fff !important;
-      text-align: center;
-      font-weight: 700;
-      font-size: 0.875rem;
-      border-bottom: none !important;
-    }
-
-    @media (max-width: 580px) {
-      .nav-links { display: none; }
-      .hamburger { display: flex; }
-    }
-
-    /* ── HERO ──────────────────────────────────── */
-    .calc-hero {
-      padding: 110px 22px 60px;
-      text-align: center;
-      background: var(--bg);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .hero-eyebrow {
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: var(--blue);
-      margin-bottom: 1rem;
-    }
-
-    .calc-hero h1 {
-      font-size: clamp(2.4rem, 6vw, 4.5rem);
-      font-weight: 700;
-      letter-spacing: -0.03em;
-      line-height: 1.05;
-      margin-bottom: 1rem;
-    }
-    .grad-text {
-      background: var(--grad);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .calc-hero p {
-      font-size: 1rem;
-      color: var(--muted);
-      font-weight: 300;
-      margin-bottom: 2.5rem;
-    }
-
-    /* Plan toggle */
+    /* ── Plan toggle ── */
     .plan-toggle {
-      display: inline-flex;
-      background: var(--bg2);
-      border-radius: 980px;
-      padding: 4px;
-      gap: 4px;
+      display: inline-flex; background: var(--surface2); border: 1px solid var(--border);
+      border-radius: 3px; padding: 4px; gap: 0;
     }
-    [data-theme="dark"] .plan-toggle { background: var(--bg2); }
-
     .toggle-btn {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 0.85rem;
-      font-weight: 600;
-      padding: 0.55rem 1.5rem;
-      border-radius: 980px;
-      border: none;
-      background: transparent;
-      color: var(--muted);
-      cursor: pointer;
-      transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+      font-family: 'DM Mono', monospace; font-size: 0.74rem; font-weight: 500;
+      letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted);
+      padding: 0.6rem 1.4rem; border-radius: 2px; border: none; background: transparent;
+      cursor: pointer; transition: background 0.2s, color 0.2s;
     }
-    .toggle-btn.active {
-      background: var(--bg);
-      color: var(--fg);
-      box-shadow: var(--shadow);
-    }
-    [data-theme="dark"] .toggle-btn.active { background: var(--bg3); }
+    .toggle-btn:hover { color: var(--fg); }
+    .toggle-btn.active { background: var(--accent); color: var(--accent-ink); }
 
-    /* ── CALCULATOR LAYOUT ─────────────────────── */
-    .calc-body {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 60px 22px 100px;
-      display: grid;
-      grid-template-columns: 1fr 340px;
-      gap: 2.5rem;
-      align-items: start;
-    }
-    @media (max-width: 900px) {
-      .calc-body {
-        grid-template-columns: 1fr;
-        padding-bottom: 160px;
-      }
-    }
-    @media (max-width: 480px) {
-      .build-type-grid { grid-template-columns: 1fr !important; }
-      .calc-hero { padding: 88px 16px 48px; }
-      .calc-body { padding: 40px 16px 160px; }
-    }
+    /* ── Calc body ── */
+    .calc-body { display: grid; grid-template-columns: 1fr 340px; gap: 2rem; padding: 30px 0 110px; align-items: start; }
+    @media (max-width: 920px) { .calc-body { grid-template-columns: 1fr; padding-bottom: 160px; } }
 
-    /* ── CALC MAIN ─────────────────────────────── */
     .calc-panel { display: none; }
     .calc-panel.active { display: block; }
 
-    /* Section card */
     .calc-card {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 2rem;
-      margin-bottom: 1.25rem;
-      box-shadow: var(--shadow);
+      background: var(--surface2); border: 1px solid var(--border); border-radius: 4px;
+      padding: 1.75rem 1.85rem; margin-bottom: 1rem;
     }
-    [data-theme="dark"] .calc-card { background: var(--bg2); }
-
     .card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 1.5rem;
-      padding-bottom: 1.25rem;
-      border-bottom: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem;
+      margin-bottom: 1.4rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border);
     }
+    .card-title { font-family: 'Bricolage Grotesque', sans-serif; font-size: 1.1rem; font-weight: 600; letter-spacing: -0.02em; }
+    .card-sub { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--muted); letter-spacing: 0.04em; margin-top: 0.25rem; }
+    .card-price { font-family: 'DM Mono', monospace; font-size: 1.05rem; font-weight: 500; color: var(--accent); white-space: nowrap; }
+    [data-theme="light"] .card-price { color: var(--fg); }
 
-    .card-title {
-      font-size: 1rem;
-      font-weight: 700;
-      letter-spacing: -0.015em;
+    /* ── Build-type grid ── */
+    .build-type-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border); }
+    @media (max-width: 480px) { .build-type-grid { grid-template-columns: 1fr; } }
+    .bt-card {
+      padding: 1.1rem; background: var(--bg); border: 1px solid var(--border); border-radius: 3px;
+      cursor: pointer; transition: border-color 0.2s, background 0.2s;
     }
+    .bt-card:hover { border-color: var(--border2); }
+    .bt-card.selected { border-color: var(--accent); background: rgba(var(--accent-rgb), 0.05); }
+    .bt-label { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.45rem; }
+    .bt-price { font-family: 'Bricolage Grotesque', sans-serif; font-size: 1.6rem; font-weight: 600; letter-spacing: -0.03em; color: var(--fg); }
+    .bt-card.selected .bt-price { color: var(--accent); }
+    [data-theme="light"] .bt-card.selected .bt-price { color: var(--accent); }
+    .bt-sub { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--dim); margin-top: 0.4rem; }
 
-    .card-price {
-      font-size: 1.1rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      background: var(--grad);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    /* Base package features */
-    .base-features {
-      list-style: none;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.5rem;
-    }
+    .base-features { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
     @media (max-width: 500px) { .base-features { grid-template-columns: 1fr; } }
-
     .base-features li {
-      display: flex;
-      align-items: center;
-      gap: 0.55rem;
-      font-size: 0.85rem;
-      color: var(--muted);
+      display: flex; align-items: center; gap: 0.55rem; font-size: 0.87rem; color: var(--muted);
     }
     .base-features li::before {
-      content: '';
-      width: 16px; height: 16px;
-      border-radius: 50%;
-      background: rgba(0,102,204,0.09);
-      flex-shrink: 0;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M3.5 8L6.5 11L12.5 5' stroke='%230066CC' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-      background-size: contain;
-      background-repeat: no-repeat;
+      content: ''; width: 6px; height: 6px; background: var(--accent); flex-shrink: 0;
     }
 
-    /* Extra pages counter */
-    .counter-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-
-    .counter-label { font-size: 0.9rem; }
-    .counter-label span { font-size: 0.8rem; color: var(--muted); font-weight: 300; display: block; margin-top: 0.15rem; }
-
-    .counter-control {
-      display: flex;
-      align-items: center;
-      gap: 0;
-      background: var(--bg2);
-      border-radius: 980px;
-      overflow: hidden;
-      border: 1px solid var(--border2);
-    }
-    [data-theme="dark"] .counter-control { background: var(--bg3); }
-
+    /* ── Counter ── */
+    .counter-row { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+    .counter-label { font-size: 0.92rem; color: var(--fg); }
+    .counter-label span { display: block; font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--muted); margin-top: 0.2rem; letter-spacing: 0.04em; }
+    .counter-group { display: flex; align-items: center; gap: 0.75rem; }
+    .counter-control { display: flex; align-items: center; background: var(--bg); border: 1px solid var(--border2); border-radius: 3px; overflow: hidden; }
     .counter-btn {
-      width: 38px; height: 38px;
-      border: none;
-      background: transparent;
-      color: var(--blue);
-      font-size: 1.2rem;
-      font-weight: 600;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.15s;
-      font-family: 'Plus Jakarta Sans', sans-serif;
+      width: 38px; height: 38px; border: none; background: transparent;
+      color: var(--accent); font-family: 'DM Mono', monospace; font-size: 1.1rem; font-weight: 500;
+      cursor: pointer; transition: background 0.15s;
     }
-    .counter-btn:hover { background: rgba(0,102,204,0.08); }
-
+    [data-theme="light"] .counter-btn { color: var(--fg); }
+    .counter-btn:hover { background: rgba(var(--accent-rgb), 0.1); }
     .counter-val {
-      min-width: 48px;
-      text-align: center;
-      font-size: 0.95rem;
-      font-weight: 600;
-      border-left: 1px solid var(--border2);
-      border-right: 1px solid var(--border2);
-      height: 38px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      min-width: 46px; height: 38px; display: flex; align-items: center; justify-content: center;
+      font-family: 'DM Mono', monospace; font-size: 0.95rem; font-weight: 500;
+      border-left: 1px solid var(--border2); border-right: 1px solid var(--border2);
     }
+    .counter-unit { font-family: 'DM Mono', monospace; font-size: 0.74rem; color: var(--muted); }
 
-    .counter-unit {
-      font-size: 0.75rem;
-      color: var(--muted);
-      font-weight: 400;
-      text-align: right;
-    }
-
-    /* Add-ons list */
+    /* ── Add-ons ── */
     .addon-item {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      padding: 1rem 0;
-      border-top: 1px solid var(--border);
-      gap: 1rem;
-      cursor: pointer;
+      display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem;
+      padding: 1rem 0; border-top: 1px solid var(--border); cursor: pointer;
+      transition: background 0.15s;
     }
-    .addon-item:first-child { border-top: none; padding-top: 0; }
-
-    .addon-check-label {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.75rem;
-      flex: 1;
-      cursor: pointer;
-    }
-
+    .addon-item:first-of-type { border-top: none; padding-top: 0.25rem; }
+    .addon-check-label { display: flex; align-items: flex-start; gap: 0.85rem; flex: 1; cursor: pointer; }
     .addon-check {
-      width: 20px; height: 20px;
-      border-radius: 6px;
-      border: 1.5px solid var(--border2);
-      background: var(--bg2);
-      flex-shrink: 0;
-      margin-top: 0.05rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      width: 20px; height: 20px; border: 1.5px solid var(--border2); background: var(--bg);
+      border-radius: 3px; flex-shrink: 0; margin-top: 2px;
+      display: flex; align-items: center; justify-content: center;
       transition: background 0.15s, border-color 0.15s;
-      cursor: pointer;
     }
-    [data-theme="dark"] .addon-check { background: var(--bg3); }
-
-    .addon-check.checked {
-      background: var(--blue);
-      border-color: var(--blue);
-    }
+    .addon-check.checked { background: var(--accent); border-color: var(--accent); }
     .addon-check.checked::after {
-      content: '';
-      display: block;
-      width: 5px; height: 9px;
-      border-right: 2px solid #fff;
-      border-bottom: 2px solid #fff;
+      content: ''; width: 5px; height: 9px;
+      border-right: 2px solid var(--accent-ink); border-bottom: 2px solid var(--accent-ink);
       transform: rotate(45deg) translate(-1px, -1px);
     }
+    .addon-info .name { font-size: 0.92rem; font-weight: 500; color: var(--fg); }
+    .addon-info .desc { font-size: 0.8rem; color: var(--muted); line-height: 1.55; margin-top: 0.2rem; }
+    .addon-price { font-family: 'DM Mono', monospace; font-size: 0.88rem; font-weight: 500; color: var(--accent); white-space: nowrap; }
+    [data-theme="light"] .addon-price { color: var(--fg); }
 
-    .addon-info .name { font-size: 0.9rem; font-weight: 500; }
-    .addon-info .desc { font-size: 0.78rem; color: var(--muted); font-weight: 300; margin-top: 0.15rem; line-height: 1.4; }
-
-    .addon-price {
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: var(--blue);
-      white-space: nowrap;
-      padding-top: 0.05rem;
-    }
-
-    /* ── MONTHLY TIERS ─────────────────────────── */
+    /* ── Tier options ── */
     .tier-option {
-      border: 1.5px solid var(--border);
-      border-radius: 14px;
-      padding: 1.5rem;
-      margin-bottom: 1rem;
-      cursor: pointer;
+      border: 1.5px solid var(--border); background: var(--surface2); border-radius: 4px;
+      padding: 1.5rem 1.65rem; margin-bottom: 0.85rem; cursor: pointer;
       transition: border-color 0.2s, background 0.2s;
-      position: relative;
     }
-    .tier-option:hover { border-color: var(--blue); }
-    .tier-option.selected {
-      border-color: var(--blue);
-      background: rgba(0,102,204,0.04);
-    }
-    [data-theme="dark"] .tier-option.selected { background: rgba(41,151,255,0.07); }
-
-    .tier-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 0.75rem;
-    }
-
-    .tier-name {
-      font-size: 1rem;
-      font-weight: 700;
-      letter-spacing: -0.015em;
-      margin-bottom: 0.15rem;
+    .tier-option:hover { border-color: var(--border2); }
+    .tier-option.selected { border-color: var(--accent); background: rgba(var(--accent-rgb), 0.06); }
+    .tier-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; margin-bottom: 1rem; }
+    .tier-name { font-family: 'Bricolage Grotesque', sans-serif; font-size: 1.15rem; font-weight: 600; letter-spacing: -0.02em; }
+    .tier-tag { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 0.25rem; }
+    .tier-price-display { text-align: right; }
+    .tier-price-display .amount { font-family: 'Bricolage Grotesque', sans-serif; font-size: 1.8rem; font-weight: 600; letter-spacing: -0.03em; color: var(--fg); }
+    .tier-option.selected .tier-price-display .amount { color: var(--accent); }
+    [data-theme="light"] .tier-option.selected .tier-price-display .amount { color: var(--accent); }
+    .tier-price-display .per { font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--muted); }
+    .tier-features { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+    .tier-features li { display: flex; align-items: center; gap: 0.55rem; font-size: 0.86rem; color: var(--muted); }
+    .tier-features li::before { content: ''; width: 6px; height: 6px; background: var(--accent); flex-shrink: 0; }
+    .term-note {
+      font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--muted);
+      margin-top: 1rem; padding: 0.9rem 1rem; border: 1px solid var(--border);
+      border-left: 2px solid var(--accent); background: var(--surface2);
+      letter-spacing: 0.02em;
     }
 
-    .tier-tag {
-      font-size: 0.68rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-
-    .tier-price-display {
-      text-align: right;
-    }
-    .tier-price-display .amount {
-      font-size: 1.6rem;
-      font-weight: 700;
-      letter-spacing: -0.03em;
-      line-height: 1;
-      background: var(--grad);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    .tier-price-display .per { font-size: 0.78rem; color: var(--muted); font-weight: 300; }
-
-    .tier-features {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 0.4rem;
-    }
-    .tier-features li {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      font-size: 0.83rem;
-      color: var(--muted);
-    }
-    .tier-features li::before {
-      content: '';
-      width: 14px; height: 14px;
-      border-radius: 50%;
-      background: rgba(0,102,204,0.09);
-      flex-shrink: 0;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14' fill='none'%3E%3Cpath d='M3 7L5.5 9.5L11 4.5' stroke='%230066CC' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-      background-size: contain;
-      background-repeat: no-repeat;
-    }
-
-    /* Tier sub-options (size selector inside tier) */
-    .tier-subopts {
-      display: none;
-      margin-top: 1.25rem;
-      padding-top: 1.25rem;
-      border-top: 1px solid var(--border);
-      flex-direction: column;
-      gap: 0.6rem;
-    }
-    .tier-option.selected .tier-subopts { display: flex; }
-
-    .subopt-label {
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: var(--muted);
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      margin-bottom: 0.2rem;
-    }
-
-    .subopt-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 0.5rem;
-      cursor: pointer;
-    }
-
-    .subopt-radio {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      font-size: 0.875rem;
-      cursor: pointer;
-    }
-
-    .radio-dot {
-      width: 18px; height: 18px;
-      border-radius: 50%;
-      border: 1.5px solid var(--border2);
-      flex-shrink: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: border-color 0.15s;
-    }
-    .radio-dot.selected {
-      border-color: var(--blue);
-    }
-    .radio-dot.selected::after {
-      content: '';
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      background: var(--blue);
-    }
-
-    .subopt-price {
-      font-size: 0.875rem;
-      font-weight: 600;
-      color: var(--blue);
-    }
-
-    /* ── STICKY SIDEBAR ────────────────────────── */
-    .calc-sidebar {
-      position: sticky;
-      top: 68px;
-    }
-
-    .total-card {
-      background: var(--fg);
-      color: var(--bg);
-      border-radius: 20px;
-      padding: 2rem;
-      box-shadow: var(--shadow2);
-    }
-    [data-theme="dark"] .total-card { background: var(--bg2); color: var(--fg); border: 1px solid var(--border2); }
-
+    /* ── Sticky sidebar / total ── */
+    .calc-sidebar { position: sticky; top: 80px; }
+    .total-card { background: var(--surface2); border: 1px solid var(--accent); border-radius: 4px; padding: 1.85rem; }
     .total-eyebrow {
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      opacity: 0.5;
-      margin-bottom: 0.5rem;
+      font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 0.6rem;
     }
-
     .total-amount {
-      font-size: 3.5rem;
-      font-weight: 700;
-      letter-spacing: -0.04em;
-      line-height: 1;
-      margin-bottom: 0.25rem;
-      background: var(--grad);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      font-family: 'Bricolage Grotesque', sans-serif; font-size: 3.2rem; font-weight: 600;
+      letter-spacing: -0.04em; line-height: 1; color: var(--accent);
     }
-
-    .total-suffix {
-      font-size: 1.1rem;
-      font-weight: 400;
-      opacity: 0.6;
-    }
-
-    .total-note {
-      font-size: 0.78rem;
-      opacity: 0.5;
-      margin-bottom: 1.75rem;
-      line-height: 1.5;
-      font-weight: 300;
-    }
-
-    .total-breakdown {
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-      margin-bottom: 1.5rem;
-      padding-bottom: 1.5rem;
-      border-bottom: 1px solid rgba(255,255,255,0.12);
-    }
-    [data-theme="dark"] .total-breakdown { border-color: var(--border); }
-
+    [data-theme="light"] .total-amount { color: var(--accent); }
+    .total-suffix { font-family: 'DM Mono', monospace; font-size: 1rem; color: var(--muted); }
+    .total-note { font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--muted); margin-top: 0.5rem; line-height: 1.5; letter-spacing: 0.02em; }
+    .total-breakdown { margin: 1.4rem 0 1.4rem; padding-top: 1.25rem; border-top: 1px solid var(--border); display: flex; flex-direction: column; }
     .breakdown-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0.5rem 0;
-      font-size: 0.82rem;
-      opacity: 0.75;
-      border-top: 1px solid rgba(255,255,255,0.08);
-    }
-    [data-theme="dark"] .breakdown-row { border-color: var(--border); }
-    .breakdown-row:first-child { border-top: none; }
-    .breakdown-row .b-label { font-weight: 400; }
-    .breakdown-row .b-val { font-weight: 600; }
-
-    .cta-btn {
-      display: block;
-      width: 100%;
-      text-align: center;
-      padding: 0.9rem;
-      border-radius: 980px;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 0.9rem;
-      font-weight: 700;
-      background: linear-gradient(135deg, #2997FF, #BF5AF2);
-      color: #fff;
-      position: relative;
-      overflow: hidden;
-      transition: opacity 0.2s, transform 0.15s;
-      border: none;
-      cursor: pointer;
-    }
-    .cta-btn::before {
-      content: '';
-      position: absolute;
-      top: 0; left: -100%;
-      width: 100%; height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
-      transition: left 0.5s ease;
-    }
-    .cta-btn:hover::before { left: 100%; }
-    .cta-btn:hover { opacity: 0.92; transform: translateY(-1px); }
-
-    /* ── MOBILE STICKY TOTAL BAR ───────────────── */
-    .mobile-total-bar {
-      display: none;
-      position: fixed;
-      bottom: 0; left: 0; right: 0;
-      z-index: 900;
-      background: var(--fg);
-      color: var(--bg);
-      padding: 1rem 1.25rem;
-      gap: 1rem;
-      align-items: center;
-      justify-content: space-between;
-      border-top: 1px solid rgba(255,255,255,0.1);
-    }
-    [data-theme="dark"] .mobile-total-bar { background: var(--bg2); color: var(--fg); border-color: var(--border2); }
-
-    @media (max-width: 900px) {
-      .calc-sidebar { display: none; }
-      .mobile-total-bar { display: flex; }
-    }
-
-    .mob-total-left .lbl { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.5; }
-    .mob-total-left .amt {
-      font-size: 1.6rem;
-      font-weight: 700;
-      letter-spacing: -0.03em;
-      line-height: 1.1;
-      background: var(--grad);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .mob-cta {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 0.85rem;
-      font-weight: 700;
-      padding: 0.7rem 1.5rem;
-      border-radius: 980px;
-      background: linear-gradient(135deg, #2997FF, #BF5AF2);
-      color: #fff;
-      border: none;
-      cursor: pointer;
-      white-space: nowrap;
-      transition: opacity 0.2s;
-    }
-    .mob-cta:hover { opacity: 0.88; }
-
-    /* ── EMPTY STATE (monthly no selection) ────── */
-    .empty-state {
-      text-align: center;
-      padding: 2rem 0 1rem;
-      color: var(--muted);
-      font-size: 0.875rem;
-      font-weight: 300;
-    }
-
-    /* ── FOOTER ────────────────────────────────── */
-    footer {
-      background: var(--bg);
+      display: flex; justify-content: space-between; align-items: center; gap: 0.5rem;
+      padding: 0.45rem 0; font-family: 'DM Mono', monospace; font-size: 0.78rem;
       border-top: 1px solid var(--border);
-      padding: 2rem 22px;
     }
-    .footer-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 1rem;
+    .breakdown-row:first-child { border-top: none; }
+    .breakdown-row .b-label { color: var(--muted); }
+    .breakdown-row .b-val { color: var(--fg); font-weight: 500; }
+    .total-cta {
+      display: block; width: 100%; text-align: center; padding: 0.95rem;
+      font-family: 'DM Mono', monospace; font-size: 0.82rem; font-weight: 500;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      background: var(--accent); color: var(--accent-ink);
+      border-radius: 3px; border: none; cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.2s;
     }
-    .footer-logo { font-size: 0.95rem; font-weight: 700; letter-spacing: -0.02em; }
-    .footer-logo em { font-style: normal; background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-    footer .copy { font-size: 0.75rem; color: var(--muted2); }
-    .footer-links { display: flex; gap: 1.75rem; list-style: none; }
-    .footer-links a { font-size: 0.75rem; color: var(--muted2); transition: color 0.2s; }
-    .footer-links a:hover { color: var(--fg); }
-    .footer-social { display: flex; gap: 1rem; align-items: center; }
-    .footer-social a { color: var(--muted2); transition: color 0.2s; display: flex; align-items: center; }
-    .footer-social a:hover { color: var(--fg); }
+    .total-cta:hover { transform: translateY(-2px); box-shadow: 5px 5px 0 rgba(var(--accent-rgb), 0.22); }
 
-    /* ── THEME TRANSITIONS ─────────────────────── */
-    *, *::before, *::after {
-      transition: background-color 0.3s ease, border-color 0.25s ease, color 0.2s ease;
+    /* ── Mobile sticky bar ── */
+    .mobile-total-bar {
+      display: none; position: fixed; bottom: 0; left: 0; right: 0; z-index: 900;
+      background: var(--bg); border-top: 1px solid var(--accent);
+      padding: 0.9rem 1.25rem; align-items: center; justify-content: space-between; gap: 1rem;
     }
-    .toggle-btn, .cta-btn, .mob-cta, .theme-btn, .tier-option, .addon-check, .radio-dot {
-      transition: background-color 0.2s ease, border-color 0.2s ease, color 0.15s ease,
-                  opacity 0.2s, transform 0.15s, box-shadow 0.2s;
+    @media (max-width: 920px) { .mobile-total-bar { display: flex; } }
+    .mob-total-left .lbl { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+    .mob-total-left .amt { font-family: 'Bricolage Grotesque', sans-serif; font-size: 1.6rem; font-weight: 600; letter-spacing: -0.03em; color: var(--accent); line-height: 1.1; }
+    [data-theme="light"] .mob-total-left .amt { color: var(--accent); }
+    .mob-cta-btn {
+      font-family: 'DM Mono', monospace; font-size: 0.78rem; font-weight: 500;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      padding: 0.75rem 1.3rem; border-radius: 3px; border: none; cursor: pointer;
+      background: var(--accent); color: var(--accent-ink); white-space: nowrap;
     }
   </style>
 </head>
@@ -795,16 +197,15 @@
 <!-- NAV -->
 <nav>
   <div class="nav-inner">
-    <a href="index.html" class="logo"><em>3</em>lleven</a>
+    <a href="index.html" class="logo" aria-label="3lleven home"><span class="l3">3</span>lleven<span class="dot"></span></a>
     <ul class="nav-links">
       <li><a href="work.html">Work</a></li>
       <li><a href="services.html">Services</a></li>
       <li><a href="pricing.html" class="active">Pricing</a></li>
-      <li><a href="process.html">Process</a></li>
       <li><a href="about.html">About</a></li>
     </ul>
     <div class="nav-right">
-      <button class="theme-btn" id="themeToggle" aria-label="Toggle theme">🌙</button>
+      <button class="theme-btn" id="themeToggle" aria-label="Toggle theme">LIGHT</button>
       <a href="contact.html" class="nav-cta">Get a Quote</a>
       <button class="hamburger" id="hamburger" aria-label="Toggle menu">
         <span></span><span></span><span></span>
@@ -817,304 +218,290 @@
   <a href="work.html">Work</a>
   <a href="services.html">Services</a>
   <a href="pricing.html">Pricing</a>
-  <a href="process.html">Process</a>
   <a href="about.html">About</a>
   <a href="contact.html" class="mob-cta">Get a Quote</a>
 </div>
 
-<!-- HERO -->
-<section class="calc-hero">
-  <p class="hero-eyebrow">Transparent Pricing</p>
-  <h1>Build your <span class="grad-text">package.</span></h1>
-  <p>Choose what you need and see your price instantly — no surprises.</p>
-  <div class="plan-toggle">
-    <button class="toggle-btn active" id="toggleOnetime">One-Time Build</button>
-    <button class="toggle-btn" id="toggleMonthly">Monthly Plan</button>
+<!-- HEADER -->
+<section class="page-hero compact">
+  <div class="hero-grid"></div>
+  <div class="page-hero-inner">
+    <div class="page-status"><span class="page-status-dot"></span>Transparent pricing</div>
+    <h1 class="page-hero-h1">Build your<br><span class="hero-accent">package.</span></h1>
+    <p class="page-hero-sub">Pick what you need and see your price instantly — no surprises.</p>
+    <div class="page-hero-actions" style="margin-top: 8px;">
+      <div class="plan-toggle">
+        <button class="toggle-btn active" id="toggleOnetime">One-time build</button>
+        <button class="toggle-btn" id="toggleMonthly">Monthly plan</button>
+      </div>
+    </div>
   </div>
 </section>
 
 <!-- CALCULATOR -->
-<div class="calc-body">
+<section>
+  <div class="wrap">
+    <div class="calc-body">
 
-  <!-- MAIN PANEL -->
-  <div class="calc-main">
+      <div class="calc-main">
 
-    <!-- ONE-TIME PANEL -->
-    <div class="calc-panel active" id="onetime-panel">
+        <!-- ONE-TIME PANEL -->
+        <div class="calc-panel active" id="onetime-panel">
 
-      <!-- Base package -->
-      <div class="calc-card">
-        <div class="card-header">
-          <div>
-            <div class="card-title">Base Package</div>
-            <div style="font-size:0.78rem;color:var(--muted);font-weight:300;margin-top:0.2rem;">Select your build type below</div>
+          <div class="calc-card">
+            <div class="card-header">
+              <div>
+                <div class="card-title">Base package</div>
+                <div class="card-sub">Select your build type</div>
+              </div>
+              <div class="card-price" id="basePrice">$900</div>
+            </div>
+
+            <div class="build-type-grid">
+              <div class="bt-card selected" id="bt-new" onclick="setBuildType('new')">
+                <div class="bt-label">New build</div>
+                <div class="bt-price">$900</div>
+                <div class="bt-sub">Source code included</div>
+              </div>
+              <div class="bt-card" id="bt-redesign" onclick="setBuildType('redesign')">
+                <div class="bt-label">Redesign</div>
+                <div class="bt-price">$550</div>
+                <div class="bt-sub">Source code included</div>
+              </div>
+            </div>
+
+            <ul class="base-features">
+              <li>Up to 3 pages</li>
+              <li>Custom design — no templates</li>
+              <li>Mobile responsive</li>
+              <li>Light &amp; dark mode</li>
+              <li>Hover &amp; interaction effects</li>
+              <li>Scroll animations</li>
+              <li>Smooth scroll &amp; transitions</li>
+              <li>Contact form</li>
+              <li>Basic SEO setup</li>
+              <li>SSL certificate</li>
+              <li>Domain &amp; hosting setup</li>
+              <li>2 rounds of revisions</li>
+            </ul>
           </div>
-          <div class="card-price" id="basePrice">$900</div>
+
+          <div class="calc-card">
+            <div class="card-header">
+              <div>
+                <div class="card-title">Additional pages</div>
+                <div class="card-sub">Beyond the base 3</div>
+              </div>
+              <div class="card-price" id="extraPagePrice">$0</div>
+            </div>
+            <div class="counter-row">
+              <div class="counter-label">Extra pages<span>$75 per additional page</span></div>
+              <div class="counter-group">
+                <div class="counter-control">
+                  <button class="counter-btn" id="pageDown">−</button>
+                  <span class="counter-val" id="pageCount">0</span>
+                  <button class="counter-btn" id="pageUp">+</button>
+                </div>
+                <span class="counter-unit" id="pageTotal"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="calc-card">
+            <div class="card-header">
+              <div>
+                <div class="card-title">Add-ons</div>
+                <div class="card-sub">Everything below is beyond the base</div>
+              </div>
+            </div>
+
+            <div class="addon-item" data-key="blog" data-price="100">
+              <label class="addon-check-label">
+                <div class="addon-check" id="chk-blog"></div>
+                <div class="addon-info">
+                  <div class="name">Blog / CMS</div>
+                  <div class="desc">Full content management system — update your own posts and pages without touching code</div>
+                </div>
+              </label>
+              <div class="addon-price">+$100</div>
+            </div>
+
+            <div class="addon-item" data-key="booking" data-price="150">
+              <label class="addon-check-label">
+                <div class="addon-check" id="chk-booking"></div>
+                <div class="addon-info">
+                  <div class="name">Booking / appointment system</div>
+                  <div class="desc">Integrated scheduling for services, consultations, or appointments</div>
+                </div>
+              </label>
+              <div class="addon-price">+$150</div>
+            </div>
+
+            <div class="addon-item" data-key="ecom" data-price="300">
+              <label class="addon-check-label">
+                <div class="addon-check" id="chk-ecom"></div>
+                <div class="addon-info">
+                  <div class="name">E-commerce integration</div>
+                  <div class="desc">Stripe or Shopify — product catalog, cart, checkout, and payment processing. Final price depends on scope</div>
+                </div>
+              </label>
+              <div class="addon-price">+$300+</div>
+            </div>
+
+            <div class="addon-item" data-key="seo" data-price="100">
+              <label class="addon-check-label">
+                <div class="addon-check" id="chk-seo"></div>
+                <div class="addon-info">
+                  <div class="name">Full SEO package</div>
+                  <div class="desc">Keyword research, on-page optimization, sitemap, schema markup, Search Console setup</div>
+                </div>
+              </label>
+              <div class="addon-price">+$100</div>
+            </div>
+
+            <div class="addon-item" data-key="animations" data-price="150">
+              <label class="addon-check-label">
+                <div class="addon-check" id="chk-animations"></div>
+                <div class="addon-info">
+                  <div class="name">Advanced animations &amp; motion</div>
+                  <div class="desc">Parallax, staggered reveals, page transitions, GSAP sequences, and complex micro-interactions</div>
+                </div>
+              </label>
+              <div class="addon-price">+$150</div>
+            </div>
+
+            <div class="addon-item" data-key="portal" data-price="150">
+              <label class="addon-check-label">
+                <div class="addon-check" id="chk-portal"></div>
+                <div class="addon-info">
+                  <div class="name">Client portal / dashboard</div>
+                  <div class="desc">Password-protected area for clients to view invoices, files, or account info</div>
+                </div>
+              </label>
+              <div class="addon-price">+$150</div>
+            </div>
+
+            <div class="addon-item" data-key="api" data-price="100">
+              <label class="addon-check-label">
+                <div class="addon-check" id="chk-api"></div>
+                <div class="addon-info">
+                  <div class="name">Third-party API integration</div>
+                  <div class="desc">Connect to CRMs, email marketing, inventory systems, or any external service</div>
+                </div>
+              </label>
+              <div class="addon-price">+$100</div>
+            </div>
+
+          </div>
         </div>
-        <div class="build-type-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-bottom:1.5rem;padding-bottom:1.5rem;border-bottom:1px solid var(--border);">
-          <div id="bt-new" onclick="setBuildType('new')" style="padding:1rem;border:1.5px solid var(--blue);border-radius:12px;cursor:pointer;background:rgba(0,102,204,0.04);transition:border-color 0.2s,background 0.2s;">
-            <div style="font-size:0.7rem;font-weight:600;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:0.35rem;">New Build</div>
-            <div style="font-size:1.5rem;font-weight:700;letter-spacing:-0.03em;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">$900</div>
-            <div style="font-size:0.72rem;color:var(--muted);margin-top:0.3rem;font-weight:300;">Source code included</div>
+
+        <!-- MONTHLY PANEL -->
+        <div class="calc-panel" id="monthly-panel">
+
+          <div class="tier-option" data-tier="starter">
+            <div class="tier-top">
+              <div>
+                <div class="tier-name">Basic</div>
+                <div class="tier-tag">Maintenance &amp; hosting</div>
+              </div>
+              <div class="tier-price-display">
+                <div class="amount">$299</div>
+                <div class="per">/month</div>
+              </div>
+            </div>
+            <ul class="tier-features">
+              <li>Hosting &amp; SSL management</li>
+              <li>Security &amp; dependency updates</li>
+              <li>Monthly automated backups</li>
+              <li>24/7 uptime monitoring</li>
+              <li>1 hr dev support per month</li>
+              <li>Monthly performance report</li>
+            </ul>
           </div>
-          <div id="bt-redesign" onclick="setBuildType('redesign')" style="padding:1rem;border:1.5px solid var(--border);border-radius:12px;cursor:pointer;transition:border-color 0.2s,background 0.2s;">
-            <div style="font-size:0.7rem;font-weight:600;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:0.35rem;">Redesign</div>
-            <div style="font-size:1.5rem;font-weight:700;letter-spacing:-0.03em;">$550</div>
-            <div style="font-size:0.72rem;color:var(--muted);margin-top:0.3rem;font-weight:300;">Source code included</div>
+
+          <div class="tier-option" data-tier="growth">
+            <div class="tier-top">
+              <div>
+                <div class="tier-name">Standard</div>
+                <div class="tier-tag">Active management</div>
+              </div>
+              <div class="tier-price-display">
+                <div class="amount">$399</div>
+                <div class="per">/month</div>
+              </div>
+            </div>
+            <ul class="tier-features">
+              <li>Everything in Basic</li>
+              <li>5 hrs dev / design work per month</li>
+              <li>Monthly SEO report &amp; recommendations</li>
+              <li>Google Business profile management</li>
+              <li>2 content updates per month</li>
+              <li>Next business day response</li>
+            </ul>
           </div>
+
+          <div class="tier-option" data-tier="pro">
+            <div class="tier-top">
+              <div>
+                <div class="tier-name">Enterprise</div>
+                <div class="tier-tag">E-commerce &amp; enterprise</div>
+              </div>
+              <div class="tier-price-display">
+                <div class="amount">$599</div>
+                <div class="per">/month</div>
+              </div>
+            </div>
+            <ul class="tier-features">
+              <li>Everything in Standard</li>
+              <li>E-commerce management &amp; optimization</li>
+              <li>Up to 10 hrs dev work per month</li>
+              <li>24-hour priority support</li>
+              <li>Unlimited content updates</li>
+              <li>Advanced analytics &amp; conversion tracking</li>
+              <li>Custom integrations maintenance</li>
+            </ul>
+          </div>
+
+          <div class="term-note">
+            All monthly plans carry a 6-month minimum term. You always own your code — included on every plan.
+          </div>
+
         </div>
-        <ul class="base-features">
-          <li>Up to 3 pages</li>
-          <li>Custom design — no templates</li>
-          <li>Mobile responsive</li>
-          <li>Light &amp; dark mode</li>
-          <li>Hover &amp; interaction effects</li>
-          <li>Scroll animations (fade, slide)</li>
-          <li>Smooth scroll &amp; transitions</li>
-          <li>Contact form</li>
-          <li>Basic SEO setup</li>
-          <li>SSL certificate</li>
-          <li>Domain &amp; hosting setup</li>
-          <li>2 rounds of revisions</li>
-        </ul>
+
       </div>
 
-      <!-- Extra pages -->
-      <div class="calc-card">
-        <div class="card-header">
-          <div class="card-title">Additional Pages</div>
-          <div class="card-price" id="extraPagePrice">$0</div>
-        </div>
-        <div class="counter-row">
-          <div class="counter-label">
-            Extra pages beyond 3
-            <span>$75 per additional page</span>
+      <!-- SIDEBAR -->
+      <div class="calc-sidebar">
+        <div class="total-card">
+          <div class="total-eyebrow">Your estimate</div>
+          <div><span class="total-amount" id="totalAmount">$900</span><span class="total-suffix" id="totalSuffix"></span></div>
+          <div class="total-note" id="totalNote">Base package · customize with add-ons above</div>
+
+          <div class="total-breakdown" id="breakdown">
+            <div class="breakdown-row"><span class="b-label">Base package</span><span class="b-val">$900</span></div>
           </div>
-          <div style="display:flex;align-items:center;gap:0.75rem;">
-            <div class="counter-control">
-              <button class="counter-btn" id="pageDown">−</button>
-              <span class="counter-val" id="pageCount">0</span>
-              <button class="counter-btn" id="pageUp">+</button>
-            </div>
-            <span class="counter-unit" id="pageTotal"></span>
-          </div>
+
+          <a href="contact.html" class="total-cta" id="sidebarCta" onclick="saveQuote()">Get my quote →</a>
         </div>
       </div>
 
-      <!-- Add-ons -->
-      <div class="calc-card">
-        <div class="card-header">
-          <div class="card-title">Add-Ons</div>
-          <div style="font-size:0.78rem;color:var(--muted);font-weight:300;">Everything below is beyond the base package</div>
-        </div>
-
-        <div class="addon-item" data-key="blog" data-price="100">
-          <label class="addon-check-label">
-            <div class="addon-check" id="chk-blog"></div>
-            <div class="addon-info">
-              <div class="name">Blog / CMS</div>
-              <div class="desc">Full content management system — update your own blog posts and pages without touching code</div>
-            </div>
-          </label>
-          <div class="addon-price">+$100</div>
-        </div>
-
-        <div class="addon-item" data-key="booking" data-price="150">
-          <label class="addon-check-label">
-            <div class="addon-check" id="chk-booking"></div>
-            <div class="addon-info">
-              <div class="name">Booking / Appointment System</div>
-              <div class="desc">Integrated scheduling for services, consultations, or appointments</div>
-            </div>
-          </label>
-          <div class="addon-price">+$150</div>
-        </div>
-
-        <div class="addon-item" data-key="ecom" data-price="300">
-          <label class="addon-check-label">
-            <div class="addon-check" id="chk-ecom"></div>
-            <div class="addon-info">
-              <div class="name">E-Commerce Integration</div>
-              <div class="desc">Stripe or Shopify — product catalog, cart, checkout, and payment processing. Final price depends on scope</div>
-            </div>
-          </label>
-          <div class="addon-price">+$300+</div>
-        </div>
-
-        <div class="addon-item" data-key="seo" data-price="100">
-          <label class="addon-check-label">
-            <div class="addon-check" id="chk-seo"></div>
-            <div class="addon-info">
-              <div class="name">Full SEO Package</div>
-              <div class="desc">Keyword research, on-page optimization, sitemap, schema markup, and Google Search Console setup</div>
-            </div>
-          </label>
-          <div class="addon-price">+$100</div>
-        </div>
-
-        <div class="addon-item" data-key="animations" data-price="150">
-          <label class="addon-check-label">
-            <div class="addon-check" id="chk-animations"></div>
-            <div class="addon-info">
-              <div class="name">Advanced Animations & Motion</div>
-              <div class="desc">Beyond the standard — parallax effects, staggered reveals, page transitions, GSAP-powered sequences, and complex micro-interactions</div>
-            </div>
-          </label>
-          <div class="addon-price">+$150</div>
-        </div>
-
-        <div class="addon-item" data-key="portal" data-price="150">
-          <label class="addon-check-label">
-            <div class="addon-check" id="chk-portal"></div>
-            <div class="addon-info">
-              <div class="name">Client Portal / Dashboard</div>
-              <div class="desc">Password-protected area for clients to view invoices, files, or account info</div>
-            </div>
-          </label>
-          <div class="addon-price">+$150</div>
-        </div>
-
-        <div class="addon-item" data-key="api" data-price="100">
-          <label class="addon-check-label">
-            <div class="addon-check" id="chk-api"></div>
-            <div class="addon-info">
-              <div class="name">Third-Party API Integration</div>
-              <div class="desc">Connect to CRMs, email marketing, inventory systems, or any external service</div>
-            </div>
-          </label>
-          <div class="addon-price">+$100</div>
-        </div>
-
-      </div><!-- /addon card -->
-    </div><!-- /onetime panel -->
-
-    <!-- MONTHLY PANEL -->
-    <div class="calc-panel" id="monthly-panel">
-
-      <!-- Tier 1 -->
-      <div class="tier-option" id="tier-starter" data-tier="starter">
-        <div class="tier-top">
-          <div>
-            <div class="tier-name">Basic</div>
-            <div class="tier-tag">Maintenance & Hosting</div>
-          </div>
-          <div class="tier-price-display">
-            <div class="amount">$299</div>
-            <div class="per">/month</div>
-          </div>
-        </div>
-        <ul class="tier-features">
-          <li>Hosting & SSL management</li>
-          <li>Security & dependency updates</li>
-          <li>Monthly automated backups</li>
-          <li>24/7 uptime monitoring</li>
-          <li>1 hr dev support per month</li>
-          <li>Monthly performance report</li>
-        </ul>
-      </div>
-
-      <!-- Tier 2 -->
-      <div class="tier-option" id="tier-growth" data-tier="growth">
-        <div class="tier-top">
-          <div>
-            <div class="tier-name">Standard</div>
-            <div class="tier-tag">Active Management</div>
-          </div>
-          <div class="tier-price-display">
-            <div class="amount">$399</div>
-            <div class="per">/month</div>
-          </div>
-        </div>
-        <ul class="tier-features">
-          <li>Everything in Basic</li>
-          <li>5 hrs dev / design work per month</li>
-          <li>Monthly SEO report & recommendations</li>
-          <li>Google Business profile management</li>
-          <li>2 content updates per month</li>
-          <li>Priority next-business-day response</li>
-        </ul>
-      </div>
-
-      <!-- Tier 3 -->
-      <div class="tier-option" id="tier-pro" data-tier="pro">
-        <div class="tier-top">
-          <div>
-            <div class="tier-name">Enterprise</div>
-            <div class="tier-tag">E-Commerce & Enterprise</div>
-          </div>
-          <div class="tier-price-display">
-            <div class="amount">$599</div>
-            <div class="per">/month</div>
-          </div>
-        </div>
-        <ul class="tier-features">
-          <li>Everything in Standard</li>
-          <li>E-commerce management & optimization</li>
-          <li>Up to 10 hrs dev work per month</li>
-          <li>Priority 24-hr support</li>
-          <li>Unlimited content updates</li>
-          <li>Advanced analytics & conversion tracking</li>
-          <li>Custom integrations maintenance</li>
-        </ul>
-      </div>
-
-      <p style="font-size:0.78rem;color:var(--muted);font-weight:300;margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border);">Source code is available to all monthly plan clients at any time for a one-time $50 fee.</p>
-
-    </div><!-- /monthly panel -->
-
-  </div><!-- /calc-main -->
-
-  <!-- SIDEBAR TOTAL -->
-  <div class="calc-sidebar">
-    <div class="total-card">
-      <div class="total-eyebrow">Your Estimate</div>
-      <div>
-        <span class="total-amount" id="totalAmount">$900</span><span class="total-suffix" id="totalSuffix"></span>
-      </div>
-      <div class="total-note" id="totalNote">Base package · Customize with add-ons above</div>
-
-      <div class="total-breakdown" id="breakdown">
-        <div class="breakdown-row">
-          <span class="b-label">Base package</span>
-          <span class="b-val">$900</span>
-        </div>
-      </div>
-
-      <a href="contact.html" class="cta-btn" id="sidebarCta" onclick="saveQuote()">
-        Get My Quote →
-      </a>
     </div>
   </div>
+</section>
 
-</div><!-- /calc-body -->
-
-<!-- MOBILE STICKY BAR -->
+<!-- Mobile sticky bar -->
 <div class="mobile-total-bar">
   <div class="mob-total-left">
     <div class="lbl">Your estimate</div>
-    <div class="amt">
-      <span id="mobAmount">$900</span><span id="mobSuffix" style="font-size:0.9rem;font-weight:400;opacity:0.6;"></span>
-    </div>
+    <div class="amt"><span id="mobAmount">$900</span><span id="mobSuffix" style="font-size:0.9rem;color:var(--muted);"></span></div>
   </div>
-  <button class="mob-cta" onclick="saveQuote(); window.location='contact.html'">Get My Quote →</button>
+  <button class="mob-cta-btn" onclick="saveQuote(); window.location='contact.html'">Get my quote →</button>
 </div>
-
-<!-- REFERRAL -->
-<section style="background:var(--bg2);padding:40px 22px;border-top:1px solid var(--border);">
-  <div style="max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
-    <div>
-      <p style="font-size:0.72rem;font-weight:700;color:var(--blue);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.3rem;">Referral Program</p>
-      <p style="font-size:0.95rem;font-weight:600;letter-spacing:-0.01em;margin-bottom:0.2rem;">Know a business that needs a site?</p>
-      <p style="font-size:0.85rem;color:var(--muted);font-weight:300;">Refer them and earn <strong style="color:var(--fg);">$100 cash</strong> — no limits, no expiry.</p>
-    </div>
-    <a href="contact.html" style="display:inline-flex;align-items:center;gap:0.35rem;font-size:0.85rem;font-weight:600;color:var(--blue);padding:0.6rem 1.25rem;border-radius:980px;border:1.5px solid var(--blue);white-space:nowrap;transition:background 0.2s,color 0.2s;" onmouseover="this.style.background='var(--blue)';this.style.color='#fff'" onmouseout="this.style.background='transparent';this.style.color='var(--blue)'">Make a Referral →</a>
-  </div>
-</section>
 
 <!-- FOOTER -->
 <footer>
   <div class="footer-inner">
-    <div class="footer-logo"><em>3</em>lleven</div>
+    <div class="footer-logo"><span class="l3">3</span>lleven<span class="dot"></span></div>
     <p class="copy">© 2026 3lleven. All rights reserved.</p>
     <ul class="footer-links">
       <li><a href="services.html">Services</a></li>
@@ -1131,64 +518,44 @@
 </footer>
 
 <script>
-  // ── Theme ────────────────────────────────────────────────────────────
+  // ── Theme ──
   const html  = document.documentElement;
   const tbtn  = document.getElementById('themeToggle');
-  const saved = localStorage.getItem('3lleven-theme') || 'light';
+  const saved = localStorage.getItem('3lleven-theme') || 'dark';
   html.setAttribute('data-theme', saved);
-  tbtn.textContent = saved === 'dark' ? '☀️' : '🌙';
+  tbtn.textContent = saved === 'dark' ? 'LIGHT' : 'DARK';
   tbtn.addEventListener('click', () => {
     const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
     html.setAttribute('data-theme', next);
-    tbtn.textContent = next === 'dark' ? '☀️' : '🌙';
+    tbtn.textContent = next === 'dark' ? 'LIGHT' : 'DARK';
     localStorage.setItem('3lleven-theme', next);
   });
 
-  // ── State ────────────────────────────────────────────────────────────
+  // ── State ──
   let buildType = 'new';
+  let mode = 'onetime';
+  let extraPages = 0;
+  let checkedAddons = new Set();
+  let selectedTier = null;
+
+  const PRICES = {
+    newBuild: 900, redesign: 550, page: 75,
+    addons: { blog:100, booking:150, ecom:300, seo:100, animations:150, portal:150, api:100 },
+    monthly: { starter:299, growth:399, pro:599 }
+  };
 
   function setBuildType(type) {
     buildType = type;
     const isNew = type === 'new';
-    const price = isNew ? PRICES.newBuild : PRICES.redesign;
-    document.getElementById('basePrice').textContent = '$' + price;
-    document.getElementById('bt-new').style.borderColor     = isNew ? 'var(--blue)' : 'var(--border)';
-    document.getElementById('bt-new').style.background      = isNew ? 'rgba(0,102,204,0.04)' : 'transparent';
-    document.getElementById('bt-redesign').style.borderColor = isNew ? 'var(--border)' : 'var(--blue)';
-    document.getElementById('bt-redesign').style.background  = isNew ? 'transparent' : 'rgba(0,102,204,0.04)';
+    document.getElementById('basePrice').textContent = '$' + (isNew ? PRICES.newBuild : PRICES.redesign);
+    document.getElementById('bt-new').classList.toggle('selected', isNew);
+    document.getElementById('bt-redesign').classList.toggle('selected', !isNew);
     updateTotal();
   }
 
-  const PRICES = {
-    newBuild:   900,
-    redesign:   550,
-    page:       75,
-    addons: {
-      'blog':          100,
-      'booking':       150,
-      'ecom':          300,
-      'seo':           100,
-      'animations':    150,
-      'portal':        150,
-      'api':           100,
-    },
-    monthly: {
-      starter: { base: 299 },
-      growth:  { base: 399 },
-      pro:     { base: 599 },
-    }
-  };
-
-  let mode         = 'onetime';   // 'onetime' | 'monthly'
-  let extraPages   = 0;
-  let checkedAddons = new Set();
-  let selectedTier  = null;       // 'starter' | 'growth' | 'pro'
-  let monthlySubPrice = { growth: 399, pro: 599 };
-
-  // ── Toggle ───────────────────────────────────────────────────────────
+  // ── Mode toggle ──
   document.getElementById('toggleOnetime').addEventListener('click', () => setMode('onetime'));
   document.getElementById('toggleMonthly').addEventListener('click', () => setMode('monthly'));
-
   function setMode(m) {
     mode = m;
     document.getElementById('toggleOnetime').classList.toggle('active', m === 'onetime');
@@ -1198,43 +565,30 @@
     updateTotal();
   }
 
-  // ── Page counter ─────────────────────────────────────────────────────
-  document.getElementById('pageDown').addEventListener('click', () => {
-    if (extraPages > 0) { extraPages--; updatePages(); updateTotal(); }
-  });
-  document.getElementById('pageUp').addEventListener('click', () => {
-    if (extraPages < 30) { extraPages++; updatePages(); updateTotal(); }
-  });
-
+  // ── Page counter ──
+  document.getElementById('pageDown').addEventListener('click', () => { if (extraPages > 0) { extraPages--; updatePages(); updateTotal(); } });
+  document.getElementById('pageUp').addEventListener('click', () => { if (extraPages < 30) { extraPages++; updatePages(); updateTotal(); } });
   function updatePages() {
     document.getElementById('pageCount').textContent = extraPages;
     const cost = extraPages * PRICES.page;
     document.getElementById('extraPagePrice').textContent = extraPages > 0 ? `+$${cost}` : '$0';
-    document.getElementById('pageTotal').textContent =
-      extraPages > 0 ? `${extraPages} × $75 = $${cost}` : '';
+    document.getElementById('pageTotal').textContent = extraPages > 0 ? `${extraPages} × $75 = $${cost}` : '';
   }
 
-  // ── Add-ons ──────────────────────────────────────────────────────────
+  // ── Add-ons ──
   document.querySelectorAll('.addon-item').forEach(item => {
     item.addEventListener('click', () => {
-      const key   = item.dataset.key;
+      const key = item.dataset.key;
       const check = document.getElementById(`chk-${key}`);
-
-      if (checkedAddons.has(key)) {
-        checkedAddons.delete(key);
-        check.classList.remove('checked');
-      } else {
-        checkedAddons.add(key);
-        check.classList.add('checked');
-      }
+      if (checkedAddons.has(key)) { checkedAddons.delete(key); check.classList.remove('checked'); }
+      else { checkedAddons.add(key); check.classList.add('checked'); }
       updateTotal();
     });
   });
 
-  // ── Tier selection ───────────────────────────────────────────────────
+  // ── Tier selection ──
   document.querySelectorAll('.tier-option').forEach(opt => {
-    opt.addEventListener('click', (e) => {
-      // Don't re-trigger if clicking inside subopt radio
+    opt.addEventListener('click', () => {
       document.querySelectorAll('.tier-option').forEach(o => o.classList.remove('selected'));
       opt.classList.add('selected');
       selectedTier = opt.dataset.tier;
@@ -1242,32 +596,10 @@
     });
   });
 
-  // Sub-option radios (growth / pro size selectors)
-  document.querySelectorAll('.subopt-row').forEach(row => {
-    row.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const tier     = row.dataset.tier;
-      const subprice = parseInt(row.dataset.subprice);
-      monthlySubPrice[tier] = subprice;
-
-      // Reset radio dots for this tier
-      document.querySelectorAll(`[data-tier="${tier}"] .radio-dot`).forEach(d => d.classList.remove('selected'));
-      row.querySelector('.radio-dot').classList.add('selected');
-
-      // Update displayed price on the tier card header
-      document.getElementById(`${tier}-price-display`).textContent =
-        subprice >= 699 ? '$699+' : `$${subprice}`;
-
-      if (selectedTier === tier) updateTotal();
-    });
-  });
-
-  // ── Update total ─────────────────────────────────────────────────────
+  // ── Update total ──
   function updateTotal() {
-    let total    = 0;
-    let suffix   = '';
-    let note     = '';
-    const rows   = [];
+    let total = 0, suffix = '', note = '';
+    const rows = [];
 
     if (mode === 'onetime') {
       const base = buildType === 'new' ? PRICES.newBuild : PRICES.redesign;
@@ -1284,34 +616,22 @@
       checkedAddons.forEach(key => {
         const price = PRICES.addons[key];
         total += price;
-        const names = {
-          'blog': 'Blog / CMS', 'booking': 'Booking System',
-          'ecom': 'E-Commerce Integration',
-          'seo': 'Full SEO Package',
-          'animations': 'Advanced Animations',
-          'portal': 'Client Portal', 'api': 'API Integration',
-        };
+        const names = { blog: 'Blog / CMS', booking: 'Booking system', ecom: 'E-commerce integration', seo: 'Full SEO package', animations: 'Advanced animations', portal: 'Client portal', api: 'API integration' };
         rows.push({ label: names[key], val: `+$${price}` });
       });
 
-      note = rows.length === 1
-        ? 'Base package · Select add-ons above'
-        : 'Estimate · Final confirmed after consultation';
-
+      note = rows.length === 1 ? 'Base package · select add-ons above' : 'Estimate · final confirmed after consultation';
     } else {
       if (!selectedTier) {
         setDisplay('—', '', 'Select a plan above');
         setBreakdown([]);
         return;
       }
-
-      const tierPrices = { starter: 299, growth: 399, pro: 599 };
-      const tierNames  = { starter: 'Basic plan', growth: 'Standard plan', pro: 'Enterprise plan' };
-      total = tierPrices[selectedTier];
+      const tierNames = { starter: 'Basic plan', growth: 'Standard plan', pro: 'Enterprise plan' };
+      total = PRICES.monthly[selectedTier];
       rows.push({ label: tierNames[selectedTier], val: `$${total}/mo` });
-
       suffix = '/mo';
-      note   = 'Billed monthly · Cancel anytime';
+      note = 'Billed monthly · 6-month minimum term';
     }
 
     setDisplay(`$${total.toLocaleString()}`, suffix, note);
@@ -1319,50 +639,37 @@
   }
 
   function setDisplay(amount, suffix, note) {
-    document.getElementById('totalAmount').textContent  = amount;
-    document.getElementById('totalSuffix').textContent  = suffix;
-    document.getElementById('totalNote').textContent    = note;
-    document.getElementById('mobAmount').textContent    = amount;
-    document.getElementById('mobSuffix').textContent    = suffix;
+    document.getElementById('totalAmount').textContent = amount;
+    document.getElementById('totalSuffix').textContent = suffix;
+    document.getElementById('totalNote').textContent = note;
+    document.getElementById('mobAmount').textContent = amount;
+    document.getElementById('mobSuffix').textContent = suffix;
   }
-
   function setBreakdown(rows) {
-    const container = document.getElementById('breakdown');
-    container.innerHTML = '';
+    const c = document.getElementById('breakdown'); c.innerHTML = '';
     rows.forEach(r => {
-      const div = document.createElement('div');
-      div.className = 'breakdown-row';
-      div.innerHTML = `<span class="b-label">${r.label}</span><span class="b-val">${r.val}</span>`;
-      container.appendChild(div);
+      const d = document.createElement('div'); d.className = 'breakdown-row';
+      d.innerHTML = `<span class="b-label">${r.label}</span><span class="b-val">${r.val}</span>`;
+      c.appendChild(d);
     });
   }
 
-  // ── Save quote to sessionStorage before navigating ───────────────────
   function saveQuote() {
-    const amount  = document.getElementById('totalAmount').textContent;
-    const suffix  = document.getElementById('totalSuffix').textContent;
-    const rows    = [...document.querySelectorAll('#breakdown .breakdown-row')]
+    const amount = document.getElementById('totalAmount').textContent;
+    const suffix = document.getElementById('totalSuffix').textContent;
+    const rows = [...document.querySelectorAll('#breakdown .breakdown-row')]
       .map(r => `${r.querySelector('.b-label').textContent}: ${r.querySelector('.b-val').textContent}`)
       .join('\n');
     sessionStorage.setItem('3lleven-quote', JSON.stringify({ amount, suffix, rows }));
   }
 
-  // Init
   updateTotal();
 
-  /* ── Hamburger menu ── */
+  /* Hamburger */
   const hamburger = document.getElementById('hamburger');
   const mobileMenu = document.getElementById('mobileMenu');
-  hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('open');
-    mobileMenu.classList.toggle('open');
-  });
-  document.addEventListener('click', e => {
-    if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
-      hamburger.classList.remove('open');
-      mobileMenu.classList.remove('open');
-    }
-  });
+  hamburger.addEventListener('click', () => { hamburger.classList.toggle('open'); mobileMenu.classList.toggle('open'); });
+  document.addEventListener('click', e => { if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) { hamburger.classList.remove('open'); mobileMenu.classList.remove('open'); } });
 </script>
 </body>
 </html>

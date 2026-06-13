@@ -1,285 +1,113 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="apple-touch-icon" href="favicon.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>3lleven — Get a Quote</title>
+  <meta name="description" content="Tell us about your project — we respond to every inquiry within one business day." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    .contact-body { display: grid; grid-template-columns: 1.4fr 1fr; gap: 2.5rem; padding: 30px 0 100px; align-items: start; }
+    @media (max-width: 820px) { .contact-body { grid-template-columns: 1fr; gap: 1.75rem; } }
 
-    :root {
-      --bg:      #FFFFFF;
-      --bg2:     #F5F5F7;
-      --bg3:     #E8E8ED;
-      --fg:      #1D1D1F;
-      --muted:   #6E6E73;
-      --muted2:  #86868B;
-      --border:  rgba(0,0,0,0.08);
-      --border2: rgba(0,0,0,0.13);
-      --blue:    #0066CC;
-      --grad:    linear-gradient(135deg, #2997FF 0%, #5AC8FA 50%, #BF5AF2 100%);
-      --nav-bg:  rgba(255,255,255,0.72);
-      --shadow:  0 2px 24px rgba(0,0,0,0.07);
-      --shadow2: 0 8px 48px rgba(0,0,0,0.11);
+    /* ── Intake banner ── */
+    .intake-banner {
+      grid-column: 1 / -1;
+      background: var(--surface2); border: 1px solid var(--border); border-radius: 4px;
+      padding: 1rem 1.25rem; font-size: 0.88rem; color: var(--muted);
+      display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap;
     }
-
-    [data-theme="dark"] {
-      --bg:      #000000;
-      --bg2:     #1D1D1F;
-      --bg3:     #2C2C2E;
-      --fg:      #F5F5F7;
-      --muted:   #A1A1A6;
-      --muted2:  #86868B;
-      --border:  rgba(255,255,255,0.09);
-      --border2: rgba(255,255,255,0.15);
-      --blue:    #2997FF;
-      --nav-bg:  rgba(0,0,0,0.72);
-      --shadow:  0 2px 24px rgba(0,0,0,0.4);
-      --shadow2: 0 8px 48px rgba(0,0,0,0.55);
+    .intake-banner::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+    .intake-banner a {
+      color: var(--accent); font-family: 'DM Mono', monospace; font-size: 0.78rem;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      border-bottom: 1px solid var(--accent); padding-bottom: 1px;
     }
+    [data-theme="light"] .intake-banner a { color: var(--accent); border-color: var(--accent); }
 
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: var(--bg);
-      color: var(--fg);
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
-    }
-
-    a { color: inherit; text-decoration: none; }
-
-    /* ── NAV ── */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 1000;
-      height: 48px;
-      background: var(--nav-bg);
-      backdrop-filter: saturate(180%) blur(20px);
-      -webkit-backdrop-filter: saturate(180%) blur(20px);
-      border-bottom: 1px solid var(--border);
-    }
-    .nav-inner { max-width: 980px; margin: 0 auto; padding: 0 22px; height: 100%; display: flex; align-items: center; justify-content: space-between; }
-    .logo { font-size: 1rem; font-weight: 700; letter-spacing: -0.02em; }
-    .logo em { font-style: normal; background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-    .nav-links { display: flex; gap: 2rem; list-style: none; }
-    .nav-links a { font-size: 0.8rem; font-weight: 400; color: var(--muted); transition: color 0.2s; }
-    .nav-links a:hover { color: var(--fg); }
-    .nav-right { display: flex; align-items: center; gap: 1.25rem; }
-    .theme-btn { background: none; border: none; cursor: pointer; color: var(--muted); font-size: 0.9rem; padding: 4px; line-height: 1; transition: color 0.2s; }
-    .theme-btn:hover { color: var(--fg); }
-    .nav-cta {
-      font-size: 0.82rem; font-weight: 700;
-      padding: 0.5rem 1.1rem; border-radius: 980px;
-      background: linear-gradient(135deg, #2997FF, #BF5AF2);
-      color: #fff; position: relative; overflow: hidden;
-      transition: opacity 0.2s, transform 0.15s;
-    }
-    .nav-cta::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent); transition: left 0.5s ease; }
-    .nav-cta:hover::before { left: 100%; }
-    .nav-cta:hover { opacity: 0.9; transform: translateY(-1px); }
-
-    /* ── HAMBURGER ── */
-    .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; z-index: 1001; }
-    .hamburger span { display: block; width: 22px; height: 2px; background: var(--fg); border-radius: 2px; transition: transform 0.25s ease, opacity 0.2s ease; }
-    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-    .hamburger.open span:nth-child(2) { opacity: 0; }
-    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-    .mobile-menu { display: none; position: fixed; top: 48px; left: 0; right: 0; background: var(--nav-bg); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); border-bottom: 1px solid var(--border); padding: 1.25rem 22px 1.5rem; flex-direction: column; gap: 0; z-index: 999; }
-    .mobile-menu.open { display: flex; }
-    .mobile-menu a { font-size: 0.95rem; font-weight: 500; color: var(--muted); padding: 0.75rem 0; border-bottom: 1px solid var(--border); transition: color 0.2s; }
-    .mobile-menu a:last-child { border-bottom: none; }
-    .mobile-menu a:hover { color: var(--fg); }
-    .mobile-menu .mob-cta { margin-top: 1rem; padding: 0.75rem; border-radius: 980px; background: linear-gradient(135deg, #2997FF, #BF5AF2); color: #fff !important; text-align: center; font-weight: 700; font-size: 0.875rem; border-bottom: none !important; }
-
-    @media (max-width: 580px) {
-      .nav-links { display: none; }
-      .hamburger { display: flex; }
-    }
-
-    /* ── PAGE HERO ── */
-    .page-hero {
-      padding: 110px 22px 64px;
-      text-align: center;
-      background: var(--bg);
-      border-bottom: 1px solid var(--border);
-    }
-    .hero-eyebrow { font-size: 0.85rem; font-weight: 600; color: var(--blue); margin-bottom: 1rem; }
-    .page-hero h1 { font-size: clamp(2.2rem, 5vw, 3.5rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.05; margin-bottom: 1rem; }
-    .grad-text { background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-    .page-hero p { font-size: 1rem; color: var(--muted); font-weight: 300; max-width: 480px; margin: 0 auto; line-height: 1.7; }
-
-    /* ── CONTACT BODY ── */
-    .contact-body {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 64px 22px 100px;
-      display: grid;
-      grid-template-columns: 1fr 300px;
-      gap: 3rem;
-      align-items: start;
-    }
-    @media (max-width: 760px) {
-      .contact-body { grid-template-columns: 1fr; gap: 2rem; padding: 48px 16px 80px; }
-    }
-
-    /* ── FORM ── */
+    /* ── Form card ── */
     .form-card {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 2.5rem;
-      box-shadow: var(--shadow);
+      background: var(--surface2); border: 1px solid var(--border); border-radius: 4px;
+      padding: 2.25rem;
     }
-    [data-theme="dark"] .form-card { background: var(--bg2); }
-
     .form-card h2 {
-      font-size: 1.3rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      margin-bottom: 0.4rem;
+      font-family: 'Bricolage Grotesque', sans-serif; font-size: 1.4rem; font-weight: 600;
+      letter-spacing: -0.02em; margin-bottom: 0.4rem;
     }
-    .form-card > p {
-      font-size: 0.875rem;
-      color: var(--muted);
-      font-weight: 300;
-      margin-bottom: 2rem;
-      line-height: 1.6;
-    }
-
-    .field { margin-bottom: 1.25rem; }
-
+    .form-card > p { font-size: 0.9rem; color: var(--muted); margin-bottom: 1.75rem; line-height: 1.7; }
+    .field { margin-bottom: 1.1rem; }
     label {
-      display: block;
-      font-size: 0.78rem;
-      font-weight: 600;
-      color: var(--fg);
-      margin-bottom: 0.4rem;
-      letter-spacing: -0.01em;
+      display: block; font-family: 'DM Mono', monospace; font-size: 0.7rem;
+      font-weight: 500; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase;
+      margin-bottom: 0.45rem;
     }
-
     input, textarea, select {
-      width: 100%;
-      font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
-      font-size: 0.9rem;
-      background: var(--bg2);
-      border: 1px solid var(--border2);
-      color: var(--fg);
-      border-radius: 10px;
-      padding: 0.75rem 1rem;
-      outline: none;
-      transition: border-color 0.2s, box-shadow 0.2s;
-      -webkit-appearance: none;
+      width: 100%; font-family: 'Bricolage Grotesque', sans-serif; font-size: 0.92rem;
+      background: var(--bg); border: 1px solid var(--border2); color: var(--fg);
+      border-radius: 3px; padding: 0.78rem 0.95rem; outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s; -webkit-appearance: none;
     }
-    [data-theme="dark"] input,
-    [data-theme="dark"] textarea,
-    [data-theme="dark"] select { background: var(--bg3); }
-
     input:focus, textarea:focus, select:focus {
-      border-color: var(--blue);
-      box-shadow: 0 0 0 3px rgba(0,102,204,0.12);
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(var(--accent-rgb), 0.18);
     }
-    [data-theme="dark"] input:focus,
-    [data-theme="dark"] textarea:focus,
-    [data-theme="dark"] select:focus {
-      box-shadow: 0 0 0 3px rgba(41,151,255,0.15);
-    }
-
-    input::placeholder, textarea::placeholder { color: var(--muted2); font-weight: 300; }
-
-    textarea { resize: vertical; min-height: 120px; }
-
-    select {
-      cursor: pointer;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 18' fill='none'%3E%3Cpath d='M4.5 7l4.5 4.5 4.5-4.5' stroke='%2386868B' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 12px center;
-      padding-right: 2.5rem;
+    input::placeholder, textarea::placeholder { color: var(--dim); }
+    textarea { resize: vertical; min-height: 130px; font-family: inherit; }
+    select { cursor: pointer; padding-right: 2.5rem;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 18' fill='none'%3E%3Cpath d='M4.5 7l4.5 4.5 4.5-4.5' stroke='%238C8C86' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 12px center;
     }
     select option { background: var(--bg); color: var(--fg); }
-
     .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
     @media (max-width: 480px) { .field-row { grid-template-columns: 1fr; } }
-
     .submit-btn {
-      width: 100%;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 0.95rem;
-      font-weight: 700;
-      padding: 0.9rem;
-      border-radius: 980px;
-      border: none;
-      background: linear-gradient(135deg, #2997FF, #BF5AF2);
-      color: #fff;
-      cursor: pointer;
-      margin-top: 0.5rem;
-      position: relative;
-      overflow: hidden;
-      transition: opacity 0.2s, transform 0.15s;
+      width: 100%; font-family: 'DM Mono', monospace; font-size: 0.85rem; font-weight: 500;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      padding: 1rem; border-radius: 3px; border: none; cursor: pointer;
+      background: var(--accent); color: var(--accent-ink);
+      margin-top: 0.5rem; transition: transform 0.15s, box-shadow 0.2s;
     }
-    .submit-btn::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent); transition: left 0.5s ease; }
-    .submit-btn:hover::before { left: 100%; }
-    .submit-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+    .submit-btn:hover { transform: translateY(-2px); box-shadow: 5px 5px 0 rgba(var(--accent-rgb), 0.22); }
+    .submit-btn:disabled { opacity: 0.7; cursor: not-allowed; transform: none; box-shadow: none; }
 
-    /* ── SIDEBAR INFO ── */
-    .contact-info { display: flex; flex-direction: column; gap: 1.25rem; }
-
+    /* ── Sidebar ── */
+    .contact-info { display: flex; flex-direction: column; gap: 1rem; }
     .info-card {
-      background: var(--bg2);
-      border-radius: 16px;
-      padding: 1.5rem;
+      background: var(--surface2); border: 1px solid var(--border); border-radius: 4px;
+      padding: 1.35rem 1.5rem;
     }
-    [data-theme="dark"] .info-card { background: var(--bg2); border: 1px solid var(--border); }
+    .info-card .ic-label {
+      font-family: 'DM Mono', monospace; font-size: 0.66rem; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 0.6rem;
+    }
+    .info-card h4 { font-family: 'Bricolage Grotesque', sans-serif; font-size: 1rem; font-weight: 600; letter-spacing: -0.015em; margin-bottom: 0.4rem; }
+    .info-card p { font-size: 0.86rem; color: var(--muted); line-height: 1.65; }
+    .info-card a { color: var(--accent); border-bottom: 1px solid rgba(var(--accent-rgb), 0.4); padding-bottom: 1px; }
 
-    .info-card h4 { font-size: 0.875rem; font-weight: 700; margin-bottom: 0.4rem; letter-spacing: -0.01em; }
-    .info-card p { font-size: 0.82rem; color: var(--muted); line-height: 1.6; font-weight: 300; }
-    .info-card a { color: var(--blue); font-weight: 500; }
-
-    /* Quote summary (from pricing page) */
+    /* ── Quote summary (from pricing calculator) ── */
     .quote-card {
-      background: var(--fg);
-      border-radius: 16px;
-      padding: 1.5rem;
-      display: none;
+      display: none; background: var(--accent); color: var(--accent-ink);
+      border: 1px solid var(--accent); border-radius: 4px; padding: 1.5rem 1.6rem;
     }
-    [data-theme="dark"] .quote-card { background: var(--bg2); border: 1px solid var(--border2); }
-
-    .quote-card .qc-eyebrow { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.45); margin-bottom: 0.4rem; }
-    [data-theme="dark"] .quote-card .qc-eyebrow { color: var(--muted2); }
-    .quote-card .qc-amount { font-size: 2rem; font-weight: 700; letter-spacing: -0.04em; background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 0.25rem; }
-    .quote-card .qc-rows { margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid rgba(255,255,255,0.1); display: flex; flex-direction: column; gap: 0.25rem; }
-    [data-theme="dark"] .quote-card .qc-rows { border-color: var(--border); }
-    .quote-card .qc-row { font-size: 0.78rem; color: rgba(255,255,255,0.55); display: flex; justify-content: space-between; }
-    [data-theme="dark"] .quote-card .qc-row { color: var(--muted); }
-
-    /* ── FOOTER ── */
-    footer { background: var(--bg); border-top: 1px solid var(--border); padding: 2rem 22px; }
-    .footer-inner { max-width: 980px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
-    .footer-logo { font-size: 0.95rem; font-weight: 700; letter-spacing: -0.02em; }
-    .footer-logo em { font-style: normal; background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-    footer .copy { font-size: 0.75rem; color: var(--muted2); }
-    .footer-links { display: flex; gap: 1.75rem; list-style: none; }
-    .footer-links a { font-size: 0.75rem; color: var(--muted2); transition: color 0.2s; }
-    .footer-links a:hover { color: var(--fg); }
-    .footer-social { display: flex; gap: 1rem; align-items: center; }
-    .footer-social a { color: var(--muted2); transition: color 0.2s; display: flex; align-items: center; }
-    .footer-social a:hover { color: var(--fg); }
-
-    .intake-banner { background: rgba(0,102,204,0.07); border: 1px solid rgba(0,102,204,0.18); border-radius: 12px; padding: 0.875rem 1.25rem; margin-bottom: 1.5rem; font-size: 0.875rem; color: var(--muted); }
-    [data-theme="dark"] .intake-banner { background: rgba(41,151,255,0.08); border-color: rgba(41,151,255,0.2); }
-    .intake-banner a { color: var(--blue); font-weight: 600; text-decoration: underline; text-underline-offset: 2px; }
-    .intake-banner a:hover { opacity: 0.8; }
-
-    *, *::before, *::after { transition: background-color 0.3s ease, border-color 0.25s ease, color 0.2s ease; }
-    input, textarea, select, .submit-btn, .theme-btn { transition: background-color 0.3s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s, opacity 0.2s, transform 0.15s; }
+    .quote-card .qc-eyebrow {
+      font-family: 'DM Mono', monospace; font-size: 0.66rem;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--accent-ink); opacity: 0.6; margin-bottom: 0.4rem;
+    }
+    .quote-card .qc-amount {
+      font-family: 'Bricolage Grotesque', sans-serif; font-size: 2.2rem; font-weight: 600;
+      letter-spacing: -0.04em; color: var(--accent-ink); line-height: 1;
+    }
+    .quote-card .qc-rows {
+      margin-top: 1rem; padding-top: 1rem; border-top: 1px solid rgba(10,10,10,0.18);
+      display: flex; flex-direction: column; gap: 0.35rem;
+    }
+    .quote-card .qc-row { font-family: 'DM Mono', monospace; font-size: 0.78rem; color: var(--accent-ink); opacity: 0.78; display: flex; justify-content: space-between; gap: 1rem; }
   </style>
 </head>
 <body>
@@ -287,16 +115,15 @@
 <!-- NAV -->
 <nav>
   <div class="nav-inner">
-    <a href="index.html" class="logo"><em>3</em>lleven</a>
+    <a href="index.html" class="logo" aria-label="3lleven home"><span class="l3">3</span>lleven<span class="dot"></span></a>
     <ul class="nav-links">
       <li><a href="work.html">Work</a></li>
       <li><a href="services.html">Services</a></li>
       <li><a href="pricing.html">Pricing</a></li>
-      <li><a href="process.html">Process</a></li>
       <li><a href="about.html">About</a></li>
     </ul>
     <div class="nav-right">
-      <button class="theme-btn" id="themeToggle" aria-label="Toggle theme">🌙</button>
+      <button class="theme-btn" id="themeToggle" aria-label="Toggle theme">LIGHT</button>
       <a href="contact.html" class="nav-cta">Get a Quote</a>
       <button class="hamburger" id="hamburger" aria-label="Toggle menu">
         <span></span><span></span><span></span>
@@ -309,124 +136,131 @@
   <a href="work.html">Work</a>
   <a href="services.html">Services</a>
   <a href="pricing.html">Pricing</a>
-  <a href="process.html">Process</a>
   <a href="about.html">About</a>
   <a href="contact.html" class="mob-cta">Get a Quote</a>
 </div>
 
-<!-- HERO -->
-<section class="page-hero">
-  <p class="hero-eyebrow">Let's Work Together</p>
-  <h1>Start your <span class="grad-text">project.</span></h1>
-  <p>Fill out the form and I'll get back to you within one business day — usually same day.</p>
+<!-- HEADER -->
+<section class="page-hero compact">
+  <div class="hero-grid"></div>
+  <div class="page-hero-inner">
+    <div class="page-status"><span class="page-status-dot"></span>Let's work together</div>
+    <h1 class="page-hero-h1">Start your<br><span class="hero-accent">project.</span></h1>
+    <p class="page-hero-sub">Fill out the form and we'll respond within one business day — usually same day.</p>
+  </div>
 </section>
 
 <!-- BODY -->
-<div class="contact-body">
+<section>
+  <div class="wrap">
+    <div class="contact-body">
 
-  <!-- INTAKE BANNER -->
-  <div class="intake-banner">
-    Got a project ready? <a href="intake.html">Fill out the full project brief →</a> for a faster proposal.
-  </div>
+      <div class="intake-banner">
+        <span>Project ready to brief in detail?</span>
+        <a href="intake.html">Fill out the full project brief →</a>
+      </div>
 
-  <!-- FORM -->
-  <div class="form-card">
-    <h2>Get a Quote</h2>
-    <p>Tell me about your project and I'll put together a proposal with a flat-fee price — no hourly surprises.</p>
+      <!-- FORM -->
+      <div class="form-card">
+        <h2>Tell us about your project</h2>
+        <p>We'll put together a proposal with a clear price — flat fee or monthly, whichever fits.</p>
 
-    <form id="contactForm">
+        <form id="contactForm">
+          <div class="field-row">
+            <div class="field">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" placeholder="Your name" required>
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" placeholder="you@example.com" required>
+            </div>
+          </div>
 
-      <div class="field-row">
-        <div class="field">
-          <label for="name">Name</label>
-          <input type="text" id="name" name="name" placeholder="Your name" required>
+          <div class="field">
+            <label for="business">Business / Current website</label>
+            <input type="text" id="business" name="business" placeholder="mybusiness.com (or leave blank)">
+          </div>
+
+          <div class="field">
+            <label for="service">Service</label>
+            <select id="service" name="service">
+              <option value="" disabled selected>Select a service…</option>
+              <option>New Build — From scratch</option>
+              <option>Redesign — Existing site</option>
+              <option>Monthly — Basic ($299/mo)</option>
+              <option>Monthly — Standard ($399/mo)</option>
+              <option>Monthly — Enterprise ($599/mo)</option>
+              <option>Not sure — tell me more</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="budget">Estimated budget</label>
+            <select id="budget" name="budget">
+              <option value="" disabled selected>Select a range…</option>
+              <option>Under $500</option>
+              <option>$500 – $1,000</option>
+              <option>$1,000 – $2,000</option>
+              <option>$2,000+</option>
+              <option>Monthly plan</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="message">Tell us about your project</label>
+            <textarea id="message" name="message" placeholder="What does your business do? What's not working with your current site, or what do you need built?" required></textarea>
+          </div>
+
+          <input type="hidden" name="quote_estimate" id="quoteHidden">
+
+          <button type="submit" class="submit-btn" id="submitBtn">Send message →</button>
+        </form>
+      </div>
+
+      <!-- SIDEBAR -->
+      <div class="contact-info">
+
+        <div class="quote-card" id="quoteCard">
+          <div class="qc-eyebrow">Your estimate</div>
+          <div class="qc-amount" id="qcAmount"></div>
+          <div class="qc-rows" id="qcRows"></div>
         </div>
-        <div class="field">
-          <label for="email">Email</label>
-          <input type="email" id="email" name="email" placeholder="you@example.com" required>
+
+        <div class="info-card">
+          <div class="ic-label">Response time</div>
+          <h4>Within one business day.</h4>
+          <p>Every inquiry gets a personal response — usually same day.</p>
         </div>
+
+        <div class="info-card">
+          <div class="ic-label">What happens next</div>
+          <h4>A proposal in 24 hours.</h4>
+          <p>After you reach out, we'll review your project and send a detailed proposal with a clear price. No commitment required.</p>
+        </div>
+
+        <div class="info-card">
+          <div class="ic-label">Prefer email</div>
+          <h4>hello@3lleven.com</h4>
+          <p>Skip the form and reach us at <a href="mailto:hello@3lleven.com">hello@3lleven.com</a></p>
+        </div>
+
+        <div class="info-card">
+          <div class="ic-label">Location</div>
+          <h4>Based in Detroit, MI</h4>
+          <p>Working with clients across the US. Remote-first, happy to meet locally.</p>
+        </div>
+
       </div>
 
-      <div class="field">
-        <label for="business">Business / Current Website</label>
-        <input type="text" id="business" name="business" placeholder="mybusiness.com (or leave blank)">
-      </div>
-
-      <div class="field">
-        <label for="service">Service</label>
-        <select id="service" name="service">
-          <option value="" disabled selected>Select a service…</option>
-          <option>New Build — From scratch</option>
-          <option>Redesign — Existing site</option>
-          <option>Monthly — Basic ($299/mo)</option>
-          <option>Monthly — Standard ($399/mo)</option>
-          <option>Monthly — Enterprise ($599/mo)</option>
-          <option>Not sure — tell me more</option>
-        </select>
-      </div>
-
-      <div class="field">
-        <label for="budget">Estimated Budget</label>
-        <select id="budget" name="budget">
-          <option value="" disabled selected>Select a range…</option>
-          <option>Under $500</option>
-          <option>$500 – $1,000</option>
-          <option>$1,000 – $2,000</option>
-          <option>$2,000+</option>
-          <option>Monthly plan</option>
-        </select>
-      </div>
-
-      <div class="field">
-        <label for="message">Tell me about your project</label>
-        <textarea id="message" name="message" placeholder="What does your business do? What's not working about your current site, or what do you need built?" required></textarea>
-      </div>
-
-      <!-- Hidden quote data from pricing calculator -->
-      <input type="hidden" name="quote_estimate" id="quoteHidden">
-
-      <button type="submit" class="submit-btn" id="submitBtn">Send Message →</button>
-    </form>
+    </div>
   </div>
-
-  <!-- SIDEBAR -->
-  <div class="contact-info">
-
-    <!-- Quote summary (shown if coming from pricing page) -->
-    <div class="quote-card" id="quoteCard">
-      <div class="qc-eyebrow">Your Estimate</div>
-      <div class="qc-amount" id="qcAmount"></div>
-      <div class="qc-rows" id="qcRows"></div>
-    </div>
-
-    <div class="info-card">
-      <h4>Response time</h4>
-      <p>I respond to every inquiry within one business day — usually the same day.</p>
-    </div>
-
-    <div class="info-card">
-      <h4>What happens next</h4>
-      <p>After you reach out, I'll review your project and send a detailed proposal with a flat-fee price within 24 hours. No commitment required.</p>
-    </div>
-
-    <div class="info-card">
-      <h4>Prefer email?</h4>
-      <p>Reach me directly at <a href="mailto:hello@3lleven.com">hello@3lleven.com</a></p>
-    </div>
-
-    <div class="info-card">
-      <h4>Based in Detroit, MI</h4>
-      <p>Working with clients across the US. Remote-first, but happy to meet locally.</p>
-    </div>
-
-  </div>
-
-</div>
+</section>
 
 <!-- FOOTER -->
 <footer>
   <div class="footer-inner">
-    <div class="footer-logo"><em>3</em>lleven</div>
+    <div class="footer-logo"><span class="l3">3</span>lleven<span class="dot"></span></div>
     <p class="copy">© 2026 3lleven. All rights reserved.</p>
     <ul class="footer-links">
       <li><a href="services.html">Services</a></li>
@@ -446,13 +280,13 @@
   /* Theme */
   const html  = document.documentElement;
   const btn   = document.getElementById('themeToggle');
-  const saved = localStorage.getItem('3lleven-theme') || 'light';
+  const saved = localStorage.getItem('3lleven-theme') || 'dark';
   html.setAttribute('data-theme', saved);
-  btn.textContent = saved === 'dark' ? '☀️' : '🌙';
+  btn.textContent = saved === 'dark' ? 'LIGHT' : 'DARK';
   btn.addEventListener('click', () => {
     const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
     html.setAttribute('data-theme', next);
-    btn.textContent = next === 'dark' ? '☀️' : '🌙';
+    btn.textContent = next === 'dark' ? 'LIGHT' : 'DARK';
     localStorage.setItem('3lleven-theme', next);
   });
 
@@ -488,7 +322,6 @@
         rowsEl.appendChild(div);
       });
       card.style.display = 'block';
-      /* Pre-select the service dropdown if possible */
       const sel = document.getElementById('service');
       if (q.rows && q.rows.toLowerCase().includes('redesign')) sel.value = 'Redesign — Existing site';
       else if (q.rows && q.rows.toLowerCase().includes('new build')) sel.value = 'New Build — From scratch';
