@@ -26,23 +26,29 @@
       --border:    #262626;
       --border2:   #3A3A38;
       --accent:    #E8FF00;
+      --accent-rgb: 232,255,0;
       --accent-ink:#0A0A0A;
+      --bad:       #E0796A;
+      --bad-rgb:   224,121,106;
       --grid-line: rgba(255,255,255,0.09);
       --maxw: 1120px;
     }
 
     [data-theme="light"] {
-      --bg:        #F5F2ED;
-      --surface:   #FFFFFF;
-      --surface2:  #EEEAE1;
-      --fg:        #0A0A0A;
-      --muted:     #6B6862;
-      --dim:       #8A857B;
-      --border:    #DAD5CB;
-      --border2:   #C7C1B4;
-      --accent:    #E8FF00;
-      --accent-ink:#0A0A0A;
-      --grid-line: rgba(0,0,0,0.09);
+      --bg:        #ECE6D7;
+      --surface:   #F5F1E8;
+      --surface2:  #F5F1E8;
+      --fg:        #1C1B14;
+      --muted:     #6E6755;
+      --dim:       #978F7B;
+      --border:    #D8D0BD;
+      --border2:   #C7BDA6;
+      --accent:    #4F6228;
+      --accent-rgb: 79,98,40;
+      --accent-ink:#F5F1E5;
+      --bad:       #A6573C;
+      --bad-rgb:   166,87,60;
+      --grid-line: rgba(0,0,0,0.06);
     }
 
     html { scroll-behavior: smooth; }
@@ -141,7 +147,7 @@
       color: var(--accent-ink);
       transition: transform 0.15s, box-shadow 0.2s;
     }
-    .nav-cta:hover { transform: translateY(-1px); box-shadow: 4px 4px 0 rgba(232,255,0,0.25); }
+    .nav-cta:hover { transform: translateY(-1px); box-shadow: 4px 4px 0 rgba(var(--accent-rgb),0.25); }
 
     /* ── BUTTONS ───────────────────────────────────── */
     .btn {
@@ -154,7 +160,7 @@
       transition: transform 0.15s, background 0.2s, color 0.2s, box-shadow 0.2s, border-color 0.2s;
     }
     .btn-accent { background: var(--accent); color: var(--accent-ink); }
-    .btn-accent:hover { transform: translateY(-2px); box-shadow: 5px 5px 0 rgba(232,255,0,0.22); }
+    .btn-accent:hover { transform: translateY(-2px); box-shadow: 5px 5px 0 rgba(var(--accent-rgb),0.22); }
     .btn-accent .arr { transition: transform 0.2s; }
     .btn-accent:hover .arr { transform: translateX(4px); }
     .btn-line { background: transparent; color: var(--fg); border-color: var(--border2); }
@@ -166,7 +172,6 @@
       min-height: 100vh;
       overflow: hidden;
       background: var(--bg);
-      border-bottom: 1px solid var(--border);
     }
     .hero-grid {
       position: absolute; inset: 0; pointer-events: none;
@@ -307,7 +312,6 @@
 
     /* ── MARQUEE ───────────────────────────────────── */
     .marquee {
-      border-bottom: 1px solid var(--border);
       background: var(--bg);
       overflow: hidden;
       display: flex;
@@ -336,7 +340,7 @@
     .sec-sub { color: var(--muted); font-size: 1.02rem; font-weight: 400; max-width: 560px; line-height: 1.7; }
 
     /* ── SERVICES ──────────────────────────────────── */
-    #services { background: var(--bg); padding: 110px 0; border-bottom: 1px solid var(--border); }
+    #services { background: var(--bg); padding: 110px 0; }
     .services-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
     @media (max-width: 760px) { .services-grid { grid-template-columns: 1fr; } }
 
@@ -403,7 +407,7 @@
       position: absolute; top: 0; bottom: 0; left: 50%;
       width: 2px; background: var(--accent);
       transform: translateX(-50%); pointer-events: none; z-index: 10;
-      box-shadow: 0 0 12px rgba(232,255,0,0.5);
+      box-shadow: 0 0 12px rgba(var(--accent-rgb),0.5);
     }
     .ba-handle {
       position: absolute; top: 50%; left: 50%;
@@ -412,7 +416,7 @@
       background: var(--accent); border-radius: 3px;
       display: flex; align-items: center; justify-content: center;
       z-index: 11; pointer-events: none;
-      box-shadow: 0 0 0 4px rgba(232,255,0,0.12), 0 6px 24px rgba(0,0,0,0.4);
+      box-shadow: 0 0 0 4px rgba(var(--accent-rgb),0.12), 0 6px 24px rgba(0,0,0,0.4);
     }
     .ba-handle svg { width: 20px; height: 20px; }
     .ba-badge {
@@ -445,38 +449,38 @@
 
     /* ── BEFORE MOCKUP — 2009-era site (intentionally dated) ── */
     .fake-before {
-      background: #c8d8f0; display: flex; flex-direction: column;
-      width: 100%; height: 100%; font-family: 'Times New Roman', Georgia, serif; overflow: hidden;
+      background: #eceae4; display: flex; flex-direction: column;
+      width: 100%; height: 100%; font-family: Arial, Helvetica, sans-serif; overflow: hidden;
     }
-    .fb-nav { background: linear-gradient(180deg, #2255aa 0%, #1a3d7c 100%); height: 44px; display: flex; align-items: center; padding: 0 14px; border-bottom: 3px solid #f5c400; flex-shrink: 0; }
-    .fb-logo { font-family: 'Times New Roman', serif; font-size: 13px; font-weight: bold; color: #f5c400; margin-right: 16px; white-space: nowrap; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); }
-    .fb-nav-links { display: flex; gap: 1px; }
-    .fb-nav-link { background: linear-gradient(180deg, #4477cc 0%, #2255aa 100%); border: 1px solid #6699dd; border-bottom: none; padding: 4px 8px; font-family: Arial, sans-serif; font-size: 7px; color: #fff; white-space: nowrap; text-transform: uppercase; }
-    .fb-nav-link.active { background: linear-gradient(180deg, #f5c400 0%, #d4a800 100%); color: #1a3d7c; font-weight: bold; }
+    .fb-nav { background: #ffffff; height: 44px; display: flex; align-items: center; padding: 0 14px; border-bottom: 1px solid #d7d3c9; flex-shrink: 0; }
+    .fb-logo { font-family: Arial, sans-serif; font-size: 12px; font-weight: bold; color: #5a6670; margin-right: 16px; white-space: nowrap; letter-spacing: -0.02em; }
+    .fb-nav-links { display: flex; gap: 10px; }
+    .fb-nav-link { font-family: Arial, sans-serif; font-size: 7px; color: #8f8c84; white-space: nowrap; text-transform: uppercase; letter-spacing: 0.04em; }
+    .fb-nav-link.active { color: #5a6670; font-weight: bold; }
     .fb-search { margin-left: auto; display: flex; gap: 3px; align-items: center; }
-    .fb-search-input { background: white; border: 2px inset #999; width: 70px; height: 16px; font-size: 7px; font-family: Arial, sans-serif; padding: 0 4px; color: #999; }
-    .fb-search-btn { background: linear-gradient(180deg, #eee 0%, #ccc 100%); border: 1px outset #bbb; font-size: 7px; font-family: Arial, sans-serif; padding: 2px 5px; color: #333; white-space: nowrap; }
-    .fb-hero { background: linear-gradient(rgba(0,20,60,0.55), rgba(0,20,60,0.65)), repeating-linear-gradient(45deg, #2a4a8a 0px, #2a4a8a 2px, #1e3a6e 2px, #1e3a6e 12px); padding: 14px 16px; display: flex; align-items: center; gap: 14px; border-bottom: 4px solid #f5c400; flex-shrink: 0; }
+    .fb-search-input { background: #f4f3ef; border: 1px solid #cfcabe; width: 70px; height: 16px; font-size: 7px; font-family: Arial, sans-serif; padding: 0 4px; color: #aaa; }
+    .fb-search-btn { background: #7d8890; border: none; font-size: 7px; font-family: Arial, sans-serif; padding: 3px 6px; color: #fff; white-space: nowrap; }
+    .fb-hero { background: #e0ddd5; padding: 14px 16px; display: flex; align-items: center; gap: 14px; border-bottom: 1px solid #d7d3c9; flex-shrink: 0; }
     .fb-hero-text { flex: 1; }
-    .fb-hero-h1 { font-family: 'Times New Roman', serif; font-size: 13px; font-weight: bold; color: #f5c400; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); line-height: 1.3; margin-bottom: 5px; }
-    .fb-hero-sub { font-family: Arial, sans-serif; font-size: 7px; color: rgba(255,255,255,0.8); line-height: 1.5; margin-bottom: 8px; }
+    .fb-hero-h1 { font-family: Arial, sans-serif; font-size: 13px; font-weight: bold; color: #4a4a45; line-height: 1.25; margin-bottom: 5px; }
+    .fb-hero-sub { font-family: Arial, sans-serif; font-size: 7px; color: #88857d; line-height: 1.5; margin-bottom: 8px; }
     .fb-hero-btns { display: flex; gap: 5px; }
-    .fb-btn-red { background: linear-gradient(180deg, #ee3333 0%, #cc0000 100%); border: 1px outset #ff5555; padding: 4px 10px; font-family: Arial, sans-serif; font-size: 7px; font-weight: bold; color: white; text-transform: uppercase; white-space: nowrap; }
-    .fb-btn-outline { background: transparent; border: 1px solid rgba(255,255,255,0.5); padding: 4px 8px; font-family: Arial, sans-serif; font-size: 7px; color: white; white-space: nowrap; }
-    .fb-hero-img { width: 80px; height: 56px; flex-shrink: 0; background: linear-gradient(135deg, #8baed4 0%, #5580b0 50%, #7aa0cc 100%); border: 2px solid rgba(255,255,255,0.3); position: relative; overflow: hidden; }
-    .fb-hero-img::before { content: ''; position: absolute; bottom: 6px; left: 50%; transform: translateX(-50%); width: 28px; height: 36px; background: linear-gradient(180deg, #ffcc99 0%, #e8a870 40%, #cc8855 100%); border-radius: 14px 14px 4px 4px; }
-    .fb-hero-img::after { content: ''; position: absolute; bottom: 34px; left: 50%; transform: translateX(-50%); width: 20px; height: 20px; background: linear-gradient(180deg, #ffcc99, #e8a870); border-radius: 50%; }
-    .fb-body { display: flex; flex: 1; background: #c8d8f0; overflow: hidden; padding: 8px; }
+    .fb-btn-red { background: #7d8890; border: none; padding: 5px 11px; font-family: Arial, sans-serif; font-size: 7px; font-weight: bold; color: #fff; text-transform: uppercase; white-space: nowrap; }
+    .fb-btn-outline { background: transparent; border: 1px solid #b3aea2; padding: 4px 9px; font-family: Arial, sans-serif; font-size: 7px; color: #77736a; white-space: nowrap; }
+    .fb-hero-img { width: 80px; height: 56px; flex-shrink: 0; background: linear-gradient(135deg, #cbc8c0 0%, #b4b1a8 100%); border: 1px solid #c4c0b5; position: relative; overflow: hidden; }
+    .fb-hero-img::before { content: ''; position: absolute; bottom: 6px; left: 50%; transform: translateX(-50%); width: 28px; height: 36px; background: #9a968c; border-radius: 14px 14px 4px 4px; }
+    .fb-hero-img::after { content: ''; position: absolute; bottom: 34px; left: 50%; transform: translateX(-50%); width: 20px; height: 20px; background: #9a968c; border-radius: 50%; }
+    .fb-body { display: flex; flex: 1; background: #eceae4; overflow: hidden; padding: 8px; }
     .fb-main { flex: 1; padding: 8px 10px; display: flex; flex-direction: column; gap: 6px; overflow: hidden; }
-    .fb-main-title { font-family: 'Times New Roman', serif; font-size: 12px; font-weight: bold; color: #1a3d7c; border-bottom: 2px solid #2255aa; padding-bottom: 3px; }
+    .fb-main-title { font-family: Arial, sans-serif; font-size: 11px; font-weight: bold; color: #4a4a45; border-bottom: 1px solid #cfcabe; padding-bottom: 3px; }
     .fb-main-cards { display: flex; gap: 6px; margin-top: 4px; }
-    .fb-main-card { flex: 1; background: white; border: 1px solid #9ab; padding: 5px; display: flex; flex-direction: column; gap: 3px; }
-    .fb-main-card-img { height: 28px; background: linear-gradient(135deg, #c8d8e8, #a8b8c8); border: 1px solid #bbb; }
-    .fb-main-card-title { font-family: Arial, sans-serif; font-size: 6.5px; font-weight: bold; color: #1a3d7c; }
-    .fb-main-card-text { font-family: Arial, sans-serif; font-size: 5.5px; color: #555; line-height: 1.4; }
-    .fb-main-card-link { font-family: Arial, sans-serif; font-size: 6px; color: #cc0000; font-weight: bold; }
-    .fb-footer { background: linear-gradient(180deg, #2255aa, #1a3d7c); padding: 5px 14px; display: flex; align-items: center; border-top: 3px solid #f5c400; flex-shrink: 0; }
-    .fb-footer-text { font-family: Arial, sans-serif; font-size: 6px; color: rgba(255,255,255,0.7); }
+    .fb-main-card { flex: 1; background: #fff; border: 1px solid #ddd9cf; padding: 5px; display: flex; flex-direction: column; gap: 3px; }
+    .fb-main-card-img { height: 28px; background: #d4d1c8; border: 1px solid #cbc7bc; }
+    .fb-main-card-title { font-family: Arial, sans-serif; font-size: 6.5px; font-weight: bold; color: #555149; }
+    .fb-main-card-text { font-family: Arial, sans-serif; font-size: 5.5px; color: #8a877e; line-height: 1.4; }
+    .fb-main-card-link { font-family: Arial, sans-serif; font-size: 6px; color: #7d8890; font-weight: bold; }
+    .fb-footer { background: #4a4843; padding: 6px 14px; display: flex; align-items: center; border-top: 1px solid #d7d3c9; flex-shrink: 0; }
+    .fb-footer-text { font-family: Arial, sans-serif; font-size: 6px; color: rgba(255,255,255,0.6); }
 
     /* ── AFTER MOCKUP — the new 3lleven aesthetic ── */
     .fake-after {
@@ -515,7 +519,7 @@
     .fa-chip-dot.purple{ background: #6b6b66; }
 
     /* ── PROCESS ───────────────────────────────────── */
-    #process { background: var(--bg); padding: 110px 0; border-bottom: 1px solid var(--border); }
+    #process { background: var(--bg); padding: 110px 0; }
     .steps-row {
       display: grid; grid-template-columns: repeat(6, 1fr); gap: 0;
       position: relative; margin-top: 1rem;
@@ -535,7 +539,7 @@
     }
     .step.active .step-num {
       background: var(--accent); border-color: var(--accent); color: var(--accent-ink);
-      box-shadow: 0 0 0 5px rgba(232,255,0,0.12);
+      box-shadow: 0 0 0 5px rgba(var(--accent-rgb),0.12);
     }
     .step-label {
       font-family: 'DM Mono', monospace;
@@ -553,26 +557,74 @@
     @media (max-width: 420px) { .steps-row { grid-template-columns: repeat(2, 1fr); } }
 
     /* ── WHY US ────────────────────────────────────── */
-    #whyus { background: var(--surface); padding: 110px 0; border-bottom: 1px solid var(--border); }
+    #whyus { background: var(--bg); padding: 110px 0; }
     .whyus-header { max-width: 760px; margin-bottom: 3.5rem; }
 
-    .stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 3rem; }
-    @media (max-width: 700px) { .stat-grid { grid-template-columns: 1fr 1fr; } }
-
-    .stat-card {
+    /* ── FINDER COMPARISON ─────────────────────────── */
+    .finder {
       background: var(--bg); border: 1px solid var(--border);
-      border-radius: 4px; padding: 1.75rem;
-      transition: border-color 0.25s, transform 0.2s;
+      border-radius: 4px; padding: 2rem; margin-bottom: 2.5rem;
     }
-    .stat-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+    @media (max-width: 600px) { .finder { padding: 1.25rem; } }
+    .finder-tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; margin-bottom: 1.75rem; }
+    @media (max-width: 640px) { .finder-tabs { grid-template-columns: 1fr; } }
+    .finder-tab {
+      display: flex; align-items: center; gap: 0.7rem;
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: 3px; padding: 0.9rem 1rem; cursor: pointer;
+      font-family: 'DM Mono', monospace; font-size: 0.8rem; color: var(--muted);
+      text-align: left; transition: border-color 0.2s, color 0.2s, background 0.2s;
+    }
+    .finder-tab:hover { color: var(--fg); border-color: var(--border2); }
+    .finder-tab.active { color: var(--fg); border-color: var(--accent); background: rgba(var(--accent-rgb),0.04); }
+    .finder-tab .ft-ico { width: 18px; height: 18px; flex-shrink: 0; color: var(--muted); }
+    .finder-tab.active .ft-ico { color: var(--accent); }
 
-    .stat-big {
-      font-family: 'DM Mono', monospace;
-      font-size: 2.3rem; font-weight: 500; letter-spacing: -0.03em; line-height: 1;
-      margin-bottom: 0.6rem; color: var(--fg);
+    .finder-quote {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: clamp(1.1rem, 2vw, 1.45rem); font-weight: 500; line-height: 1.3;
+      color: var(--fg); letter-spacing: -0.02em;
+      padding-bottom: 1.5rem; margin-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border);
     }
-    .stat-lbl { font-size: 0.85rem; color: var(--muted); line-height: 1.5; }
-    .stat-src { font-family: 'DM Mono', monospace; font-size: 0.66rem; color: var(--dim); margin-top: 0.7rem; letter-spacing: 0.04em; }
+    .finder-quote::before { content: '\201C'; color: var(--accent); }
+    .finder-quote::after { content: '\201D'; color: var(--accent); }
+
+    .finder-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+    @media (max-width: 700px) { .finder-cols { grid-template-columns: 1fr; } }
+
+    .finder-col-head {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-family: 'DM Mono', monospace; font-size: 0.76rem; font-weight: 500;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      padding: 0.7rem 0.9rem; border-radius: 3px; margin-bottom: 0.9rem;
+    }
+    .finder-col.bad  .finder-col-head { color: var(--bad); background: rgba(var(--bad-rgb),0.08); border: 1px solid rgba(var(--bad-rgb),0.25); }
+    .finder-col.good .finder-col-head { color: var(--accent); background: rgba(var(--accent-rgb),0.06); border: 1px solid rgba(var(--accent-rgb),0.3); }
+
+    .finder-steps { display: flex; flex-direction: column; gap: 0.6rem; }
+    .finder-step {
+      display: flex; align-items: center; gap: 0.8rem;
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: 3px; padding: 0.6rem 1rem; min-height: 3.75rem;
+      font-size: 0.88rem; color: var(--fg); line-height: 1.3;
+    }
+    .finder-step .fs-num {
+      width: 24px; height: 24px; flex-shrink: 0; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'DM Mono', monospace; font-size: 0.7rem;
+      border: 1px solid var(--border2); color: var(--muted);
+    }
+    .finder-col.bad  .finder-step .fs-num { border-color: rgba(var(--bad-rgb),0.4); color: var(--bad); }
+    .finder-col.good .finder-step .fs-num { border-color: rgba(var(--accent-rgb),0.5); color: var(--accent); }
+
+    .finder-outcome {
+      margin-top: 0.9rem; border-radius: 3px; padding: 0.85rem; text-align: center;
+      font-family: 'DM Mono', monospace; font-size: 0.8rem; font-weight: 500;
+      letter-spacing: 0.08em; text-transform: uppercase;
+    }
+    .finder-col.bad  .finder-outcome { background: rgba(var(--bad-rgb),0.12); color: var(--bad); border: 1px solid rgba(var(--bad-rgb),0.3); }
+    .finder-col.good .finder-outcome { background: var(--accent); color: var(--accent-ink); }
 
     .compare-wrap { background: var(--bg); border: 1px solid var(--border); border-radius: 4px; overflow-x: auto; }
     .compare-table { min-width: 560px; width: 100%; border-collapse: collapse; }
@@ -586,10 +638,9 @@
     .compare-table td { font-size: 0.875rem; color: var(--muted); padding: 1rem 1.25rem; border-bottom: 1px solid var(--border); line-height: 1.4; }
     .compare-table td:not(:first-child) { text-align: center; }
     .compare-table tr:last-child td { border-bottom: none; }
-    .col-hi { background: rgba(232,255,0,0.09); color: var(--fg) !important; font-weight: 500; }
-    .col-hi-head { background: rgba(232,255,0,0.09); color: var(--fg) !important; font-weight: 700; }
+    .col-hi { background: rgba(var(--accent-rgb),0.09); color: var(--fg) !important; font-weight: 500; }
+    .col-hi-head { background: rgba(var(--accent-rgb),0.09); color: var(--fg) !important; font-weight: 700; }
     .ck { color: var(--accent); font-weight: 700; }
-    [data-theme="light"] .ck { color: #0A0A0A; }
     .cx { color: var(--dim); }
     .cw { color: var(--muted); }
     .compare-caption { font-family: 'DM Mono', monospace; font-size: 0.66rem; color: var(--dim); margin-top: 1rem; text-align: right; letter-spacing: 0.03em; }
@@ -610,10 +661,10 @@
     .cta-headline {
       font-family: 'Bricolage Grotesque', sans-serif;
       font-size: clamp(2.1rem, 4.4vw, 3.4rem); font-weight: 600;
-      letter-spacing: -0.035em; line-height: 1.02; margin-bottom: 1rem; color: #0A0A0A; max-width: 600px;
+      letter-spacing: -0.035em; line-height: 1.02; margin-bottom: 1rem; color: var(--accent-ink); max-width: 600px;
     }
     .cta-headline em { font-style: normal; text-decoration: underline; text-decoration-thickness: 0.06em; text-underline-offset: 0.08em; }
-    .cta-sub { font-family: 'DM Mono', monospace; font-size: 0.9rem; color: rgba(10,10,10,0.7); max-width: 440px; margin-bottom: 2.5rem; line-height: 1.7; }
+    .cta-sub { font-family: 'DM Mono', monospace; font-size: 0.9rem; color: var(--accent-ink); opacity: 0.78; max-width: 440px; margin-bottom: 2.5rem; line-height: 1.7; }
     .cta-btn {
       display: inline-flex; align-items: center; gap: 0.6rem;
       font-family: 'DM Mono', monospace;
@@ -623,6 +674,8 @@
       transition: transform 0.15s, background 0.2s;
     }
     .cta-btn:hover { transform: translateY(-2px); background: #1C1C1C; }
+    [data-theme="light"] .cta-btn { background: var(--accent-ink); color: var(--accent); }
+    [data-theme="light"] .cta-btn:hover { background: #FFFFFF; }
     @media (max-width: 600px) {
       .cta-card { padding: 3rem 1.75rem; }
       #cta, #services, #process, #whyus { padding: 70px 0; }
@@ -650,7 +703,7 @@
     .fade-up:nth-child(4) { transition-delay: 0.24s; }
 
     /* ── SMOOTH THEME ──────────────────────────────── */
-    nav, .svc-card, .stat-card, .compare-wrap, .hero-browser, .step-num, footer, #whyus {
+    nav, .svc-card, .compare-wrap, .hero-browser, .step-num, footer, #whyus {
       transition: background-color 0.3s ease, border-color 0.25s ease, color 0.2s ease;
     }
 
@@ -739,7 +792,7 @@
       <span class="hero-accent">first salesperson.</span><br>
       Do it right.
     </h1>
-    <p class="hero-lede">Custom websites you actually own. Pay once with a flat fee, or spread the cost on a monthly plan — either way, built to convert.</p>
+    <p class="hero-lede">We design, build, and host custom websites for local businesses — so the people checking you out actually trust what they find.</p>
     <div class="hero-actions">
       <a href="contact.html" class="btn btn-accent">Start a project <span class="arr">→</span></a>
       <a href="#services" class="btn btn-line">See the work</a>
@@ -781,10 +834,10 @@
 <!-- MARQUEE -->
 <div class="marquee" aria-hidden="true">
   <div class="marquee-track">
-    <span>Available for projects</span><span class="sep">/</span><span>Booking June 2026</span><span class="sep">/</span><span>Detroit · Michigan</span><span class="sep">/</span><span>Custom websites</span><span class="sep">/</span><span>Own your code</span><span class="sep">/</span><span>One flat fee</span><span class="sep">/</span>
+    <span>Available for projects</span><span class="sep">/</span><span>Detroit, Michigan</span><span class="sep">/</span><span>Custom-built websites</span><span class="sep">/</span><span>Design · Build · Host</span><span class="sep">/</span><span>You own your code</span><span class="sep">/</span><span>Built to convert</span><span class="sep">/</span>
   </div>
   <div class="marquee-track">
-    <span>Available for projects</span><span class="sep">/</span><span>Booking June 2026</span><span class="sep">/</span><span>Detroit · Michigan</span><span class="sep">/</span><span>Custom websites</span><span class="sep">/</span><span>Own your code</span><span class="sep">/</span><span>One flat fee</span><span class="sep">/</span>
+    <span>Available for projects</span><span class="sep">/</span><span>Detroit, Michigan</span><span class="sep">/</span><span>Custom-built websites</span><span class="sep">/</span><span>Design · Build · Host</span><span class="sep">/</span><span>You own your code</span><span class="sep">/</span><span>Built to convert</span><span class="sep">/</span>
   </div>
 </div>
 
@@ -1041,42 +1094,48 @@
 <section id="whyus">
   <div class="wrap">
     <div class="whyus-header">
-      <h2 class="sec-headline">Website builders cost<br/>more than they look.</h2>
-      <p class="sec-sub">DIY builders feel cheap — until a slow, generic site quietly costs you the customers you paid to attract. The research is blunt:</p>
+      <h2 class="sec-headline">Before anyone calls,<br/>they look you up.</h2>
+      <p class="sec-sub">Social media gets you found. A website is what turns "maybe" into a client.</p>
     </div>
 
-    <div class="stat-grid">
-      <div class="stat-card fade-up">
-        <div class="stat-big">53%</div>
-        <div class="stat-lbl">Of mobile visits are abandoned when a page takes longer than 3 seconds to load</div>
-        <div class="stat-src">Google / SOASTA, 2017</div>
+    <div class="finder fade-up">
+      <div class="finder-tabs" id="finderTabs">
+        <button class="finder-tab active" data-i="0" type="button">
+          <svg class="ft-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+          Social media
+        </button>
+        <button class="finder-tab" data-i="1" type="button">
+          <svg class="ft-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          Google
+        </button>
+        <button class="finder-tab" data-i="2" type="button">
+          <svg class="ft-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          Word of mouth
+        </button>
       </div>
-      <div class="stat-card fade-up">
-        <div class="stat-big">8.4%</div>
-        <div class="stat-lbl">Lift in retail conversions from just a 0.1-second faster load time</div>
-        <div class="stat-src">Deloitte, 2020</div>
-      </div>
-      <div class="stat-card fade-up">
-        <div class="stat-big">0.05s</div>
-        <div class="stat-lbl">How long it takes a visitor to form a first impression of your site</div>
-        <div class="stat-src">Lindgaard et al., 2006</div>
-      </div>
-      <div class="stat-card fade-up">
-        <div class="stat-big">75%</div>
-        <div class="stat-lbl">Of users judge a company's credibility on its website design alone</div>
-        <div class="stat-src">Stanford Web Credibility Research</div>
-      </div>
-      <div class="stat-card fade-up">
-        <div class="stat-big">98%</div>
-        <div class="stat-lbl">Of consumers read online reviews to evaluate local businesses</div>
-        <div class="stat-src">BrightLocal, 2023</div>
-      </div>
-      <div class="stat-card fade-up">
-        <div class="stat-big">24%</div>
-        <div class="stat-lbl">Fewer visitors abandon sites that pass Google's Core Web Vitals</div>
-        <div class="stat-src">Google, 2021</div>
+
+      <p class="finder-quote" id="finderQuote"></p>
+
+      <div class="finder-cols">
+        <div class="finder-col bad">
+          <div class="finder-col-head">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            Without a website
+          </div>
+          <div class="finder-steps" id="finderBad"></div>
+          <div class="finder-outcome" id="finderBadOut"></div>
+        </div>
+        <div class="finder-col good">
+          <div class="finder-col-head">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            With a 3lleven site
+          </div>
+          <div class="finder-steps" id="finderGood"></div>
+          <div class="finder-outcome" id="finderGoodOut"></div>
+        </div>
       </div>
     </div>
+
 
     <div class="compare-wrap">
       <table class="compare-table">
@@ -1131,7 +1190,7 @@
   <div class="wrap">
     <div class="cta-card">
       <h2 class="cta-headline">Stop renting your website. <em>Start owning it.</em></h2>
-      <p class="cta-sub">Custom-built and yours to keep — no proprietary platform, no templates. Pay once with a flat fee, or go monthly on a 6-month term.</p>
+      <p class="cta-sub">Simple, honest pricing. No hidden fees. A custom-built website that's yours to keep.</p>
       <a href="pricing.html" class="cta-btn">See Pricing &amp; Packages →</a>
     </div>
   </div>
@@ -1247,6 +1306,59 @@
   }
 
   document.addEventListener('DOMContentLoaded', () => initSlider('slider1'));
+
+  /* ── Finder comparison tabs ── */
+  (function() {
+    const data = [
+      {
+        quote: "Someone finds you on Instagram — but wants to know you're a real, established business.",
+        bad:  ["Finds your profile", "No website in your bio", "Not sure you're legit — scrolls on"],
+        good: ["Finds your profile", "Taps your website link", "Sees real work — messages you"],
+        out:  { bad: "Lost the lead", good: "New customer" }
+      },
+      {
+        quote: "They Google your business — or what they need nearby — to decide who to call.",
+        bad:  ["Googles your business", "Finds a listing with no site", "Goes to the next business"],
+        good: ["Googles your business", "Listed on Google with a site", "Books an appointment"],
+        out:  { bad: "Lost to a competitor", good: "New customer" }
+      },
+      {
+        quote: "A friend refers you. They look you up before reaching out.",
+        bad:  ["Gets a referral from a friend", "Searches — sees no proof of work", "Finds someone else"],
+        good: ["Gets a referral from a friend", "Your site shows up first", "Books a consultation"],
+        out:  { bad: "Referral wasted", good: "New customer" }
+      }
+    ];
+    const tabs  = document.getElementById('finderTabs');
+    const quote = document.getElementById('finderQuote');
+    const bad   = document.getElementById('finderBad');
+    const good  = document.getElementById('finderGood');
+    const badO  = document.getElementById('finderBadOut');
+    const goodO = document.getElementById('finderGoodOut');
+    if (!tabs) return;
+
+    const steps = list => list.map((t, n) =>
+      `<div class="finder-step"><span class="fs-num">${n + 1}</span>${t}</div>`).join('');
+
+    function render(i) {
+      const d = data[i];
+      quote.textContent = d.quote;
+      bad.innerHTML  = steps(d.bad);
+      good.innerHTML = steps(d.good);
+      badO.textContent  = d.out.bad;
+      goodO.textContent = d.out.good;
+    }
+
+    tabs.addEventListener('click', e => {
+      const btn = e.target.closest('.finder-tab');
+      if (!btn) return;
+      tabs.querySelectorAll('.finder-tab').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      render(+btn.dataset.i);
+    });
+
+    render(0);
+  })();
 
   /* ── Hamburger menu ── */
   const hamburger = document.getElementById('hamburger');
