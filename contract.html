@@ -250,8 +250,10 @@
         <tr><td>Number of pages</td><td><input class="fill-field" placeholder="e.g. 3 pages (Home, About, Contact)" /></td></tr>
         <tr><td>Domain</td><td><input class="fill-field" placeholder="e.g. yourbusiness.com" /></td></tr>
         <tr><td>Included features</td><td><input class="fill-field" placeholder="Custom design, mobile responsive, light/dark mode, contact form, basic SEO, SSL, 2 revisions" /></td></tr>
-        <tr><td>Add-ons selected</td><td><input class="fill-field" placeholder="e.g. E-commerce, Blog/CMS, Full SEO Package..." /></td></tr>
-        <tr><td>Monthly plan</td><td><input class="fill-field" placeholder="e.g. Standard plan — $399/mo, or None" /></td></tr>
+        <tr><td>Tier</td><td><input class="fill-field" placeholder="Basic ($2,500) / Standard ($4,000) / Enterprise ($6,500)" /></td></tr>
+        <tr><td>Included features</td><td><input class="fill-field" placeholder="Per the selected tier — see Schedule A" /></td></tr>
+        <tr><td>Payment method</td><td><input class="fill-field" placeholder="Payment in full, or 12 monthly instalments" /></td></tr>
+        <tr><td>Care Plan</td><td><input class="fill-field" placeholder="Yes — $99/mo, or None" /></td></tr>
         <tr><td>Estimated launch date</td><td><input class="fill-field" placeholder="e.g. Within 30 days of deposit" /></td></tr>
       </table>
 
@@ -263,14 +265,30 @@
       <div class="section-num">Section 02</div>
       <h2>Project investment &amp; payment terms</h2>
 
+      <p>The Client selects <strong>one</strong> of the two payment methods below at signing. The selected method is recorded in the scope table in Section 1.</p>
+
+      <p style="margin-top:1rem;"><strong>Option A — Payment in full.</strong> The total project price is paid in two equal instalments.</p>
+
       <table class="payment-table">
         <tr><th>Milestone</th><th>Amount due</th><th>When due</th></tr>
         <tr><td>Deposit (50%)</td><td><input class="fill-field" placeholder="$___" style="width:80px;" /></td><td>Before any work begins</td></tr>
         <tr><td>Final payment (50%)</td><td><input class="fill-field" placeholder="$___" style="width:80px;" /></td><td>Before site goes live</td></tr>
-        <tr class="total"><td>Total project investment</td><td><input class="fill-field" placeholder="$___" style="width:80px; font-weight:500;" /></td><td>—</td></tr>
+        <tr class="total"><td>Total project price</td><td><input class="fill-field" placeholder="$___" style="width:80px; font-weight:500;" /></td><td>—</td></tr>
       </table>
 
-      <p style="font-size:0.8rem; color:var(--muted); font-style:italic;">For projects over $1,000: 50% deposit / 25% at design approval / 25% at launch.</p>
+      <p style="margin-top:1.5rem;"><strong>Option B — Monthly instalments.</strong> The project price is paid across <strong>twelve (12) equal monthly instalments</strong>, the first due before any work begins and each subsequent instalment on the same day of each following month. Standard instalments are $210/month for Basic, $340/month for Standard, and $550/month for Enterprise. Because the instalment schedule is charged over twelve months, the total paid under Option B is modestly higher than the price payable under Option A; both totals are stated in the table below.</p>
+
+      <table class="payment-table">
+        <tr><th>Tier</th><th>Monthly instalment</th><th>Total over 12 months</th></tr>
+        <tr><td>Basic</td><td>$210</td><td>$2,520</td></tr>
+        <tr><td>Standard</td><td>$340</td><td>$4,080</td></tr>
+        <tr><td>Enterprise</td><td>$550</td><td>$6,600</td></tr>
+        <tr class="total"><td>Selected tier</td><td><input class="fill-field" placeholder="$___/mo" style="width:90px;" /></td><td><input class="fill-field" placeholder="$___" style="width:90px; font-weight:500;" /></td></tr>
+      </table>
+
+      <div class="warning-box">
+        <p><strong>Minimum term and acceleration (Option B only):</strong> the Client commits to a <strong>minimum of six (6) monthly instalments</strong>. The agreement may not be terminated by the Client for convenience before the sixth instalment has been paid. If the agreement is terminated for any reason before all twelve instalments have been paid, <strong>the entire unpaid balance of the project price becomes immediately due</strong> and is payable within 14 days of the termination date. Completing the six-month minimum does not discharge the remaining instalments; it only lifts the restriction on terminating.</p>
+      </div>
 
       <div class="highlight-box">
         <p><strong>Payment method:</strong> All payments are processed via Stripe (credit/debit card or ACH). Invoices are sent via email. The deposit invoice is sent upon signing. Work begins only after the deposit is received and cleared.</p>
@@ -280,7 +298,9 @@
         <p><strong>Late payment:</strong> Invoices unpaid after 7 days from the due date are subject to a 5% late fee added to the outstanding balance. Project work will be paused until payment is received. The site will not be transferred or launched until all balances are cleared.</p>
       </div>
 
-      <p>Monthly plan billing begins on the date the website goes live. Stripe automatically charges the card on file each month on that date. <strong>All monthly plans carry a 6-month minimum term</strong> (see Section 7). If a payment fails, Stripe will retry automatically. If payment remains outstanding after 14 days, the plan will be suspended until resolved.</p>
+      <p><strong>Instalment billing (Option B):</strong> Stripe automatically charges the card on file on the same day of each month, beginning on the date of the first instalment. If a payment fails, Stripe will retry automatically. If an instalment remains outstanding after 14 days, 3lleven may suspend the site and, at its discretion, invoke the acceleration provision above.</p>
+
+      <p><strong>Care Plan billing:</strong> the Care Plan, if selected, is billed separately at <strong>$99 per month</strong> beginning on the date the website goes live. It is not part of the project price and is not affected by the payment method chosen above. Its terms are set out in Section 7.</p>
     </div>
 
     <!-- 3. REVISIONS -->
@@ -332,7 +352,7 @@
       <h2>Intellectual property &amp; ownership</h2>
       <p>Upon receipt of <strong>full payment</strong> of all outstanding invoices, the Client owns the final website design and all custom assets created specifically for this project.</p>
       <ol>
-        <li><strong>Source code:</strong> Full source code is included with every plan — both one-time builds and monthly subscriptions. Code is delivered via GitHub or ZIP upon final payment (or upon request for monthly clients). There is no additional fee for code ownership.</li>
+        <li><strong>Source code:</strong> Full source code is included in every tier and under both payment methods. Code is delivered via GitHub or ZIP upon receipt of the final payment (Option A) or the final instalment (Option B). There is no additional fee for code ownership, and a Care Plan is not required to receive or keep it.</li>
         <li><strong>Third-party assets:</strong> Open-source libraries, licensed fonts, stock photos, and plugins used in the build remain subject to their original licenses. 3lleven is not responsible for future licensing changes to third-party tools.</li>
         <li><strong>Portfolio rights:</strong> 3lleven reserves the right to display the completed website in its portfolio and to use it as a case study in marketing materials, unless the Client requests otherwise in writing.</li>
         <li><strong>Prior to full payment:</strong> No ownership is transferred until all invoices are paid in full. 3lleven retains all rights to work-in-progress until that point.</li>
@@ -343,11 +363,18 @@
     <div class="section">
       <div class="section-num">Section 07</div>
       <h2>Hosting, maintenance &amp; ongoing support</h2>
-      <p>The website will be hosted on <strong>Cloudflare Pages</strong> (infrastructure provided by 3lleven under a monthly plan, or transferred to the Client's own hosting for one-time build clients).</p>
-      <p><strong>Monthly plan clients:</strong> The selected plan (Basic, Standard, or Enterprise) covers hosting, security updates, backups, and support as detailed in the plan description. <strong>All monthly plans carry a 6-month minimum term</strong> from the date the website goes live. After the initial 6-month term, the plan continues on a month-to-month basis and may be cancelled with <strong>30 days' written notice</strong>.</p>
-      <p><strong>One-time build clients (no monthly plan):</strong> Hosting, maintenance, security updates, and domain renewals become the sole responsibility of the Client after the site goes live. 3lleven provides <strong>30 days of complimentary bug fixes</strong> after launch for issues directly related to the build (not third-party changes or Client modifications).</p>
+      <p>Every build is delivered to the Client complete and owned outright. The <strong>Care Plan</strong> is a separate, optional service and is <strong>not required</strong> to receive, keep, host, or operate the website.</p>
+
+      <p><strong>Without a Care Plan.</strong> The website is transferred to the Client's own hosting at launch. Hosting, maintenance, security updates, and domain renewals are thereafter the sole responsibility of the Client. 3lleven provides <strong>30 days of complimentary bug fixes</strong> after launch for issues directly related to the build (not third-party changes or Client modifications).</p>
+
+      <p><strong>With a Care Plan ($99/month).</strong> 3lleven hosts the website on <strong>Cloudflare Pages</strong> at its own cost and provides, each month: managed hosting; domain and SSL management; unlimited content edits; 24/7 uptime monitoring; security and dependency updates; and a written performance report.</p>
+
       <div class="highlight-box">
-        <p><strong>Uptime:</strong> 3lleven uses automated uptime monitoring and will address outages within 4 business hours for monthly plan clients. 3lleven is not liable for downtime caused by platform-level incidents (Cloudflare, DNS providers, etc.).</p>
+        <p><strong>No minimum term.</strong> The Care Plan carries <strong>no minimum term</strong> and may be cancelled by either party at any time with <strong>30 days' written notice</strong>. On cancellation, 3lleven will transfer the website and its domain configuration to the Client or to hosting of the Client's choosing at no charge. Cancelling the Care Plan does not affect the Client's ownership of the website or its source code, and does not alter any outstanding obligation under Section 2.</p>
+      </div>
+
+      <div class="highlight-box">
+        <p><strong>Uptime:</strong> 3lleven uses automated uptime monitoring and will address outages within 4 business hours for Care Plan clients. 3lleven is not liable for downtime caused by platform-level incidents (Cloudflare, DNS providers, etc.).</p>
       </div>
     </div>
 
@@ -392,7 +419,7 @@
     <div class="section">
       <div class="section-num">Section 11</div>
       <h2>Termination</h2>
-      <p>Either party may terminate this agreement with <strong>7 days' written notice</strong> (subject to the 6-month monthly plan minimum where applicable — see Section 7).</p>
+      <p>Either party may terminate this agreement with <strong>7 days' written notice</strong>, subject — where the Client has selected monthly instalments (Option B) — to the six-instalment minimum and the acceleration provision in Section 2. Cancellation of a Care Plan is governed separately by Section 7 and is not a termination of this agreement.</p>
       <ol>
         <li><strong>Client-initiated termination:</strong> The deposit is non-refundable. If work has begun, the Client owes a prorated payment for all work completed up to the termination date, not to exceed the total contract price.</li>
         <li><strong>3lleven-initiated termination:</strong> If 3lleven terminates the agreement (e.g. due to Client non-communication exceeding 21 days, or a fundamental breakdown in the working relationship), the Client will be refunded any amount paid beyond the value of work completed.</li>
