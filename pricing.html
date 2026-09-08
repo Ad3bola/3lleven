@@ -7,13 +7,13 @@
   <link rel="apple-touch-icon" href="favicon.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>3lleven — Pricing</title>
-  <meta name="description" content="Build your package — pick what you need and see your price instantly. Flat fee or monthly, no surprises." />
+  <meta name="description" content="Three flat-price website builds — $2,500, $4,000 or $6,500. Pay in full or over 12 months. Optional $99/mo Care Plan. You own the site either way." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
   <style>
-    /* ── Plan toggle ── */
+    /* ── Payment toggle ── */
     .plan-toggle {
       display: inline-flex; background: var(--surface2); border: 1px solid var(--border);
       border-radius: 3px; padding: 4px; gap: 0;
@@ -27,170 +27,72 @@
     .toggle-btn:hover { color: var(--fg); }
     .toggle-btn.active { background: var(--accent); color: var(--accent-ink); }
 
-    /* ── Calc body ── */
-    .calc-body { display: grid; grid-template-columns: 1fr 340px; gap: 2rem; padding: 30px 0 110px; align-items: start; }
-    @media (max-width: 920px) { .calc-body { grid-template-columns: 1fr; padding-bottom: 160px; } }
+    /* ── Tier grid ── */
+    .tier-body { padding: 34px 0 90px; }
+    .tier-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1.1rem; align-items: stretch;
+    }
+    @media (max-width: 920px) { .tier-grid { grid-template-columns: 1fr; } }
 
-    .calc-panel { display: none; }
-    .calc-panel.active { display: block; }
-
-    .calc-card {
-      background: var(--surface2); border: 1px solid var(--border); border-radius: 4px;
-      padding: 1.75rem 1.85rem; margin-bottom: 1rem;
-    }
-    .card-header {
-      display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem;
-      margin-bottom: 1.4rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--border);
-    }
-    .card-title { font-family: 'Bricolage Grotesque', sans-serif; font-size: 1.1rem; font-weight: 600; letter-spacing: -0.02em; }
-    .card-sub { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--muted); letter-spacing: 0.04em; margin-top: 0.25rem; }
-    .card-price { font-family: 'DM Mono', monospace; font-size: 1.05rem; font-weight: 500; color: var(--accent); white-space: nowrap; }
-    [data-theme="light"] .card-price { color: var(--fg); }
-
-    /* ── Build-type grid ── */
-    .build-type-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border); }
-    @media (max-width: 480px) { .build-type-grid { grid-template-columns: 1fr; } }
-    .bt-card {
-      padding: 1.1rem; background: var(--bg); border: 1px solid var(--border); border-radius: 3px;
-      cursor: pointer; transition: border-color 0.2s, background 0.2s;
-    }
-    .bt-card:hover { border-color: var(--border2); }
-    .bt-card.selected { border-color: var(--accent); background: rgba(var(--accent-rgb), 0.05); }
-    .bt-label { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.45rem; }
-    .bt-price { font-family: 'Bricolage Grotesque', sans-serif; font-size: 1.6rem; font-weight: 600; letter-spacing: -0.03em; color: var(--fg); }
-    .bt-card.selected .bt-price { color: var(--accent); }
-    [data-theme="light"] .bt-card.selected .bt-price { color: var(--accent); }
-    .bt-sub { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--dim); margin-top: 0.4rem; }
-
-    .base-features { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
-    @media (max-width: 500px) { .base-features { grid-template-columns: 1fr; } }
-    .base-features li {
-      display: flex; align-items: center; gap: 0.55rem; font-size: 0.87rem; color: var(--muted);
-    }
-    .base-features li::before {
-      content: ''; width: 6px; height: 6px; background: var(--accent); flex-shrink: 0;
-    }
-
-    /* ── Counter ── */
-    .counter-row { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
-    .counter-label { font-size: 0.92rem; color: var(--fg); }
-    .counter-label span { display: block; font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--muted); margin-top: 0.2rem; letter-spacing: 0.04em; }
-    .counter-group { display: flex; align-items: center; gap: 0.75rem; }
-    .counter-control { display: flex; align-items: center; background: var(--bg); border: 1px solid var(--border2); border-radius: 3px; overflow: hidden; }
-    .counter-btn {
-      width: 38px; height: 38px; border: none; background: transparent;
-      color: var(--accent); font-family: 'DM Mono', monospace; font-size: 1.1rem; font-weight: 500;
-      cursor: pointer; transition: background 0.15s;
-    }
-    [data-theme="light"] .counter-btn { color: var(--fg); }
-    .counter-btn:hover { background: rgba(var(--accent-rgb), 0.1); }
-    .counter-val {
-      min-width: 46px; height: 38px; display: flex; align-items: center; justify-content: center;
-      font-family: 'DM Mono', monospace; font-size: 0.95rem; font-weight: 500;
-      border-left: 1px solid var(--border2); border-right: 1px solid var(--border2);
-    }
-    .counter-unit { font-family: 'DM Mono', monospace; font-size: 0.74rem; color: var(--muted); }
-
-    /* ── Add-ons ── */
-    .addon-item {
-      display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem;
-      padding: 1rem 0; border-top: 1px solid var(--border); cursor: pointer;
-      transition: background 0.15s;
-    }
-    .addon-item:first-of-type { border-top: none; padding-top: 0.25rem; }
-    .addon-check-label { display: flex; align-items: flex-start; gap: 0.85rem; flex: 1; cursor: pointer; }
-    .addon-check {
-      width: 20px; height: 20px; border: 1.5px solid var(--border2); background: var(--bg);
-      border-radius: 3px; flex-shrink: 0; margin-top: 2px;
-      display: flex; align-items: center; justify-content: center;
-      transition: background 0.15s, border-color 0.15s;
-    }
-    .addon-check.checked { background: var(--accent); border-color: var(--accent); }
-    .addon-check.checked::after {
-      content: ''; width: 5px; height: 9px;
-      border-right: 2px solid var(--accent-ink); border-bottom: 2px solid var(--accent-ink);
-      transform: rotate(45deg) translate(-1px, -1px);
-    }
-    .addon-info .name { font-size: 0.92rem; font-weight: 500; color: var(--fg); }
-    .addon-info .desc { font-size: 0.8rem; color: var(--muted); line-height: 1.55; margin-top: 0.2rem; }
-    .addon-price { font-family: 'DM Mono', monospace; font-size: 0.88rem; font-weight: 500; color: var(--accent); white-space: nowrap; }
-    [data-theme="light"] .addon-price { color: var(--fg); }
-
-    /* ── Tier options ── */
     .tier-option {
       border: 1.5px solid var(--border); background: var(--surface2); border-radius: 4px;
-      padding: 1.5rem 1.65rem; margin-bottom: 0.85rem; cursor: pointer;
+      padding: 1.6rem 1.65rem; display: flex; flex-direction: column;
       transition: border-color 0.2s, background 0.2s;
     }
     .tier-option:hover { border-color: var(--border2); }
-    .tier-option.selected { border-color: var(--accent); background: rgba(var(--accent-rgb), 0.06); }
-    .tier-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; margin-bottom: 1rem; }
+    .tier-option.featured { border-color: var(--accent); background: rgba(var(--accent-rgb), 0.06); }
+    .tier-featured-badge {
+      display: inline-block; align-self: flex-start;
+      font-family: 'DM Mono', monospace; font-size: 0.6rem; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      background: var(--accent); color: var(--accent-ink);
+      padding: 0.25rem 0.7rem; border-radius: 3px; margin-bottom: 0.85rem;
+    }
     .tier-name { font-family: 'Bricolage Grotesque', sans-serif; font-size: 1.15rem; font-weight: 600; letter-spacing: -0.02em; }
     .tier-tag { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 0.25rem; }
-    .tier-price-display { text-align: right; }
-    .tier-price-display .amount { font-family: 'Bricolage Grotesque', sans-serif; font-size: 1.8rem; font-weight: 600; letter-spacing: -0.03em; color: var(--fg); }
-    .tier-option.selected .tier-price-display .amount { color: var(--accent); }
-    [data-theme="light"] .tier-option.selected .tier-price-display .amount { color: var(--accent); }
-    .tier-price-display .per { font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--muted); }
-    .tier-features { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+    .tier-price-display { text-align: left; margin: 1.1rem 0 1rem; }
+    .tier-price-display .amount { font-family: 'Bricolage Grotesque', sans-serif; font-size: 2.4rem; font-weight: 600; letter-spacing: -0.03em; color: var(--fg); line-height: 1; }
+    .tier-option.featured .tier-price-display .amount { color: var(--accent); }
+    .tier-price-display .per { font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--muted); margin-top: 0.4rem; }
+    .tier-lede { font-size: 0.9rem; color: var(--muted); line-height: 1.6; margin-bottom: 1.25rem; }
+    .tier-features { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.6rem; }
     .tier-features li { display: flex; align-items: center; gap: 0.55rem; font-size: 0.86rem; color: var(--muted); }
     .tier-features li::before { content: ''; width: 6px; height: 6px; background: var(--accent); flex-shrink: 0; }
+    .tier-cta { width: 100%; justify-content: center; margin-top: auto; text-align: center; }
+
     .term-note {
       font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--muted);
-      margin-top: 1rem; padding: 0.9rem 1rem; border: 1px solid var(--border);
+      margin-top: 1.6rem; padding: 0.9rem 1rem; border: 1px solid var(--border);
       border-left: 2px solid var(--accent); background: var(--surface2);
-      letter-spacing: 0.02em;
+      letter-spacing: 0.02em; line-height: 1.65;
     }
+    .term-note strong { color: var(--fg); }
 
-    /* ── Sticky sidebar / total ── */
-    .calc-sidebar { position: sticky; top: 80px; }
-    .total-card { background: var(--surface2); border: 1px solid var(--accent); border-radius: 4px; padding: 1.85rem; }
-    .total-eyebrow {
-      font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.14em;
-      text-transform: uppercase; color: var(--muted); margin-bottom: 0.6rem;
+    /* ── Care Plan ── */
+    .care-section { padding: 0 0 100px; }
+    .care-card {
+      border: 1.5px solid var(--border); background: var(--surface2);
+      border-radius: 4px; padding: 2.1rem 2rem;
     }
-    .total-amount {
-      font-family: 'Bricolage Grotesque', sans-serif; font-size: 3.2rem; font-weight: 600;
-      letter-spacing: -0.04em; line-height: 1; color: var(--accent);
+    .care-head {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      gap: 1.5rem; flex-wrap: wrap; margin-bottom: 1.75rem;
     }
-    [data-theme="light"] .total-amount { color: var(--accent); }
-    .total-suffix { font-family: 'DM Mono', monospace; font-size: 1rem; color: var(--muted); }
-    .total-note { font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--muted); margin-top: 0.5rem; line-height: 1.5; letter-spacing: 0.02em; }
-    .total-breakdown { margin: 1.4rem 0 1.4rem; padding-top: 1.25rem; border-top: 1px solid var(--border); display: flex; flex-direction: column; }
-    .breakdown-row {
-      display: flex; justify-content: space-between; align-items: center; gap: 0.5rem;
-      padding: 0.45rem 0; font-family: 'DM Mono', monospace; font-size: 0.78rem;
-      border-top: 1px solid var(--border);
+    .care-head-text { max-width: 560px; }
+    .care-head .sec-headline { margin-top: 0.5rem; }
+    .care-head .sec-sub { margin-top: 0.6rem; }
+    .care-price { text-align: right; flex-shrink: 0; }
+    .care-price .amount { font-family: 'Bricolage Grotesque', sans-serif; font-size: 2.8rem; font-weight: 600; letter-spacing: -0.04em; line-height: 1; color: var(--accent); }
+    .care-price .per { font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--muted); margin-top: 0.3rem; }
+    @media (max-width: 620px) { .care-price { text-align: left; } }
+    .care-list {
+      list-style: none; display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 0.7rem 1.75rem;
     }
-    .breakdown-row:first-child { border-top: none; }
-    .breakdown-row .b-label { color: var(--muted); }
-    .breakdown-row .b-val { color: var(--fg); font-weight: 500; }
-    .total-cta {
-      display: block; width: 100%; text-align: center; padding: 0.95rem;
-      font-family: 'DM Mono', monospace; font-size: 0.82rem; font-weight: 500;
-      letter-spacing: 0.06em; text-transform: uppercase;
-      background: var(--accent); color: var(--accent-ink);
-      border-radius: 3px; border: none; cursor: pointer;
-      transition: transform 0.15s, box-shadow 0.2s;
-    }
-    .total-cta:hover { transform: translateY(-2px); box-shadow: 5px 5px 0 rgba(var(--accent-rgb), 0.22); }
-
-    /* ── Mobile sticky bar ── */
-    .mobile-total-bar {
-      display: none; position: fixed; bottom: 0; left: 0; right: 0; z-index: 900;
-      background: var(--bg); border-top: 1px solid var(--accent);
-      padding: 0.9rem 1.25rem; align-items: center; justify-content: space-between; gap: 1rem;
-    }
-    @media (max-width: 920px) { .mobile-total-bar { display: flex; } }
-    .mob-total-left .lbl { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
-    .mob-total-left .amt { font-family: 'Bricolage Grotesque', sans-serif; font-size: 1.6rem; font-weight: 600; letter-spacing: -0.03em; color: var(--accent); line-height: 1.1; }
-    [data-theme="light"] .mob-total-left .amt { color: var(--accent); }
-    .mob-cta-btn {
-      font-family: 'DM Mono', monospace; font-size: 0.78rem; font-weight: 500;
-      letter-spacing: 0.06em; text-transform: uppercase;
-      padding: 0.75rem 1.3rem; border-radius: 3px; border: none; cursor: pointer;
-      background: var(--accent); color: var(--accent-ink); white-space: nowrap;
-    }
+    @media (max-width: 620px) { .care-list { grid-template-columns: 1fr; } }
+    .care-list li { display: flex; align-items: center; gap: 0.6rem; font-size: 0.9rem; color: var(--fg); }
+    .care-list li::before { content: ''; width: 6px; height: 6px; background: var(--accent); flex-shrink: 0; }
   </style>
 </head>
 <body>
@@ -228,276 +130,122 @@
   <div class="hero-grid"></div>
   <div class="page-hero-inner">
     <div class="page-status"><span class="page-status-dot"></span>Transparent pricing</div>
-    <h1 class="page-hero-h1">Build your<br><span class="hero-accent">package.</span></h1>
-    <p class="page-hero-sub">Pick what you need and see your price instantly — no surprises.</p>
+    <h1 class="page-hero-h1">Priced up front.<br><span class="hero-accent">Yours at launch.</span></h1>
+    <p class="page-hero-sub">Three build sizes, one flat price each. Pay in full, or spread it over twelve months.</p>
     <div class="page-hero-actions" style="margin-top: 8px;">
       <div class="plan-toggle">
-        <button class="toggle-btn active" id="toggleOnetime">One-time build</button>
-        <button class="toggle-btn" id="toggleMonthly">Monthly plan</button>
+        <button class="toggle-btn active" id="payFull">Pay in full</button>
+        <button class="toggle-btn" id="payMonthly">Monthly</button>
       </div>
     </div>
   </div>
 </section>
 
-<!-- CALCULATOR -->
+<!-- TIERS -->
 <section>
+  <div class="wrap tier-body">
+
+    <div class="tier-grid">
+
+      <article class="tier-option">
+        <div class="tier-name">Basic</div>
+        <div class="tier-tag">Get found</div>
+        <div class="tier-price-display">
+          <div class="amount" data-full="$2,500" data-mo="$210">$2,500</div>
+          <div class="per" data-full="one-time" data-mo="/month &middot; 12 months">one-time</div>
+        </div>
+        <p class="tier-lede">A single page or small brochure site that turns a search for your name into a phone call.</p>
+        <ul class="tier-features">
+          <li>Core pages, built mobile-first</li>
+          <li>Contact form straight to your inbox</li>
+          <li>Built from scratch &mdash; no templates</li>
+          <li>Source code yours at launch</li>
+        </ul>
+        <a href="contact.html" class="btn btn-line tier-cta" onclick="saveQuote('Basic')">Start with Basic <span class="arr">&rarr;</span></a>
+      </article>
+
+      <article class="tier-option featured">
+        <div class="tier-featured-badge">Most popular</div>
+        <div class="tier-name">Standard</div>
+        <div class="tier-tag">Book more work</div>
+        <div class="tier-price-display">
+          <div class="amount" data-full="$4,000" data-mo="$340">$4,000</div>
+          <div class="per" data-full="one-time" data-mo="/month &middot; 12 months">one-time</div>
+        </div>
+        <p class="tier-lede">A multi-page site that keeps taking bookings while you are out on the job.</p>
+        <ul class="tier-features">
+          <li>Everything in Basic</li>
+          <li>Booking or lead capture built in</li>
+          <li>Copywriting support</li>
+          <li>Basic SEO setup</li>
+          <li>Blog / CMS you can post to yourself</li>
+          <li>Considered motion and interaction</li>
+        </ul>
+        <a href="contact.html" class="btn btn-accent tier-cta" onclick="saveQuote('Standard')">Start with Standard <span class="arr">&rarr;</span></a>
+      </article>
+
+      <article class="tier-option">
+        <div class="tier-name">Enterprise</div>
+        <div class="tier-tag">Room to grow</div>
+        <div class="tier-price-display">
+          <div class="amount" data-full="$6,500" data-mo="$550">$6,500</div>
+          <div class="per" data-full="one-time" data-mo="/month &middot; 12 months">one-time</div>
+        </div>
+        <p class="tier-lede">Larger builds &mdash; several locations, real functionality, and structure that holds up as you grow.</p>
+        <ul class="tier-features">
+          <li>Everything in Standard</li>
+          <li>Custom functionality built to spec</li>
+          <li>E-commerce</li>
+          <li>Third-party API integrations</li>
+          <li>Client portal / dashboard</li>
+          <li>Multi-location support</li>
+          <li>Ongoing SEO structure</li>
+        </ul>
+        <a href="contact.html" class="btn btn-line tier-cta" onclick="saveQuote('Enterprise')">Start with Enterprise <span class="arr">&rarr;</span></a>
+      </article>
+
+    </div>
+
+    <div class="term-note" id="termNote">
+      <strong>Pay in full:</strong> 50% before work begins, 50% before the site goes live. Nothing else to pay.
+    </div>
+
+  </div>
+</section>
+
+<!-- CARE PLAN -->
+<section class="care-section">
   <div class="wrap">
-    <div class="calc-body">
+    <div class="care-card">
 
-      <div class="calc-main">
-
-        <!-- ONE-TIME PANEL -->
-        <div class="calc-panel active" id="onetime-panel">
-
-          <div class="calc-card">
-            <div class="card-header">
-              <div>
-                <div class="card-title">Base package</div>
-                <div class="card-sub">Select your build type</div>
-              </div>
-              <div class="card-price" id="basePrice">$900</div>
-            </div>
-
-            <div class="build-type-grid">
-              <div class="bt-card selected" id="bt-new" onclick="setBuildType('new')">
-                <div class="bt-label">New build</div>
-                <div class="bt-price">$900</div>
-                <div class="bt-sub">Source code included</div>
-              </div>
-              <div class="bt-card" id="bt-redesign" onclick="setBuildType('redesign')">
-                <div class="bt-label">Redesign</div>
-                <div class="bt-price">$550</div>
-                <div class="bt-sub">Source code included</div>
-              </div>
-            </div>
-
-            <ul class="base-features">
-              <li>Up to 3 pages</li>
-              <li>Custom design — no templates</li>
-              <li>Mobile responsive</li>
-              <li>Light &amp; dark mode</li>
-              <li>Hover &amp; interaction effects</li>
-              <li>Scroll animations</li>
-              <li>Smooth scroll &amp; transitions</li>
-              <li>Contact form</li>
-              <li>Basic SEO setup</li>
-              <li>SSL certificate</li>
-              <li>Domain &amp; hosting setup</li>
-              <li>2 rounds of revisions</li>
-            </ul>
-          </div>
-
-          <div class="calc-card">
-            <div class="card-header">
-              <div>
-                <div class="card-title">Additional pages</div>
-                <div class="card-sub">Beyond the base 3</div>
-              </div>
-              <div class="card-price" id="extraPagePrice">$0</div>
-            </div>
-            <div class="counter-row">
-              <div class="counter-label">Extra pages<span>$75 per additional page</span></div>
-              <div class="counter-group">
-                <div class="counter-control">
-                  <button class="counter-btn" id="pageDown">−</button>
-                  <span class="counter-val" id="pageCount">0</span>
-                  <button class="counter-btn" id="pageUp">+</button>
-                </div>
-                <span class="counter-unit" id="pageTotal"></span>
-              </div>
-            </div>
-          </div>
-
-          <div class="calc-card">
-            <div class="card-header">
-              <div>
-                <div class="card-title">Add-ons</div>
-                <div class="card-sub">Everything below is beyond the base</div>
-              </div>
-            </div>
-
-            <div class="addon-item" data-key="blog" data-price="100">
-              <label class="addon-check-label">
-                <div class="addon-check" id="chk-blog"></div>
-                <div class="addon-info">
-                  <div class="name">Blog / CMS</div>
-                  <div class="desc">Full content management system — update your own posts and pages without touching code</div>
-                </div>
-              </label>
-              <div class="addon-price">+$100</div>
-            </div>
-
-            <div class="addon-item" data-key="booking" data-price="150">
-              <label class="addon-check-label">
-                <div class="addon-check" id="chk-booking"></div>
-                <div class="addon-info">
-                  <div class="name">Booking / appointment system</div>
-                  <div class="desc">Integrated scheduling for services, consultations, or appointments</div>
-                </div>
-              </label>
-              <div class="addon-price">+$150</div>
-            </div>
-
-            <div class="addon-item" data-key="ecom" data-price="300">
-              <label class="addon-check-label">
-                <div class="addon-check" id="chk-ecom"></div>
-                <div class="addon-info">
-                  <div class="name">E-commerce integration</div>
-                  <div class="desc">Stripe or Shopify — product catalog, cart, checkout, and payment processing. Final price depends on scope</div>
-                </div>
-              </label>
-              <div class="addon-price">+$300+</div>
-            </div>
-
-            <div class="addon-item" data-key="seo" data-price="100">
-              <label class="addon-check-label">
-                <div class="addon-check" id="chk-seo"></div>
-                <div class="addon-info">
-                  <div class="name">Full SEO package</div>
-                  <div class="desc">Keyword research, on-page optimization, sitemap, schema markup, Search Console setup</div>
-                </div>
-              </label>
-              <div class="addon-price">+$100</div>
-            </div>
-
-            <div class="addon-item" data-key="animations" data-price="150">
-              <label class="addon-check-label">
-                <div class="addon-check" id="chk-animations"></div>
-                <div class="addon-info">
-                  <div class="name">Advanced animations &amp; motion</div>
-                  <div class="desc">Parallax, staggered reveals, page transitions, GSAP sequences, and complex micro-interactions</div>
-                </div>
-              </label>
-              <div class="addon-price">+$150</div>
-            </div>
-
-            <div class="addon-item" data-key="portal" data-price="150">
-              <label class="addon-check-label">
-                <div class="addon-check" id="chk-portal"></div>
-                <div class="addon-info">
-                  <div class="name">Client portal / dashboard</div>
-                  <div class="desc">Password-protected area for clients to view invoices, files, or account info</div>
-                </div>
-              </label>
-              <div class="addon-price">+$150</div>
-            </div>
-
-            <div class="addon-item" data-key="api" data-price="100">
-              <label class="addon-check-label">
-                <div class="addon-check" id="chk-api"></div>
-                <div class="addon-info">
-                  <div class="name">Third-party API integration</div>
-                  <div class="desc">Connect to CRMs, email marketing, inventory systems, or any external service</div>
-                </div>
-              </label>
-              <div class="addon-price">+$100</div>
-            </div>
-
-          </div>
+      <div class="care-head">
+        <div class="care-head-text">
+          <div class="tier-tag">Optional &middot; offered with every build</div>
+          <h2 class="sec-headline">Care Plan.</h2>
+          <p class="sec-sub">A site only keeps earning if someone keeps it fast, current, and online. That is what this covers &mdash; and here is exactly what arrives every month.</p>
         </div>
-
-        <!-- MONTHLY PANEL -->
-        <div class="calc-panel" id="monthly-panel">
-
-          <div class="tier-option" data-tier="starter">
-            <div class="tier-top">
-              <div>
-                <div class="tier-name">Basic</div>
-                <div class="tier-tag">Maintenance &amp; hosting</div>
-              </div>
-              <div class="tier-price-display">
-                <div class="amount">$299</div>
-                <div class="per">/month</div>
-              </div>
-            </div>
-            <ul class="tier-features">
-              <li>Hosting &amp; SSL management</li>
-              <li>Security &amp; dependency updates</li>
-              <li>Monthly automated backups</li>
-              <li>24/7 uptime monitoring</li>
-              <li>1 hr dev support per month</li>
-              <li>Monthly performance report</li>
-            </ul>
-          </div>
-
-          <div class="tier-option" data-tier="growth">
-            <div class="tier-top">
-              <div>
-                <div class="tier-name">Standard</div>
-                <div class="tier-tag">Active management</div>
-              </div>
-              <div class="tier-price-display">
-                <div class="amount">$399</div>
-                <div class="per">/month</div>
-              </div>
-            </div>
-            <ul class="tier-features">
-              <li>Everything in Basic</li>
-              <li>5 hrs dev / design work per month</li>
-              <li>Monthly SEO report &amp; recommendations</li>
-              <li>Google Business profile management</li>
-              <li>2 content updates per month</li>
-              <li>Next business day response</li>
-            </ul>
-          </div>
-
-          <div class="tier-option" data-tier="pro">
-            <div class="tier-top">
-              <div>
-                <div class="tier-name">Enterprise</div>
-                <div class="tier-tag">E-commerce &amp; enterprise</div>
-              </div>
-              <div class="tier-price-display">
-                <div class="amount">$599</div>
-                <div class="per">/month</div>
-              </div>
-            </div>
-            <ul class="tier-features">
-              <li>Everything in Standard</li>
-              <li>E-commerce management &amp; optimization</li>
-              <li>Up to 10 hrs dev work per month</li>
-              <li>24-hour priority support</li>
-              <li>Unlimited content updates</li>
-              <li>Advanced analytics &amp; conversion tracking</li>
-              <li>Custom integrations maintenance</li>
-            </ul>
-          </div>
-
-          <div class="term-note">
-            All monthly plans carry a 6-month minimum term. You always own your code — included on every plan.
-          </div>
-
+        <div class="care-price">
+          <div class="amount">$99</div>
+          <div class="per">/month</div>
         </div>
-
       </div>
 
-      <!-- SIDEBAR -->
-      <div class="calc-sidebar">
-        <div class="total-card">
-          <div class="total-eyebrow">Your estimate</div>
-          <div><span class="total-amount" id="totalAmount">$900</span><span class="total-suffix" id="totalSuffix"></span></div>
-          <div class="total-note" id="totalNote">Base package · customize with add-ons above</div>
+      <ul class="care-list">
+        <li>Managed hosting on Cloudflare</li>
+        <li>Domain and SSL managed for you</li>
+        <li>Unlimited content edits</li>
+        <li>24/7 uptime monitoring</li>
+        <li>Security and dependency updates</li>
+        <li>A performance report every month</li>
+      </ul>
 
-          <div class="total-breakdown" id="breakdown">
-            <div class="breakdown-row"><span class="b-label">Base package</span><span class="b-val">$900</span></div>
-          </div>
-
-          <a href="contact.html" class="total-cta" id="sidebarCta" onclick="saveQuote()">Get my quote →</a>
-        </div>
+      <div class="term-note">
+        No minimum term &mdash; cancel any month with 30 days&rsquo; notice. The site is yours either way: you own the code, and it can move to your own hosting whenever you like.
       </div>
 
     </div>
   </div>
 </section>
-
-<!-- Mobile sticky bar -->
-<div class="mobile-total-bar">
-  <div class="mob-total-left">
-    <div class="lbl">Your estimate</div>
-    <div class="amt"><span id="mobAmount">$900</span><span id="mobSuffix" style="font-size:0.9rem;color:var(--muted);"></span></div>
-  </div>
-  <button class="mob-cta-btn" onclick="saveQuote(); window.location='contact.html'">Get my quote →</button>
-</div>
 
 <!-- FOOTER -->
 <footer>
@@ -532,139 +280,51 @@
     localStorage.setItem('3lleven-theme', next);
   });
 
-  // ── State ──
-  let buildType = 'new';
-  let mode = 'onetime';
-  let extraPages = 0;
-  let checkedAddons = new Set();
-  let selectedTier = null;
-
-  const PRICES = {
-    newBuild: 900, redesign: 550, page: 75,
-    addons: { blog:100, booking:150, ecom:300, seo:100, animations:150, portal:150, api:100 },
-    monthly: { starter:299, growth:399, pro:599 }
+  // ── Payment terms toggle ──
+  const TERMS = {
+    full: '<strong>Pay in full:</strong> 50% before work begins, 50% before the site goes live. Nothing else to pay.',
+    monthly: '<strong>Monthly:</strong> twelve equal payments, starting when work begins. Six-month minimum \u2014 end the agreement before the twelve months are up and the remaining balance falls due. Paying monthly costs slightly more overall than paying in full.'
   };
 
-  function setBuildType(type) {
-    buildType = type;
-    const isNew = type === 'new';
-    document.getElementById('basePrice').textContent = '$' + (isNew ? PRICES.newBuild : PRICES.redesign);
-    document.getElementById('bt-new').classList.toggle('selected', isNew);
-    document.getElementById('bt-redesign').classList.toggle('selected', !isNew);
-    updateTotal();
+  let payMode = 'full';
+  const fullBtn = document.getElementById('payFull');
+  const moBtn   = document.getElementById('payMonthly');
+
+  function setPayMode(mode) {
+    payMode = mode;
+    fullBtn.classList.toggle('active', mode === 'full');
+    moBtn.classList.toggle('active', mode === 'monthly');
+    const key = mode === 'full' ? 'full' : 'mo';
+    document.querySelectorAll('.tier-price-display .amount, .tier-price-display .per')
+      .forEach(el => { el.innerHTML = el.dataset[key === 'full' ? 'full' : 'mo']; });
+    document.getElementById('termNote').innerHTML = TERMS[mode];
   }
 
-  // ── Mode toggle ──
-  document.getElementById('toggleOnetime').addEventListener('click', () => setMode('onetime'));
-  document.getElementById('toggleMonthly').addEventListener('click', () => setMode('monthly'));
-  function setMode(m) {
-    mode = m;
-    document.getElementById('toggleOnetime').classList.toggle('active', m === 'onetime');
-    document.getElementById('toggleMonthly').classList.toggle('active', m === 'monthly');
-    document.getElementById('onetime-panel').classList.toggle('active', m === 'onetime');
-    document.getElementById('monthly-panel').classList.toggle('active', m === 'monthly');
-    updateTotal();
+  fullBtn.addEventListener('click', () => setPayMode('full'));
+  moBtn.addEventListener('click',   () => setPayMode('monthly'));
+
+  // ── Carry the selection through to the contact form ──
+  const TIERS = {
+    Basic:      { full: '$2,500', mo: '$210', total: '$2,520' },
+    Standard:   { full: '$4,000', mo: '$340', total: '$4,080' },
+    Enterprise: { full: '$6,500', mo: '$550', total: '$6,600' }
+  };
+
+  function saveQuote(tier) {
+    const t = TIERS[tier];
+    if (!t) return;
+    const rows = payMode === 'full'
+      ? `Tier: ${tier}\nPrice: ${t.full}\nPayment: 50% to start, 50% at launch`
+      : `Tier: ${tier}\nMonthly: ${t.mo} \u00d7 12\nTotal: ${t.total}\nTerms: 6-month minimum`;
+    sessionStorage.setItem('3lleven-quote', JSON.stringify({
+      amount: payMode === 'full' ? t.full : t.mo,
+      suffix: payMode === 'full' ? '' : '/mo',
+      rows
+    }));
   }
 
-  // ── Page counter ──
-  document.getElementById('pageDown').addEventListener('click', () => { if (extraPages > 0) { extraPages--; updatePages(); updateTotal(); } });
-  document.getElementById('pageUp').addEventListener('click', () => { if (extraPages < 30) { extraPages++; updatePages(); updateTotal(); } });
-  function updatePages() {
-    document.getElementById('pageCount').textContent = extraPages;
-    const cost = extraPages * PRICES.page;
-    document.getElementById('extraPagePrice').textContent = extraPages > 0 ? `+$${cost}` : '$0';
-    document.getElementById('pageTotal').textContent = extraPages > 0 ? `${extraPages} × $75 = $${cost}` : '';
-  }
+  setPayMode('full');
 
-  // ── Add-ons ──
-  document.querySelectorAll('.addon-item').forEach(item => {
-    item.addEventListener('click', () => {
-      const key = item.dataset.key;
-      const check = document.getElementById(`chk-${key}`);
-      if (checkedAddons.has(key)) { checkedAddons.delete(key); check.classList.remove('checked'); }
-      else { checkedAddons.add(key); check.classList.add('checked'); }
-      updateTotal();
-    });
-  });
-
-  // ── Tier selection ──
-  document.querySelectorAll('.tier-option').forEach(opt => {
-    opt.addEventListener('click', () => {
-      document.querySelectorAll('.tier-option').forEach(o => o.classList.remove('selected'));
-      opt.classList.add('selected');
-      selectedTier = opt.dataset.tier;
-      updateTotal();
-    });
-  });
-
-  // ── Update total ──
-  function updateTotal() {
-    let total = 0, suffix = '', note = '';
-    const rows = [];
-
-    if (mode === 'onetime') {
-      const base = buildType === 'new' ? PRICES.newBuild : PRICES.redesign;
-      const baseLabel = buildType === 'new' ? 'New build (3 pages)' : 'Redesign (3 pages)';
-      total = base;
-      rows.push({ label: baseLabel, val: `$${base}` });
-
-      if (extraPages > 0) {
-        const pagesCost = extraPages * PRICES.page;
-        total += pagesCost;
-        rows.push({ label: `+${extraPages} extra page${extraPages > 1 ? 's' : ''}`, val: `$${pagesCost}` });
-      }
-
-      checkedAddons.forEach(key => {
-        const price = PRICES.addons[key];
-        total += price;
-        const names = { blog: 'Blog / CMS', booking: 'Booking system', ecom: 'E-commerce integration', seo: 'Full SEO package', animations: 'Advanced animations', portal: 'Client portal', api: 'API integration' };
-        rows.push({ label: names[key], val: `+$${price}` });
-      });
-
-      note = rows.length === 1 ? 'Base package · select add-ons above' : 'Estimate · final confirmed after consultation';
-    } else {
-      if (!selectedTier) {
-        setDisplay('—', '', 'Select a plan above');
-        setBreakdown([]);
-        return;
-      }
-      const tierNames = { starter: 'Basic plan', growth: 'Standard plan', pro: 'Enterprise plan' };
-      total = PRICES.monthly[selectedTier];
-      rows.push({ label: tierNames[selectedTier], val: `$${total}/mo` });
-      suffix = '/mo';
-      note = 'Billed monthly · 6-month minimum term';
-    }
-
-    setDisplay(`$${total.toLocaleString()}`, suffix, note);
-    setBreakdown(rows);
-  }
-
-  function setDisplay(amount, suffix, note) {
-    document.getElementById('totalAmount').textContent = amount;
-    document.getElementById('totalSuffix').textContent = suffix;
-    document.getElementById('totalNote').textContent = note;
-    document.getElementById('mobAmount').textContent = amount;
-    document.getElementById('mobSuffix').textContent = suffix;
-  }
-  function setBreakdown(rows) {
-    const c = document.getElementById('breakdown'); c.innerHTML = '';
-    rows.forEach(r => {
-      const d = document.createElement('div'); d.className = 'breakdown-row';
-      d.innerHTML = `<span class="b-label">${r.label}</span><span class="b-val">${r.val}</span>`;
-      c.appendChild(d);
-    });
-  }
-
-  function saveQuote() {
-    const amount = document.getElementById('totalAmount').textContent;
-    const suffix = document.getElementById('totalSuffix').textContent;
-    const rows = [...document.querySelectorAll('#breakdown .breakdown-row')]
-      .map(r => `${r.querySelector('.b-label').textContent}: ${r.querySelector('.b-val').textContent}`)
-      .join('\n');
-    sessionStorage.setItem('3lleven-quote', JSON.stringify({ amount, suffix, rows }));
-  }
-
-  updateTotal();
 
   /* Hamburger */
   const hamburger = document.getElementById('hamburger');
