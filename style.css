@@ -331,6 +331,7 @@
     #services { background: var(--bg); padding: 110px 0; }
     .services-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
     @media (max-width: 760px) { .services-grid { grid-template-columns: 1fr; } }
+    .services-grid-single { grid-template-columns: 1fr; max-width: 640px; margin: 0 auto; }
 
     .svc-card {
       background: var(--surface2);

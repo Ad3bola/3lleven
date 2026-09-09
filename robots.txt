@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+Disallow: /contract
+Disallow: /contract.html
+Disallow: /intake
+Disallow: /intake.html
+Disallow: /thanks
+Disallow: /thanks.html
+
+Sitemap: https://3lleven.com/sitemap.xml
